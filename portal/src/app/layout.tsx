@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
+import { UmamiAnalytics } from "@/components/UmamiAnalytics";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -24,6 +25,7 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={manrope.variable}>
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <UmamiAnalytics />
       </body>
     </html>
   );

@@ -5,6 +5,25 @@ All notable changes to the Aceve Onboard portal. Format follows
 End-user-facing release notes (per language) live in `src/content/releases.ts`
 and render on the in-app "What's new" page — update both.
 
+## [0.1.2] — 2026-08-30
+
+First production deployment — the portal is live at
+https://aceveonboarding.achiever.se for internal testing (no login yet; the
+seeded demo cases are the entry points).
+
+### Added
+
+- Production packaging: `Dockerfile` (Node 22, Prisma client generated and
+  Next.js built in the image), `docker-compose.prod.yml` (container
+  `aceveonboarding-app` on the shared ingress network, SQLite in a
+  bind-mounted `data/` directory), `docker-entrypoint.sh` (migrate on start,
+  seed only on a fresh database).
+- `docs/DEPLOY.md` — how production is built, started and verified;
+  `BACKUP.md` — what masterbackup covers and how to restore;
+  `caddy-snippet.conf` — copy of the ingress site block.
+- `UmamiAnalytics` component: self-hosted analytics, rendered only when
+  `NEXT_PUBLIC_UMAMI_WEBSITE_ID` is set at build time.
+
 ## [0.1.1] — 2026-08-30
 
 Quick fixes from the combined review (step 2 of the agreed order:

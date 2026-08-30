@@ -104,6 +104,18 @@ white-label variant is configuration (Q45).
   technical log; `src/content/releases.ts` for the in-app, per-language
   "What's new" page. Update all three per release.
 
+## 8b. Runtime & deployment
+
+Production is one Docker container (`Dockerfile`, `docker-compose.prod.yml`,
+`docker-entrypoint.sh`) behind the shared Caddy ingress, with SQLite in a
+bind-mounted `data/` directory. Migrations run at container start; the demo
+seed runs only on a brand-new database. Details, environment variables and
+the verification checklist: `docs/DEPLOY.md`.
+
+Analytics: `src/components/UmamiAnalytics.tsx` renders the self-hosted Umami
+script only when `NEXT_PUBLIC_UMAMI_WEBSITE_ID` is set at build time. No
+other tracking exists.
+
 ## 9. Deliberately not built yet (and why)
 
 | Missing | Why | Pointer |

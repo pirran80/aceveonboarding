@@ -1,2 +1,18 @@
 .DS_Store
 **/.DS_Store
+
+# AI-infrastrukturinstruktioner får ALDRIG in i detta repo — det är PUBLIKT
+# på GitHub, och filen innehåller interna IP-adresser, SSH-användare och
+# backuplayout. instruktioner.sh utesluter repot, men skydda även mot manuell
+# kopiering. (Tillagt 2026-08-29.)
+.github/copilot-instructions.md
+.github/copilot-instructions.local.md
+.github/copilot-instructions.md.bak
+
+# Deploy-verktyg innehåller intern serveradress/SSH-användare — hålls utanför
+# det publika repot precis som instruktionsfilerna ovan. deploy.sh lever på
+# dev-maskinen (backas av backup-sites.sh); biblioteket är en symlänk till
+# ~/sites/_deploy_lib.sh. (Tillagt 2026-08-30.)
+portal/deploy.sh
+portal/.deploy.log
+_deploy_lib.sh

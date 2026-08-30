@@ -1,0 +1,49 @@
+# Production stack for aceveonboarding.achiever.se — used by deploy.sh.
+#
+# - Reached by Caddy (caddy-edge) via the container name on caddy_net:
+#   reverse_proxy aceveonboarding-app:3000. The host port below is bound to
+#   127.0.0.1 only and exists for the deploy health check and for probing the
+#   app without Caddy in between (never proxy via the host port — hairpin rule).
+# - SQLite lives in ./data (bind mount) so masterbackup's file backup covers it.
+# - .env on the server provides DATABASE_URL and the optional Umami variables;
+#   it is never synced from the repo.
+services:
+  app:
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_UMAMI_WEBSITE_ID: ${NEXT_PUBLIC_UMAMI_WEBSITE_ID:-}
+        NEXT_PUBLIC_UMAMI_SCRIPT_URL: ${NEXT_PUBLIC_UMAMI_SCRIPT_URL:-}
+        NEXT_PUBLIC_UMAMI_HOST_URL: ${NEXT_PUBLIC_UMAMI_HOST_URL:-}
+    image: aceveonboarding-app:latest
+    container_name: aceveonboarding-app
+    restart: unless-stopped
+    networks:
+      - caddy_net
+    ports:
+      - "127.0.0.1:3150:3000"
+    environment:
+      NODE_ENV: production
+      TZ: Europe/Stockholm
+      PORT: "3000"
+      HOSTNAME: "0.0.0.0"
+      DATABASE_URL: ${DATABASE_URL:-file:/app/data/portal.db}
+    volumes:
+      - ./data:/app/data
+    healthcheck:
+      # The root page reads the case list from SQLite, so a 200 here means
+      # Next.js AND the database answer — not just that the process is alive.
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  caddy_net:
+    external: true

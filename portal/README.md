@@ -67,6 +67,7 @@ docs/                       architecture + user guides
 ## Documentation
 
 - `docs/ARCHITECTURE.md` — technical documentation (keep updated per change)
+- `docs/DEPLOY.md` — how production (aceveonboarding.achiever.se) is built, started and verified
 - `docs/user-guide.sv.md` / `docs/user-guide.en.md` — end-user guide
 - `CHANGELOG.md` — versions (Keep a Changelog); in-app "What's new" is
   `src/content/releases.ts` — update both when releasing

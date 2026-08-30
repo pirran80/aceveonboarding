@@ -13,6 +13,26 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "0.1.2",
+    date: "2026-08-30",
+    notes: {
+      title: {
+        sv: "Portalen finns nu på aceveonboarding.achiever.se",
+        en: "The portal is now live at aceveonboarding.achiever.se",
+      },
+      items: [
+        {
+          sv: "Första driftsättningen för intern testning. Ingen inloggning ännu — demoärendena på startsidan är ingångarna.",
+          en: "First deployment for internal testing. No login yet — the demo cases on the home page are the entry points.",
+        },
+        {
+          sv: "Ingen funktionell förändring i flödet jämfört med 0.1.1.",
+          en: "No functional change to the flow compared with 0.1.1.",
+        },
+      ],
+    },
+  },
+  {
     version: "0.1.1",
     date: "2026-08-30",
     notes: {
