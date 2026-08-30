@@ -1,0 +1,5499 @@
+{
+  "$schema": "aceve-onboard-module-registry/v0-draft",
+  "generated": "2026-08-20",
+  "generatedFrom": "reference/prototype-C-ingestro-sandbox/App.original.tsx (recovered sandbox source, verified character-identical to devbox original)",
+  "status": "DRAFT — pending PS confirmation of the authoritative category list and field lists (STATUS.md Open Question 33). The Stitch mockup and bso_to_next_transformer.py give partially different lists; do not treat this file as ground truth.",
+  "knownOrderingConstraints": [
+    "Chart of accounts (kontoplan) imports first — the only point all sources agree on (PROJECT-BRIEF.md §5)",
+    "timpriser must import before anvandarregister — 'Yrkesroll (från timpriser)' cross-module dependency (Stitch capture, RECOVERY-NOTES)"
+  ],
+  "notes": [
+    "Module order below is the sandbox's order, which does NOT match the documented import order — see knownOrderingConstraints.",
+    "requiredLevel from the 10-required/7-optional GI split confirmed by the sandbox ('Ev.' prefix modules 11–17).",
+    "aliases are the sandbox's generated alternativeMatches — replace with the mapping library at runtime (BUILD-SPEC §5).",
+    "i18n: only sv present; en/no/da/fi/nl/de/fr keys to be added (design principle 8).",
+    "destination.ref points at the Ingestro importer column only; product API / provisioning bindings are deliberately absent until resolved (BUILD-SPEC hard rule 2)."
+  ],
+  "modules": [
+    {
+      "id": "foretag",
+      "product": "next-project",
+      "country": "SE",
+      "registryVersion": "0.1-draft",
+      "order": 1,
+      "sheetName": "Företag import",
+      "name": {
+        "sv": "Företagsuppgifter"
+      },
+      "description": {
+        "sv": "Grunduppgifter för det egna företaget, inklusive adress, bankgiro, momsregistrering och fakturatexter."
+      },
+      "requiredLevel": "required",
+      "methods": [
+        "gi-mall",
+        "excel",
+        "skip"
+      ],
+      "ingestroIdentifier": "next_foretag_import",
+      "fields": [
+        {
+          "id": "foretagsnamn",
+          "label": {
+            "sv": "Företagsnamn"
+          },
+          "sourceLabel": "Företagsnamn*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Bolagsnamn",
+            "Företagsnamn",
+            "Företagsnamn export",
+            "Företagsnamn från mall",
+            "Företagsnamn värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Företagsnamn är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_foretag_import#foretagsnamn",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "person_org_nr",
+          "label": {
+            "sv": "Person/Org.nr."
+          },
+          "sourceLabel": "Person/Org.nr.*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Organisationsnummer",
+            "Person/Org.nr.",
+            "Person/Org.nr. export",
+            "Person/Org.nr. från mall",
+            "Person/Org.nr. värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Person/Org.nr. är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_foretag_import#person_org_nr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "momsreg_nr",
+          "label": {
+            "sv": "Momsreg.nr."
+          },
+          "sourceLabel": "Momsreg.nr.*",
+          "type": "float",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "VAT-id",
+            "Momsreg.nr.",
+            "Momsreg.nr. export",
+            "Momsreg.nr. från mall",
+            "Momsreg.nr. värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Momsreg.nr. är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_foretag_import#momsreg_nr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "bankgiro",
+          "label": {
+            "sv": "Bankgiro"
+          },
+          "sourceLabel": "Bankgiro*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Bankgiro import",
+            "Bankgiro",
+            "Bankgiro export",
+            "Bankgiro från mall",
+            "Bankgiro värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Bankgiro är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_foretag_import#bankgiro",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "plusgiro",
+          "label": {
+            "sv": "Plusgiro"
+          },
+          "sourceLabel": "Plusgiro",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Plusgiro import",
+            "Plusgiro",
+            "Plusgiro export",
+            "Plusgiro från mall",
+            "Plusgiro värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_foretag_import#plusgiro",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "adress",
+          "label": {
+            "sv": "Adress"
+          },
+          "sourceLabel": "Adress*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Postadress 1",
+            "Adress",
+            "Adress export",
+            "Adress från mall",
+            "Adress värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Adress är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_foretag_import#adress",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "adress_2",
+          "label": {
+            "sv": "Adress 2"
+          },
+          "sourceLabel": "Adress 2",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Adress 2 import",
+            "Adress 2",
+            "Adress 2 export",
+            "Adress 2 från mall",
+            "Adress 2 värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_foretag_import#adress_2",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "adress_3",
+          "label": {
+            "sv": "Adress 3"
+          },
+          "sourceLabel": "Adress 3",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Adress 3 import",
+            "Adress 3",
+            "Adress 3 export",
+            "Adress 3 från mall",
+            "Adress 3 värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_foretag_import#adress_3",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "postnr",
+          "label": {
+            "sv": "Postnr."
+          },
+          "sourceLabel": "Postnr.*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Postnummer",
+            "Postnr.",
+            "Postnr. export",
+            "Postnr. från mall",
+            "Postnr. värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Postnr. är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_foretag_import#postnr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "ort",
+          "label": {
+            "sv": "Ort"
+          },
+          "sourceLabel": "Ort*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Stad",
+            "Ort",
+            "Ort export",
+            "Ort från mall",
+            "Ort värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Ort är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_foretag_import#ort",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "land",
+          "label": {
+            "sv": "Land"
+          },
+          "sourceLabel": "Land",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Land import",
+            "Land",
+            "Land export",
+            "Land från mall",
+            "Land värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_foretag_import#land",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "besoksadress",
+          "label": {
+            "sv": "Besöksadress"
+          },
+          "sourceLabel": "Besöksadress",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Besöksadress import",
+            "Besöksadress",
+            "Besöksadress export",
+            "Besöksadress från mall",
+            "Besöksadress värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_foretag_import#besoksadress",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "besoksadress_2",
+          "label": {
+            "sv": "Besöksadress 2"
+          },
+          "sourceLabel": "Besöksadress 2",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Besöksadress 2 import",
+            "Besöksadress 2",
+            "Besöksadress 2 export",
+            "Besöksadress 2 från mall",
+            "Besöksadress 2 värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_foretag_import#besoksadress_2",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "besoksadress_3",
+          "label": {
+            "sv": "Besöksadress 3"
+          },
+          "sourceLabel": "Besöksadress 3",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Besöksadress 3 import",
+            "Besöksadress 3",
+            "Besöksadress 3 export",
+            "Besöksadress 3 från mall",
+            "Besöksadress 3 värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_foretag_import#besoksadress_3",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "telefon",
+          "label": {
+            "sv": "Telefon"
+          },
+          "sourceLabel": "Telefon",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Telefon import",
+            "Telefon",
+            "Telefon export",
+            "Telefon från mall",
+            "Telefon värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_foretag_import#telefon",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "fax",
+          "label": {
+            "sv": "Fax"
+          },
+          "sourceLabel": "Fax",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Fax import",
+            "Fax",
+            "Fax export",
+            "Fax från mall",
+            "Fax värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_foretag_import#fax",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "epost",
+          "label": {
+            "sv": "Epost"
+          },
+          "sourceLabel": "Epost",
+          "type": "email",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Email",
+            "Epost",
+            "Epost export",
+            "Epost från mall",
+            "Epost värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_foretag_import#epost",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "webadress",
+          "label": {
+            "sv": "Webadress"
+          },
+          "sourceLabel": "Webadress",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Website",
+            "Webadress",
+            "Webadress export",
+            "Webadress från mall",
+            "Webadress värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_foretag_import#webadress",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "fakturatext_f_skatt",
+          "label": {
+            "sv": "Fakturatext F-skatt"
+          },
+          "sourceLabel": "Fakturatext F-skatt*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "F-skattetext",
+            "Fakturatext F-skatt",
+            "Fakturatext F-skatt export",
+            "Fakturatext F-skatt från mall",
+            "Fakturatext F-skatt värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Fakturatext F-skatt är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_foretag_import#fakturatext_f_skatt",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "fakturatext_drojsmalsranta",
+          "label": {
+            "sv": "Fakturatext dröjsmålsränta"
+          },
+          "sourceLabel": "Fakturatext dröjsmålsränta*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Dröjsmålsränta text",
+            "Fakturatext dröjsmålsränta",
+            "Fakturatext dröjsmålsränta export",
+            "Fakturatext dröjsmålsränta från mall",
+            "Fakturatext dröjsmålsränta värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Fakturatext dröjsmålsränta är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_foretag_import#fakturatext_drojsmalsranta",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        }
+      ]
+    },
+    {
+      "id": "timpriser",
+      "product": "next-project",
+      "country": "SE",
+      "registryVersion": "0.1-draft",
+      "order": 2,
+      "sheetName": "Timpriser import",
+      "name": {
+        "sv": "Timpriser & roller"
+      },
+      "description": {
+        "sv": "Roller, timkostnader, debiteringspriser, konton och tidkoder som används vid tidrapportering."
+      },
+      "requiredLevel": "required",
+      "methods": [
+        "gi-mall",
+        "excel",
+        "skip"
+      ],
+      "ingestroIdentifier": "next_timpriser_import",
+      "fields": [
+        {
+          "id": "kod",
+          "label": {
+            "sv": "Kod"
+          },
+          "sourceLabel": "Kod",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Kod import",
+            "Kod",
+            "Kod export",
+            "Kod från mall",
+            "Kod värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_timpriser_import#kod",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "beskrivning",
+          "label": {
+            "sv": "Beskrivning"
+          },
+          "sourceLabel": "Beskrivning",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Beskrivning import",
+            "Beskrivning",
+            "Beskrivning export",
+            "Beskrivning från mall",
+            "Beskrivning värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_timpriser_import#beskrivning",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "enhet",
+          "label": {
+            "sv": "Enhet"
+          },
+          "sourceLabel": "Enhet",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Enhet import",
+            "Enhet",
+            "Enhet export",
+            "Enhet från mall",
+            "Enhet värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_timpriser_import#enhet",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "kostn_enh",
+          "label": {
+            "sv": "Kostn/enh"
+          },
+          "sourceLabel": "Kostn/enh",
+          "type": "float",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Intern kostnad",
+            "Kostn/enh",
+            "Kostn/enh export",
+            "Kostn/enh från mall",
+            "Kostn/enh värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_timpriser_import#kostn_enh",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "pris_enh",
+          "label": {
+            "sv": "Pris/enh"
+          },
+          "sourceLabel": "Pris/enh",
+          "type": "float",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Debiteringspris",
+            "Pris/enh",
+            "Pris/enh export",
+            "Pris/enh från mall",
+            "Pris/enh värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_timpriser_import#pris_enh",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "kontonr",
+          "label": {
+            "sv": "Kontonr"
+          },
+          "sourceLabel": "Kontonr",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Bokföringskonto",
+            "Kontonr",
+            "Kontonr export",
+            "Kontonr från mall",
+            "Kontonr värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_timpriser_import#kontonr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "tidkod",
+          "label": {
+            "sv": "Tidkod"
+          },
+          "sourceLabel": "Tidkod",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Tidkod import",
+            "Tidkod",
+            "Tidkod export",
+            "Tidkod från mall",
+            "Tidkod värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_timpriser_import#tidkod",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "debiterbar",
+          "label": {
+            "sv": "Debiterbar"
+          },
+          "sourceLabel": "Debiterbar",
+          "type": "category",
+          "required": false,
+          "acceptedValues": [
+            "Ja",
+            "Nej"
+          ],
+          "aliases": [
+            "Debiterbar import",
+            "Debiterbar",
+            "Debiterbar export",
+            "Debiterbar från mall",
+            "Debiterbar värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_timpriser_import#debiterbar",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "grupp",
+          "label": {
+            "sv": "Grupp"
+          },
+          "sourceLabel": "Grupp",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Grupp import",
+            "Grupp",
+            "Grupp export",
+            "Grupp från mall",
+            "Grupp värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_timpriser_import#grupp",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        }
+      ]
+    },
+    {
+      "id": "prislista",
+      "product": "next-project",
+      "country": "SE",
+      "registryVersion": "0.1-draft",
+      "order": 3,
+      "sheetName": "Prislista import",
+      "name": {
+        "sv": "Prislista"
+      },
+      "description": {
+        "sv": "Artiklar, maskiner, material, utrustning och debiterbara prisrader som kan plockas till projekt."
+      },
+      "requiredLevel": "required",
+      "methods": [
+        "gi-mall",
+        "excel",
+        "skip"
+      ],
+      "ingestroIdentifier": "next_prislista_import",
+      "fields": [
+        {
+          "id": "artikelnr",
+          "label": {
+            "sv": "Artikelnr"
+          },
+          "sourceLabel": "Artikelnr*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Artikel-ID",
+            "Artikelnr",
+            "Artikelnr export",
+            "Artikelnr från mall",
+            "Artikelnr värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Artikelnr är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_prislista_import#artikelnr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "beskrivning",
+          "label": {
+            "sv": "Beskrivning"
+          },
+          "sourceLabel": "Beskrivning*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Beskrivning import",
+            "Beskrivning",
+            "Beskrivning export",
+            "Beskrivning från mall",
+            "Beskrivning värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Beskrivning är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_prislista_import#beskrivning",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "enhet",
+          "label": {
+            "sv": "Enhet"
+          },
+          "sourceLabel": "Enhet*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Enhet import",
+            "Enhet",
+            "Enhet export",
+            "Enhet från mall",
+            "Enhet värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Enhet är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_prislista_import#enhet",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "kostn_enh",
+          "label": {
+            "sv": "Kostn/enh"
+          },
+          "sourceLabel": "Kostn/enh*",
+          "type": "float",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Intern kostnad",
+            "Kostn/enh",
+            "Kostn/enh export",
+            "Kostn/enh från mall",
+            "Kostn/enh värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Kostn/enh är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_prislista_import#kostn_enh",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "pris_enh",
+          "label": {
+            "sv": "Pris/enh"
+          },
+          "sourceLabel": "Pris/enh*",
+          "type": "float",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Debiteringspris",
+            "Pris/enh",
+            "Pris/enh export",
+            "Pris/enh från mall",
+            "Pris/enh värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Pris/enh är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_prislista_import#pris_enh",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "konto",
+          "label": {
+            "sv": "Konto"
+          },
+          "sourceLabel": "Konto*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Kostnadskonto",
+            "Konto",
+            "Konto export",
+            "Konto från mall",
+            "Konto värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Konto är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_prislista_import#konto",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "debiterbar",
+          "label": {
+            "sv": "Debiterbar"
+          },
+          "sourceLabel": "Debiterbar",
+          "type": "category",
+          "required": false,
+          "acceptedValues": [
+            "Ja",
+            "Nej"
+          ],
+          "aliases": [
+            "Debiterbar import",
+            "Debiterbar",
+            "Debiterbar export",
+            "Debiterbar från mall",
+            "Debiterbar värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_prislista_import#debiterbar",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "artikelkategori",
+          "label": {
+            "sv": "Artikelkategori"
+          },
+          "sourceLabel": "Artikelkategori",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Artikelkategori import",
+            "Artikelkategori",
+            "Artikelkategori export",
+            "Artikelkategori från mall",
+            "Artikelkategori värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_prislista_import#artikelkategori",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "lagersaldo",
+          "label": {
+            "sv": "Lagersaldo"
+          },
+          "sourceLabel": "Lagersaldo",
+          "type": "float",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Lagersaldo import",
+            "Lagersaldo",
+            "Lagersaldo export",
+            "Lagersaldo från mall",
+            "Lagersaldo värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_prislista_import#lagersaldo",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "tidkod",
+          "label": {
+            "sv": "Tidkod"
+          },
+          "sourceLabel": "Tidkod",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Tidkod import",
+            "Tidkod",
+            "Tidkod export",
+            "Tidkod från mall",
+            "Tidkod värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_prislista_import#tidkod",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "foraldraprojekt",
+          "label": {
+            "sv": "Föräldraprojekt"
+          },
+          "sourceLabel": "Föräldraprojekt",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Föräldraprojekt import",
+            "Föräldraprojekt",
+            "Föräldraprojekt export",
+            "Föräldraprojekt från mall",
+            "Föräldraprojekt värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_prislista_import#foraldraprojekt",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        }
+      ]
+    },
+    {
+      "id": "projekttyper",
+      "product": "next-project",
+      "country": "SE",
+      "registryVersion": "0.1-draft",
+      "order": 4,
+      "sheetName": "Projekttyper import",
+      "name": {
+        "sv": "Projekttyper"
+      },
+      "description": {
+        "sv": "Ytterligare projekttyper som ska läggas upp för kategorisering och uppföljning av projekt."
+      },
+      "requiredLevel": "required",
+      "methods": [
+        "gi-mall",
+        "excel",
+        "skip"
+      ],
+      "ingestroIdentifier": "next_projekttyper_import",
+      "fields": [
+        {
+          "id": "namn",
+          "label": {
+            "sv": "Namn"
+          },
+          "sourceLabel": "Namn*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Namn import",
+            "Namn",
+            "Namn export",
+            "Namn från mall",
+            "Namn värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Namn är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_projekttyper_import#namn",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        }
+      ]
+    },
+    {
+      "id": "skattereduktion",
+      "product": "next-project",
+      "country": "SE",
+      "registryVersion": "0.1-draft",
+      "order": 5,
+      "sheetName": "Skattereduktion import",
+      "name": {
+        "sv": "Skattereduktion"
+      },
+      "description": {
+        "sv": "Standardinställningar för ROT, RUT och skattereduktionsunderlag."
+      },
+      "requiredLevel": "required",
+      "methods": [
+        "gi-mall",
+        "excel",
+        "skip"
+      ],
+      "ingestroIdentifier": "next_skattereduktion_import",
+      "fields": [
+        {
+          "id": "rot_kostnadskonton",
+          "label": {
+            "sv": "ROT-kostnadskonton"
+          },
+          "sourceLabel": "ROT-kostnadskonton*",
+          "type": "category",
+          "required": true,
+          "acceptedValues": [
+            "Ja",
+            "Nej"
+          ],
+          "aliases": [
+            "ROT-kostnadskonton import",
+            "ROT-kostnadskonton",
+            "ROT-kostnadskonton export",
+            "ROT-kostnadskonton från mall",
+            "ROT-kostnadskonton värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "ROT-kostnadskonton är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_skattereduktion_import#rot_kostnadskonton",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "standardinstallning_kundfaktura",
+          "label": {
+            "sv": "Standardinställning kundfaktura"
+          },
+          "sourceLabel": "Standardinställning kundfaktura*",
+          "type": "category",
+          "required": true,
+          "acceptedValues": [
+            "Ja",
+            "Nej"
+          ],
+          "aliases": [
+            "Standardinställning kundfaktura import",
+            "Standardinställning kundfaktura",
+            "Standardinställning kundfaktura export",
+            "Standardinställning kundfaktura från mall",
+            "Standardinställning kundfaktura värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Standardinställning kundfaktura är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_skattereduktion_import#standardinstallning_kundfaktura",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "standardtyp_rot_rut_arbete",
+          "label": {
+            "sv": "Standardtyp ROT/RUT-arbete"
+          },
+          "sourceLabel": "Standardtyp ROT/RUT-arbete",
+          "type": "category",
+          "required": false,
+          "acceptedValues": [
+            "Ja",
+            "Nej"
+          ],
+          "aliases": [
+            "Standardtyp ROT/RUT-arbete import",
+            "Standardtyp ROT/RUT-arbete",
+            "Standardtyp ROT/RUT-arbete export",
+            "Standardtyp ROT/RUT-arbete från mall",
+            "Standardtyp ROT/RUT-arbete värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_skattereduktion_import#standardtyp_rot_rut_arbete",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lonetillagg",
+      "product": "next-project",
+      "country": "SE",
+      "registryVersion": "0.1-draft",
+      "order": 6,
+      "sheetName": "Lönetillägg import",
+      "name": {
+        "sv": "Lönetillägg"
+      },
+      "description": {
+        "sv": "Lönetillägg som milersättning, traktamente, jour och andra artiklar kopplade till lönefil."
+      },
+      "requiredLevel": "required",
+      "methods": [
+        "gi-mall",
+        "excel",
+        "skip"
+      ],
+      "ingestroIdentifier": "next_lonetillagg_import",
+      "fields": [
+        {
+          "id": "artikelnr",
+          "label": {
+            "sv": "Artikelnr"
+          },
+          "sourceLabel": "Artikelnr*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Artikel-ID",
+            "Artikelnr",
+            "Artikelnr export",
+            "Artikelnr från mall",
+            "Artikelnr värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Artikelnr är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_lonetillagg_import#artikelnr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "beskrivning",
+          "label": {
+            "sv": "Beskrivning"
+          },
+          "sourceLabel": "Beskrivning*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Beskrivning import",
+            "Beskrivning",
+            "Beskrivning export",
+            "Beskrivning från mall",
+            "Beskrivning värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Beskrivning är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_lonetillagg_import#beskrivning",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "artikelkategori",
+          "label": {
+            "sv": "Artikelkategori"
+          },
+          "sourceLabel": "Artikelkategori",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Artikelkategori import",
+            "Artikelkategori",
+            "Artikelkategori export",
+            "Artikelkategori från mall",
+            "Artikelkategori värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_lonetillagg_import#artikelkategori",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "enhet",
+          "label": {
+            "sv": "Enhet"
+          },
+          "sourceLabel": "Enhet*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Enhet import",
+            "Enhet",
+            "Enhet export",
+            "Enhet från mall",
+            "Enhet värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Enhet är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_lonetillagg_import#enhet",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "kostn_enh",
+          "label": {
+            "sv": "Kostn/enh"
+          },
+          "sourceLabel": "Kostn/enh*",
+          "type": "float",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Intern kostnad",
+            "Kostn/enh",
+            "Kostn/enh export",
+            "Kostn/enh från mall",
+            "Kostn/enh värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Kostn/enh är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_lonetillagg_import#kostn_enh",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "pris_enh",
+          "label": {
+            "sv": "Pris/enh"
+          },
+          "sourceLabel": "Pris/enh*",
+          "type": "float",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Debiteringspris",
+            "Pris/enh",
+            "Pris/enh export",
+            "Pris/enh från mall",
+            "Pris/enh värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Pris/enh är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_lonetillagg_import#pris_enh",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "konto",
+          "label": {
+            "sv": "Konto"
+          },
+          "sourceLabel": "Konto*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Kostnadskonto",
+            "Konto",
+            "Konto export",
+            "Konto från mall",
+            "Konto värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Konto är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_lonetillagg_import#konto",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "visa_i_mob_enh",
+          "label": {
+            "sv": "Visa i mob enh"
+          },
+          "sourceLabel": "Visa i mob enh",
+          "type": "category",
+          "required": false,
+          "acceptedValues": [
+            "Ja",
+            "Nej"
+          ],
+          "aliases": [
+            "Visa i mob enh import",
+            "Visa i mob enh",
+            "Visa i mob enh export",
+            "Visa i mob enh från mall",
+            "Visa i mob enh värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_lonetillagg_import#visa_i_mob_enh",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "favorit_i_mobil_enh",
+          "label": {
+            "sv": "Favorit i mobil enh"
+          },
+          "sourceLabel": "Favorit i mobil enh",
+          "type": "category",
+          "required": false,
+          "acceptedValues": [
+            "Ja",
+            "Nej"
+          ],
+          "aliases": [
+            "Favorit i mobil enh import",
+            "Favorit i mobil enh",
+            "Favorit i mobil enh export",
+            "Favorit i mobil enh från mall",
+            "Favorit i mobil enh värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_lonetillagg_import#favorit_i_mobil_enh",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "ta_med_offert",
+          "label": {
+            "sv": "Ta med offert"
+          },
+          "sourceLabel": "Ta med offert",
+          "type": "category",
+          "required": false,
+          "acceptedValues": [
+            "Ja",
+            "Nej"
+          ],
+          "aliases": [
+            "Ta med offert import",
+            "Ta med offert",
+            "Ta med offert export",
+            "Ta med offert från mall",
+            "Ta med offert värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_lonetillagg_import#ta_med_offert",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "debiterbar",
+          "label": {
+            "sv": "Debiterbar"
+          },
+          "sourceLabel": "Debiterbar",
+          "type": "category",
+          "required": false,
+          "acceptedValues": [
+            "Ja",
+            "Nej"
+          ],
+          "aliases": [
+            "Debiterbar import",
+            "Debiterbar",
+            "Debiterbar export",
+            "Debiterbar från mall",
+            "Debiterbar värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_lonetillagg_import#debiterbar",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "agarprojekt",
+          "label": {
+            "sv": "Ägarprojekt"
+          },
+          "sourceLabel": "Ägarprojekt",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Ägarprojekt import",
+            "Ägarprojekt",
+            "Ägarprojekt export",
+            "Ägarprojekt från mall",
+            "Ägarprojekt värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_lonetillagg_import#agarprojekt",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "lagersaldo",
+          "label": {
+            "sv": "Lagersaldo"
+          },
+          "sourceLabel": "Lagersaldo",
+          "type": "float",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Lagersaldo import",
+            "Lagersaldo",
+            "Lagersaldo export",
+            "Lagersaldo från mall",
+            "Lagersaldo värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_lonetillagg_import#lagersaldo",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "tidkod",
+          "label": {
+            "sv": "Tidkod"
+          },
+          "sourceLabel": "Tidkod*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Tidkod import",
+            "Tidkod",
+            "Tidkod export",
+            "Tidkod från mall",
+            "Tidkod värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Tidkod är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_lonetillagg_import#tidkod",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        }
+      ]
+    },
+    {
+      "id": "anvandarregister",
+      "product": "next-project",
+      "country": "SE",
+      "registryVersion": "0.1-draft",
+      "order": 7,
+      "sheetName": "Användare import",
+      "name": {
+        "sv": "Användarregister"
+      },
+      "description": {
+        "sv": "Användare som ska kunna logga in i Next, inklusive licens, behörighetsgrupp, yrkesroll och personuppgifter."
+      },
+      "requiredLevel": "required",
+      "methods": [
+        "gi-mall",
+        "excel",
+        "skip"
+      ],
+      "ingestroIdentifier": "next_anvandarregister_import",
+      "fields": [
+        {
+          "id": "aktiv",
+          "label": {
+            "sv": "Aktiv"
+          },
+          "sourceLabel": "Aktiv*",
+          "type": "category",
+          "required": true,
+          "acceptedValues": [
+            "Ja",
+            "Nej"
+          ],
+          "aliases": [
+            "Aktiv import",
+            "Aktiv",
+            "Aktiv export",
+            "Aktiv från mall",
+            "Aktiv värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Aktiv är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#aktiv",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "anstallningsnr",
+          "label": {
+            "sv": "Anställningsnr"
+          },
+          "sourceLabel": "Anställningsnr",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Anställningsnr import",
+            "Anställningsnr",
+            "Anställningsnr export",
+            "Anställningsnr från mall",
+            "Anställningsnr värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#anstallningsnr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "for_och_efternamn",
+          "label": {
+            "sv": "För- och efternamn"
+          },
+          "sourceLabel": "För- och efternamn*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Fullständigt namn",
+            "För- och efternamn",
+            "För- och efternamn export",
+            "För- och efternamn från mall",
+            "För- och efternamn värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "För- och efternamn är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#for_och_efternamn",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "inloggning",
+          "label": {
+            "sv": "Inloggning"
+          },
+          "sourceLabel": "Inloggning*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Användarnamn",
+            "Inloggning",
+            "Inloggning export",
+            "Inloggning från mall",
+            "Inloggning värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Inloggning är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#inloggning",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "anvandarlicens",
+          "label": {
+            "sv": "Användarlicens"
+          },
+          "sourceLabel": "Användarlicens*",
+          "type": "category",
+          "required": true,
+          "acceptedValues": [
+            "Full licens",
+            "Mobil licens"
+          ],
+          "aliases": [
+            "Användarlicens import",
+            "Användarlicens",
+            "Användarlicens export",
+            "Användarlicens från mall",
+            "Användarlicens värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Användarlicens är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#anvandarlicens",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "primar_grupp",
+          "label": {
+            "sv": "Primär grupp"
+          },
+          "sourceLabel": "Primär grupp*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Primär grupp import",
+            "Primär grupp",
+            "Primär grupp export",
+            "Primär grupp från mall",
+            "Primär grupp värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Primär grupp är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#primar_grupp",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "yrkesroll_fran_timpriser",
+          "label": {
+            "sv": "Yrkesroll (från timpriser)"
+          },
+          "sourceLabel": "Yrkesroll (från timpriser)*",
+          "type": "float",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Yrkesroll (från timpriser) import",
+            "Yrkesroll (från timpriser)",
+            "Yrkesroll (från timpriser) export",
+            "Yrkesroll (från timpriser) från mall",
+            "Yrkesroll (från timpriser) värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Yrkesroll (från timpriser) är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#yrkesroll_fran_timpriser",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "signatur",
+          "label": {
+            "sv": "Signatur"
+          },
+          "sourceLabel": "Signatur*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Signatur import",
+            "Signatur",
+            "Signatur export",
+            "Signatur från mall",
+            "Signatur värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Signatur är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#signatur",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "e_post",
+          "label": {
+            "sv": "E-post"
+          },
+          "sourceLabel": "E-post",
+          "type": "email",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "E-post import",
+            "E-post",
+            "E-post export",
+            "E-post från mall",
+            "E-post värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#e_post",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "mobil",
+          "label": {
+            "sv": "Mobil"
+          },
+          "sourceLabel": "Mobil",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Mobil import",
+            "Mobil",
+            "Mobil export",
+            "Mobil från mall",
+            "Mobil värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#mobil",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "telefon",
+          "label": {
+            "sv": "Telefon"
+          },
+          "sourceLabel": "Telefon",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Telefon import",
+            "Telefon",
+            "Telefon export",
+            "Telefon från mall",
+            "Telefon värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#telefon",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "namn",
+          "label": {
+            "sv": "Namn"
+          },
+          "sourceLabel": "Namn",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Namn import",
+            "Namn",
+            "Namn export",
+            "Namn från mall",
+            "Namn värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#namn",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "adressrad_1",
+          "label": {
+            "sv": "Adressrad 1"
+          },
+          "sourceLabel": "Adressrad 1",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Adressrad 1 import",
+            "Adressrad 1",
+            "Adressrad 1 export",
+            "Adressrad 1 från mall",
+            "Adressrad 1 värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#adressrad_1",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "adressrad_2",
+          "label": {
+            "sv": "Adressrad 2"
+          },
+          "sourceLabel": "Adressrad 2",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Adressrad 2 import",
+            "Adressrad 2",
+            "Adressrad 2 export",
+            "Adressrad 2 från mall",
+            "Adressrad 2 värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#adressrad_2",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "postnr",
+          "label": {
+            "sv": "Postnr"
+          },
+          "sourceLabel": "Postnr",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Postnr import",
+            "Postnr",
+            "Postnr export",
+            "Postnr från mall",
+            "Postnr värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#postnr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "ort",
+          "label": {
+            "sv": "Ort"
+          },
+          "sourceLabel": "Ort",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Stad",
+            "Ort",
+            "Ort export",
+            "Ort från mall",
+            "Ort värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#ort",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "land",
+          "label": {
+            "sv": "Land"
+          },
+          "sourceLabel": "Land",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Land import",
+            "Land",
+            "Land export",
+            "Land från mall",
+            "Land värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#land",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "startdatum",
+          "label": {
+            "sv": "Startdatum"
+          },
+          "sourceLabel": "Startdatum",
+          "type": "date",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Startdatum import",
+            "Startdatum",
+            "Startdatum export",
+            "Startdatum från mall",
+            "Startdatum värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#startdatum",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "slutdatum",
+          "label": {
+            "sv": "Slutdatum"
+          },
+          "sourceLabel": "Slutdatum",
+          "type": "date",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Slutdatum import",
+            "Slutdatum",
+            "Slutdatum export",
+            "Slutdatum från mall",
+            "Slutdatum värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#slutdatum",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "fodelsedatum",
+          "label": {
+            "sv": "Födelsedatum"
+          },
+          "sourceLabel": "Födelsedatum",
+          "type": "date",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Födelsedatum import",
+            "Födelsedatum",
+            "Födelsedatum export",
+            "Födelsedatum från mall",
+            "Födelsedatum värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#fodelsedatum",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "sprak",
+          "label": {
+            "sv": "Språk"
+          },
+          "sourceLabel": "Språk",
+          "type": "category",
+          "required": false,
+          "acceptedValues": [
+            "sv",
+            "en",
+            "no"
+          ],
+          "aliases": [
+            "Språk import",
+            "Språk",
+            "Språk export",
+            "Språk från mall",
+            "Språk värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#sprak",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "organisatoriskt_projekt",
+          "label": {
+            "sv": "Organisatoriskt projekt"
+          },
+          "sourceLabel": "Organisatoriskt projekt",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Organisatoriskt projekt import",
+            "Organisatoriskt projekt",
+            "Organisatoriskt projekt export",
+            "Organisatoriskt projekt från mall",
+            "Organisatoriskt projekt värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#organisatoriskt_projekt",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "narmaste_anhorig",
+          "label": {
+            "sv": "Närmaste anhörig"
+          },
+          "sourceLabel": "Närmaste anhörig",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Närmaste anhörig import",
+            "Närmaste anhörig",
+            "Närmaste anhörig export",
+            "Närmaste anhörig från mall",
+            "Närmaste anhörig värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#narmaste_anhorig",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "telefon_anhorig",
+          "label": {
+            "sv": "Telefon anhörig"
+          },
+          "sourceLabel": "Telefon anhörig",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Telefon anhörig import",
+            "Telefon anhörig",
+            "Telefon anhörig export",
+            "Telefon anhörig från mall",
+            "Telefon anhörig värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#telefon_anhorig",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "relation_till_anhorig",
+          "label": {
+            "sv": "Relation till anhörig"
+          },
+          "sourceLabel": "Relation till anhörig",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Relation till anhörig import",
+            "Relation till anhörig",
+            "Relation till anhörig export",
+            "Relation till anhörig från mall",
+            "Relation till anhörig värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#relation_till_anhorig",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "personnr",
+          "label": {
+            "sv": "Personnr"
+          },
+          "sourceLabel": "Personnr",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Personnr import",
+            "Personnr",
+            "Personnr export",
+            "Personnr från mall",
+            "Personnr värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#personnr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "externt_orgnr",
+          "label": {
+            "sv": "Externt orgnr"
+          },
+          "sourceLabel": "Externt orgnr",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Externt orgnr import",
+            "Externt orgnr",
+            "Externt orgnr export",
+            "Externt orgnr från mall",
+            "Externt orgnr värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_anvandarregister_import#externt_orgnr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        }
+      ]
+    },
+    {
+      "id": "betalningsvillkor",
+      "product": "next-project",
+      "country": "SE",
+      "registryVersion": "0.1-draft",
+      "order": 8,
+      "sheetName": "Betalningsvillkor import",
+      "name": {
+        "sv": "Betalningsvillkor"
+      },
+      "description": {
+        "sv": "Betalningsvillkor och antal dagar som används vid kundfakturering."
+      },
+      "requiredLevel": "required",
+      "methods": [
+        "gi-mall",
+        "excel",
+        "skip"
+      ],
+      "ingestroIdentifier": "next_betalningsvillkor_import",
+      "fields": [
+        {
+          "id": "kod",
+          "label": {
+            "sv": "Kod"
+          },
+          "sourceLabel": "Kod",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Kod import",
+            "Kod",
+            "Kod export",
+            "Kod från mall",
+            "Kod värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_betalningsvillkor_import#kod",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "beskrivning",
+          "label": {
+            "sv": "Beskrivning"
+          },
+          "sourceLabel": "Beskrivning*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Beskrivning import",
+            "Beskrivning",
+            "Beskrivning export",
+            "Beskrivning från mall",
+            "Beskrivning värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Beskrivning är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_betalningsvillkor_import#beskrivning",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "antal_dagar",
+          "label": {
+            "sv": "Antal dagar"
+          },
+          "sourceLabel": "Antal dagar*",
+          "type": "float",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Antal dagar import",
+            "Antal dagar",
+            "Antal dagar export",
+            "Antal dagar från mall",
+            "Antal dagar värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Antal dagar är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_betalningsvillkor_import#antal_dagar",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "kod_2",
+          "label": {
+            "sv": "Kod"
+          },
+          "sourceLabel": "Kod*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Kod import",
+            "Kod",
+            "Kod export",
+            "Kod från mall",
+            "Kod värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Kod är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_betalningsvillkor_import#kod_2",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        }
+      ]
+    },
+    {
+      "id": "franvaro",
+      "product": "next-project",
+      "country": "SE",
+      "registryVersion": "0.1-draft",
+      "order": 9,
+      "sheetName": "Frånvaro import",
+      "name": {
+        "sv": "Frånvaro"
+      },
+      "description": {
+        "sv": "Frånvarotyper som semester, sjukfrånvaro, VAB och övrig ledighet med tidkoder."
+      },
+      "requiredLevel": "required",
+      "methods": [
+        "gi-mall",
+        "excel",
+        "skip"
+      ],
+      "ingestroIdentifier": "next_franvaro_import",
+      "fields": [
+        {
+          "id": "beskrivning",
+          "label": {
+            "sv": "Beskrivning"
+          },
+          "sourceLabel": "Beskrivning*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Beskrivning import",
+            "Beskrivning",
+            "Beskrivning export",
+            "Beskrivning från mall",
+            "Beskrivning värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Beskrivning är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_franvaro_import#beskrivning",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "tidkod",
+          "label": {
+            "sv": "Tidkod"
+          },
+          "sourceLabel": "Tidkod*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Tidkod import",
+            "Tidkod",
+            "Tidkod export",
+            "Tidkod från mall",
+            "Tidkod värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Tidkod är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_franvaro_import#tidkod",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        }
+      ]
+    },
+    {
+      "id": "paslagsmall",
+      "product": "next-project",
+      "country": "SE",
+      "registryVersion": "0.1-draft",
+      "order": 10,
+      "sheetName": "Påslagsmall import",
+      "name": {
+        "sv": "Påslagsmall"
+      },
+      "description": {
+        "sv": "Normaliserad TDM för påslagsmallens huvuduppgifter och kontobaserade påslag."
+      },
+      "requiredLevel": "required",
+      "methods": [
+        "gi-mall",
+        "excel",
+        "skip"
+      ],
+      "ingestroIdentifier": "next_paslagsmall_import",
+      "fields": [
+        {
+          "id": "paslagsmall_kod",
+          "label": {
+            "sv": "Påslagsmall kod"
+          },
+          "sourceLabel": "Påslagsmall kod*",
+          "type": "float",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Påslagsmall kod import",
+            "Påslagsmall kod",
+            "Påslagsmall kod export",
+            "Påslagsmall kod från mall",
+            "Påslagsmall kod värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Påslagsmall kod är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_paslagsmall_import#paslagsmall_kod",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "paslagsmall_beskrivning",
+          "label": {
+            "sv": "Påslagsmall beskrivning"
+          },
+          "sourceLabel": "Påslagsmall beskrivning*",
+          "type": "float",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Påslagsmall beskrivning import",
+            "Påslagsmall beskrivning",
+            "Påslagsmall beskrivning export",
+            "Påslagsmall beskrivning från mall",
+            "Påslagsmall beskrivning värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Påslagsmall beskrivning är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_paslagsmall_import#paslagsmall_beskrivning",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "standard",
+          "label": {
+            "sv": "Standard"
+          },
+          "sourceLabel": "Standard",
+          "type": "category",
+          "required": false,
+          "acceptedValues": [
+            "Ja",
+            "Nej"
+          ],
+          "aliases": [
+            "Standard import",
+            "Standard",
+            "Standard export",
+            "Standard från mall",
+            "Standard värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_paslagsmall_import#standard",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "kontonr",
+          "label": {
+            "sv": "Kontonr"
+          },
+          "sourceLabel": "Kontonr*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Bokföringskonto",
+            "Kontonr",
+            "Kontonr export",
+            "Kontonr från mall",
+            "Kontonr värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Kontonr är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_paslagsmall_import#kontonr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "kontobeskrivning",
+          "label": {
+            "sv": "Kontobeskrivning"
+          },
+          "sourceLabel": "Kontobeskrivning",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Kontobeskrivning import",
+            "Kontobeskrivning",
+            "Kontobeskrivning export",
+            "Kontobeskrivning från mall",
+            "Kontobeskrivning värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_paslagsmall_import#kontobeskrivning",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "paslag_procent",
+          "label": {
+            "sv": "Påslag %"
+          },
+          "sourceLabel": "Påslag %*",
+          "type": "float",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Påslag procent",
+            "Påslag %",
+            "Påslag % export",
+            "Påslag % från mall",
+            "Påslag % värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Påslag % är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_paslagsmall_import#paslag_procent",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        }
+      ]
+    },
+    {
+      "id": "projekt",
+      "product": "next-project",
+      "country": "SE",
+      "registryVersion": "0.1-draft",
+      "order": 11,
+      "sheetName": "Projekt import",
+      "name": {
+        "sv": "Projektlista"
+      },
+      "description": {
+        "sv": "Pågående eller aktuella projekt till driftstart med projektledare, kund, status, ersättningsform och adress."
+      },
+      "requiredLevel": "optional",
+      "methods": [
+        "gi-mall",
+        "excel",
+        "skip"
+      ],
+      "ingestroIdentifier": "next_projekt_import",
+      "fields": [
+        {
+          "id": "foraldraprojektnr",
+          "label": {
+            "sv": "Föräldraprojektnr"
+          },
+          "sourceLabel": "Föräldraprojektnr*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Föräldraprojektnr import",
+            "Föräldraprojektnr",
+            "Föräldraprojektnr export",
+            "Föräldraprojektnr från mall",
+            "Föräldraprojektnr värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Föräldraprojektnr är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_projekt_import#foraldraprojektnr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "projektnr",
+          "label": {
+            "sv": "Projektnr"
+          },
+          "sourceLabel": "Projektnr*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Projektnr import",
+            "Projektnr",
+            "Projektnr export",
+            "Projektnr från mall",
+            "Projektnr värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Projektnr är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_projekt_import#projektnr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "projektnamn",
+          "label": {
+            "sv": "Projektnamn"
+          },
+          "sourceLabel": "Projektnamn*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Projektnamn import",
+            "Projektnamn",
+            "Projektnamn export",
+            "Projektnamn från mall",
+            "Projektnamn värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Projektnamn är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_projekt_import#projektnamn",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "projektstatus",
+          "label": {
+            "sv": "Projektstatus"
+          },
+          "sourceLabel": "Projektstatus*",
+          "type": "category",
+          "required": true,
+          "acceptedValues": [
+            "Nytt",
+            "Beställt",
+            "Pågående",
+            "Avslutat"
+          ],
+          "aliases": [
+            "Projektstatus import",
+            "Projektstatus",
+            "Projektstatus export",
+            "Projektstatus från mall",
+            "Projektstatus värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Projektstatus är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_projekt_import#projektstatus",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "projektledare",
+          "label": {
+            "sv": "Projektledare"
+          },
+          "sourceLabel": "Projektledare*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Projektledare import",
+            "Projektledare",
+            "Projektledare export",
+            "Projektledare från mall",
+            "Projektledare värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Projektledare är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_projekt_import#projektledare",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "projektstart",
+          "label": {
+            "sv": "Projektstart"
+          },
+          "sourceLabel": "Projektstart*",
+          "type": "date",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Projektstart import",
+            "Projektstart",
+            "Projektstart export",
+            "Projektstart från mall",
+            "Projektstart värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Projektstart är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_projekt_import#projektstart",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "ersattningsform",
+          "label": {
+            "sv": "Ersättningsform"
+          },
+          "sourceLabel": "Ersättningsform*",
+          "type": "category",
+          "required": true,
+          "acceptedValues": [
+            "Fastpris",
+            "Löpande räkning",
+            "Internt"
+          ],
+          "aliases": [
+            "Ersättningsform import",
+            "Ersättningsform",
+            "Ersättningsform export",
+            "Ersättningsform från mall",
+            "Ersättningsform värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Ersättningsform är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_projekt_import#ersattningsform",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "projekttyp",
+          "label": {
+            "sv": "Projekttyp"
+          },
+          "sourceLabel": "Projekttyp",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Projekttyp import",
+            "Projekttyp",
+            "Projekttyp export",
+            "Projekttyp från mall",
+            "Projekttyp värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_projekt_import#projekttyp",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "kund",
+          "label": {
+            "sv": "Kund"
+          },
+          "sourceLabel": "Kund*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Kund import",
+            "Kund",
+            "Kund export",
+            "Kund från mall",
+            "Kund värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Kund är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_projekt_import#kund",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "kundkontakt",
+          "label": {
+            "sv": "Kundkontakt"
+          },
+          "sourceLabel": "Kundkontakt",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Kundkontakt import",
+            "Kundkontakt",
+            "Kundkontakt export",
+            "Kundkontakt från mall",
+            "Kundkontakt värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_projekt_import#kundkontakt",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "kundreferens",
+          "label": {
+            "sv": "Kundreferens"
+          },
+          "sourceLabel": "Kundreferens",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Kundreferens import",
+            "Kundreferens",
+            "Kundreferens export",
+            "Kundreferens från mall",
+            "Kundreferens värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_projekt_import#kundreferens",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "kostnadsstalle",
+          "label": {
+            "sv": "Kostnadsställe"
+          },
+          "sourceLabel": "Kostnadsställe",
+          "type": "category",
+          "required": false,
+          "acceptedValues": [
+            "Ja",
+            "Nej"
+          ],
+          "aliases": [
+            "Kostnadsställe import",
+            "Kostnadsställe",
+            "Kostnadsställe export",
+            "Kostnadsställe från mall",
+            "Kostnadsställe värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_projekt_import#kostnadsstalle",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "arbetsledare",
+          "label": {
+            "sv": "Arbetsledare"
+          },
+          "sourceLabel": "Arbetsledare",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Arbetsledare import",
+            "Arbetsledare",
+            "Arbetsledare export",
+            "Arbetsledare från mall",
+            "Arbetsledare värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_projekt_import#arbetsledare",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "projektkategori",
+          "label": {
+            "sv": "Projektkategori"
+          },
+          "sourceLabel": "Projektkategori",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Projektkategori import",
+            "Projektkategori",
+            "Projektkategori export",
+            "Projektkategori från mall",
+            "Projektkategori värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_projekt_import#projektkategori",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "typ_av_uppdrag",
+          "label": {
+            "sv": "Typ av uppdrag"
+          },
+          "sourceLabel": "Typ av uppdrag",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Typ av uppdrag import",
+            "Typ av uppdrag",
+            "Typ av uppdrag export",
+            "Typ av uppdrag från mall",
+            "Typ av uppdrag värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_projekt_import#typ_av_uppdrag",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "noteringar",
+          "label": {
+            "sv": "Noteringar"
+          },
+          "sourceLabel": "Noteringar",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Noteringar import",
+            "Noteringar",
+            "Noteringar export",
+            "Noteringar från mall",
+            "Noteringar värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_projekt_import#noteringar",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "projektslut",
+          "label": {
+            "sv": "Projektslut"
+          },
+          "sourceLabel": "Projektslut",
+          "type": "date",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Projektslut import",
+            "Projektslut",
+            "Projektslut export",
+            "Projektslut från mall",
+            "Projektslut värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_projekt_import#projektslut",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "paslagsmall",
+          "label": {
+            "sv": "Påslagsmall"
+          },
+          "sourceLabel": "Påslagsmall",
+          "type": "float",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Påslagsmall import",
+            "Påslagsmall",
+            "Påslagsmall export",
+            "Påslagsmall från mall",
+            "Påslagsmall värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_projekt_import#paslagsmall",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "adress",
+          "label": {
+            "sv": "Adress"
+          },
+          "sourceLabel": "Adress",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Postadress 1",
+            "Adress",
+            "Adress export",
+            "Adress från mall",
+            "Adress värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_projekt_import#adress",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "adressrad_2",
+          "label": {
+            "sv": "Adressrad 2"
+          },
+          "sourceLabel": "Adressrad 2",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Adressrad 2 import",
+            "Adressrad 2",
+            "Adressrad 2 export",
+            "Adressrad 2 från mall",
+            "Adressrad 2 värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_projekt_import#adressrad_2",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "ort",
+          "label": {
+            "sv": "Ort"
+          },
+          "sourceLabel": "Ort",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Stad",
+            "Ort",
+            "Ort export",
+            "Ort från mall",
+            "Ort värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_projekt_import#ort",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        }
+      ]
+    },
+    {
+      "id": "kontoplan",
+      "product": "next-project",
+      "country": "SE",
+      "registryVersion": "0.1-draft",
+      "order": 12,
+      "sheetName": "Kontoplan import",
+      "name": {
+        "sv": "Kontoplan"
+      },
+      "description": {
+        "sv": "Resultatkonton, kostnadsmarkeringar, moms, arbete och kontotyper från ekonomisystemet."
+      },
+      "requiredLevel": "optional",
+      "methods": [
+        "gi-mall",
+        "excel",
+        "skip"
+      ],
+      "ingestroIdentifier": "next_kontoplan_import",
+      "fields": [
+        {
+          "id": "kontonr",
+          "label": {
+            "sv": "Kontonr"
+          },
+          "sourceLabel": "Kontonr*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Bokföringskonto",
+            "Kontonr",
+            "Kontonr export",
+            "Kontonr från mall",
+            "Kontonr värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Kontonr är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kontoplan_import#kontonr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "beskrivning",
+          "label": {
+            "sv": "Beskrivning"
+          },
+          "sourceLabel": "Beskrivning*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Beskrivning import",
+            "Beskrivning",
+            "Beskrivning export",
+            "Beskrivning från mall",
+            "Beskrivning värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Beskrivning är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kontoplan_import#beskrivning",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "kostnad",
+          "label": {
+            "sv": "Kostnad"
+          },
+          "sourceLabel": "Kostnad*",
+          "type": "category",
+          "required": true,
+          "acceptedValues": [
+            "Ja",
+            "Nej"
+          ],
+          "aliases": [
+            "Kostnad import",
+            "Kostnad",
+            "Kostnad export",
+            "Kostnad från mall",
+            "Kostnad värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Kostnad är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kontoplan_import#kostnad",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "fakturera_vid_import",
+          "label": {
+            "sv": "Fakturera vid import"
+          },
+          "sourceLabel": "Fakturera vid import",
+          "type": "category",
+          "required": false,
+          "acceptedValues": [
+            "Ja",
+            "Nej"
+          ],
+          "aliases": [
+            "Fakturera vid import import",
+            "Fakturera vid import",
+            "Fakturera vid import export",
+            "Fakturera vid import från mall",
+            "Fakturera vid import värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kontoplan_import#fakturera_vid_import",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "moms",
+          "label": {
+            "sv": "Moms"
+          },
+          "sourceLabel": "Moms",
+          "type": "float",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Moms import",
+            "Moms",
+            "Moms export",
+            "Moms från mall",
+            "Moms värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kontoplan_import#moms",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "arbete",
+          "label": {
+            "sv": "Arbete"
+          },
+          "sourceLabel": "Arbete",
+          "type": "category",
+          "required": false,
+          "acceptedValues": [
+            "Ja",
+            "Nej"
+          ],
+          "aliases": [
+            "Arbete import",
+            "Arbete",
+            "Arbete export",
+            "Arbete från mall",
+            "Arbete värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kontoplan_import#arbete",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "extern_momskod",
+          "label": {
+            "sv": "Extern momskod"
+          },
+          "sourceLabel": "Extern momskod",
+          "type": "float",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Extern momskod import",
+            "Extern momskod",
+            "Extern momskod export",
+            "Extern momskod från mall",
+            "Extern momskod värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kontoplan_import#extern_momskod",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "artikelnr_pa_faktura",
+          "label": {
+            "sv": "Artikelnr på faktura"
+          },
+          "sourceLabel": "Artikelnr på faktura",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Artikelnr på faktura import",
+            "Artikelnr på faktura",
+            "Artikelnr på faktura export",
+            "Artikelnr på faktura från mall",
+            "Artikelnr på faktura värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kontoplan_import#artikelnr_pa_faktura",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "kontotyp",
+          "label": {
+            "sv": "Kontotyp"
+          },
+          "sourceLabel": "Kontotyp",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Kontotyp import",
+            "Kontotyp",
+            "Kontotyp export",
+            "Kontotyp från mall",
+            "Kontotyp värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kontoplan_import#kontotyp",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        }
+      ]
+    },
+    {
+      "id": "kunder",
+      "product": "next-project",
+      "country": "SE",
+      "registryVersion": "0.1-draft",
+      "order": 13,
+      "sheetName": "Kunder import",
+      "name": {
+        "sv": "Kundregister"
+      },
+      "description": {
+        "sv": "Kundregister med kundnummer, kundtyp, fakturauppgifter, kontaktvägar, betalningsvillkor och skattereduktionsfält."
+      },
+      "requiredLevel": "optional",
+      "methods": [
+        "gi-mall",
+        "excel",
+        "skip"
+      ],
+      "ingestroIdentifier": "next_kunder_import",
+      "fields": [
+        {
+          "id": "kundnr",
+          "label": {
+            "sv": "Kundnr"
+          },
+          "sourceLabel": "Kundnr*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Kundnummer",
+            "Kundnr",
+            "Kundnr export",
+            "Kundnr från mall",
+            "Kundnr värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Kundnr är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#kundnr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "kund",
+          "label": {
+            "sv": "Kund"
+          },
+          "sourceLabel": "Kund*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Kund import",
+            "Kund",
+            "Kund export",
+            "Kund från mall",
+            "Kund värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Kund är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#kund",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "kundtyp",
+          "label": {
+            "sv": "Kundtyp"
+          },
+          "sourceLabel": "Kundtyp*",
+          "type": "category",
+          "required": true,
+          "acceptedValues": [
+            "Företag",
+            "Privat",
+            "Offentlig"
+          ],
+          "aliases": [
+            "Kundtyp import",
+            "Kundtyp",
+            "Kundtyp export",
+            "Kundtyp från mall",
+            "Kundtyp värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Kundtyp är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#kundtyp",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "valuta",
+          "label": {
+            "sv": "Valuta"
+          },
+          "sourceLabel": "Valuta*",
+          "type": "category",
+          "required": true,
+          "acceptedValues": [
+            "SEK",
+            "Svenska kronor"
+          ],
+          "aliases": [
+            "Valuta import",
+            "Valuta",
+            "Valuta export",
+            "Valuta från mall",
+            "Valuta värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Valuta är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#valuta",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "person_orgnr",
+          "label": {
+            "sv": "Person/Orgnr"
+          },
+          "sourceLabel": "Person/Orgnr*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Person/Orgnr import",
+            "Person/Orgnr",
+            "Person/Orgnr export",
+            "Person/Orgnr från mall",
+            "Person/Orgnr värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Person/Orgnr är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#person_orgnr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "namn",
+          "label": {
+            "sv": "Namn"
+          },
+          "sourceLabel": "Namn*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Namn import",
+            "Namn",
+            "Namn export",
+            "Namn från mall",
+            "Namn värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Namn är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#namn",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "adressrad_1",
+          "label": {
+            "sv": "Adressrad 1"
+          },
+          "sourceLabel": "Adressrad 1",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Adressrad 1 import",
+            "Adressrad 1",
+            "Adressrad 1 export",
+            "Adressrad 1 från mall",
+            "Adressrad 1 värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#adressrad_1",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "adressrad_2",
+          "label": {
+            "sv": "Adressrad 2"
+          },
+          "sourceLabel": "Adressrad 2",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Adressrad 2 import",
+            "Adressrad 2",
+            "Adressrad 2 export",
+            "Adressrad 2 från mall",
+            "Adressrad 2 värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#adressrad_2",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "postnr",
+          "label": {
+            "sv": "Postnr"
+          },
+          "sourceLabel": "Postnr",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Postnr import",
+            "Postnr",
+            "Postnr export",
+            "Postnr från mall",
+            "Postnr värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#postnr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "ort",
+          "label": {
+            "sv": "Ort"
+          },
+          "sourceLabel": "Ort",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Stad",
+            "Ort",
+            "Ort export",
+            "Ort från mall",
+            "Ort värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#ort",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "land",
+          "label": {
+            "sv": "Land"
+          },
+          "sourceLabel": "Land",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Land import",
+            "Land",
+            "Land export",
+            "Land från mall",
+            "Land värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#land",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "e_post",
+          "label": {
+            "sv": "E-post"
+          },
+          "sourceLabel": "E-post",
+          "type": "email",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "E-post import",
+            "E-post",
+            "E-post export",
+            "E-post från mall",
+            "E-post värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#e_post",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "faktura_e_post",
+          "label": {
+            "sv": "Faktura e-post"
+          },
+          "sourceLabel": "Faktura e-post",
+          "type": "email",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Faktura e-post import",
+            "Faktura e-post",
+            "Faktura e-post export",
+            "Faktura e-post från mall",
+            "Faktura e-post värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#faktura_e_post",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "telefon",
+          "label": {
+            "sv": "Telefon"
+          },
+          "sourceLabel": "Telefon",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Telefon import",
+            "Telefon",
+            "Telefon export",
+            "Telefon från mall",
+            "Telefon värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#telefon",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "fax",
+          "label": {
+            "sv": "Fax"
+          },
+          "sourceLabel": "Fax",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Fax import",
+            "Fax",
+            "Fax export",
+            "Fax från mall",
+            "Fax värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#fax",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "fakturatyp",
+          "label": {
+            "sv": "Fakturatyp"
+          },
+          "sourceLabel": "Fakturatyp",
+          "type": "category",
+          "required": false,
+          "acceptedValues": [
+            "E-post",
+            "EDI",
+            "Papper"
+          ],
+          "aliases": [
+            "Fakturatyp import",
+            "Fakturatyp",
+            "Fakturatyp export",
+            "Fakturatyp från mall",
+            "Fakturatyp värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#fakturatyp",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "elektronisk_adress",
+          "label": {
+            "sv": "Elektronisk adress"
+          },
+          "sourceLabel": "Elektronisk adress",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Elektronisk adress import",
+            "Elektronisk adress",
+            "Elektronisk adress export",
+            "Elektronisk adress från mall",
+            "Elektronisk adress värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#elektronisk_adress",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "notering",
+          "label": {
+            "sv": "Notering"
+          },
+          "sourceLabel": "Notering",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Notering import",
+            "Notering",
+            "Notering export",
+            "Notering från mall",
+            "Notering värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#notering",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "entreprenadbolag",
+          "label": {
+            "sv": "Entreprenadbolag"
+          },
+          "sourceLabel": "Entreprenadbolag",
+          "type": "category",
+          "required": false,
+          "acceptedValues": [
+            "Ja",
+            "Nej"
+          ],
+          "aliases": [
+            "Entreprenadbolag import",
+            "Entreprenadbolag",
+            "Entreprenadbolag export",
+            "Entreprenadbolag från mall",
+            "Entreprenadbolag värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#entreprenadbolag",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "ingen_moms",
+          "label": {
+            "sv": "Ingen moms"
+          },
+          "sourceLabel": "Ingen moms",
+          "type": "category",
+          "required": false,
+          "acceptedValues": [
+            "Ja",
+            "Nej"
+          ],
+          "aliases": [
+            "Ingen moms import",
+            "Ingen moms",
+            "Ingen moms export",
+            "Ingen moms från mall",
+            "Ingen moms värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#ingen_moms",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "leverantor_nr",
+          "label": {
+            "sv": "Leverantör nr"
+          },
+          "sourceLabel": "Leverantör nr",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Leverantörsnummer",
+            "Leverantör nr",
+            "Leverantör nr export",
+            "Leverantör nr från mall",
+            "Leverantör nr värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#leverantor_nr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "betalningsvillkor",
+          "label": {
+            "sv": "Betalningsvillkor"
+          },
+          "sourceLabel": "Betalningsvillkor",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Betalningsvillkor import",
+            "Betalningsvillkor",
+            "Betalningsvillkor export",
+            "Betalningsvillkor från mall",
+            "Betalningsvillkor värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#betalningsvillkor",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "iban",
+          "label": {
+            "sv": "IBAN"
+          },
+          "sourceLabel": "IBAN",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "IBAN import",
+            "IBAN",
+            "IBAN export",
+            "IBAN från mall",
+            "IBAN värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#iban",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "swift_bic",
+          "label": {
+            "sv": "SWIFT/BIC"
+          },
+          "sourceLabel": "SWIFT/BIC",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "SWIFT/BIC import",
+            "SWIFT/BIC",
+            "SWIFT/BIC export",
+            "SWIFT/BIC från mall",
+            "SWIFT/BIC värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#swift_bic",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "bank",
+          "label": {
+            "sv": "Bank"
+          },
+          "sourceLabel": "Bank",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Bank import",
+            "Bank",
+            "Bank export",
+            "Bank från mall",
+            "Bank värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#bank",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "bankkonto",
+          "label": {
+            "sv": "Bankkonto"
+          },
+          "sourceLabel": "Bankkonto",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Bankkonto import",
+            "Bankkonto",
+            "Bankkonto export",
+            "Bankkonto från mall",
+            "Bankkonto värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#bankkonto",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "clearing_nr",
+          "label": {
+            "sv": "Clearing nr"
+          },
+          "sourceLabel": "Clearing nr",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Clearing nr import",
+            "Clearing nr",
+            "Clearing nr export",
+            "Clearing nr från mall",
+            "Clearing nr värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#clearing_nr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "ean_kod",
+          "label": {
+            "sv": "EAN-kod"
+          },
+          "sourceLabel": "EAN-kod",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "EAN-kod import",
+            "EAN-kod",
+            "EAN-kod export",
+            "EAN-kod från mall",
+            "EAN-kod värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#ean_kod",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "vat_nummer",
+          "label": {
+            "sv": "VAT-nummer"
+          },
+          "sourceLabel": "VAT-nummer",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "VAT-nummer import",
+            "VAT-nummer",
+            "VAT-nummer export",
+            "VAT-nummer från mall",
+            "VAT-nummer värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#vat_nummer",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "landskod",
+          "label": {
+            "sv": "Landskod"
+          },
+          "sourceLabel": "Landskod",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Landskod import",
+            "Landskod",
+            "Landskod export",
+            "Landskod från mall",
+            "Landskod värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#landskod",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "fastighetsbeteckning",
+          "label": {
+            "sv": "Fastighetsbeteckning"
+          },
+          "sourceLabel": "Fastighetsbeteckning",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Fastighetsbeteckning import",
+            "Fastighetsbeteckning",
+            "Fastighetsbeteckning export",
+            "Fastighetsbeteckning från mall",
+            "Fastighetsbeteckning värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#fastighetsbeteckning",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "brf_org_nr",
+          "label": {
+            "sv": "Brf org nr"
+          },
+          "sourceLabel": "Brf org nr",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Brf org nr import",
+            "Brf org nr",
+            "Brf org nr export",
+            "Brf org nr från mall",
+            "Brf org nr värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#brf_org_nr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "lagenhet_nr",
+          "label": {
+            "sv": "Lägenhet nr"
+          },
+          "sourceLabel": "Lägenhet nr",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Lägenhet nr import",
+            "Lägenhet nr",
+            "Lägenhet nr export",
+            "Lägenhet nr från mall",
+            "Lägenhet nr värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kunder_import#lagenhet_nr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        }
+      ]
+    },
+    {
+      "id": "leverantorer",
+      "product": "next-project",
+      "country": "SE",
+      "registryVersion": "0.1-draft",
+      "order": 14,
+      "sheetName": "Leverantörer import",
+      "name": {
+        "sv": "Leverantörer"
+      },
+      "description": {
+        "sv": "Leverantörsregister för inköp och e-invoice med organisationsnummer, valuta, betalningsuppgifter och kontaktvägar."
+      },
+      "requiredLevel": "optional",
+      "methods": [
+        "gi-mall",
+        "excel",
+        "skip"
+      ],
+      "ingestroIdentifier": "next_leverantorer_import",
+      "fields": [
+        {
+          "id": "leverantor_nr",
+          "label": {
+            "sv": "Leverantör nr"
+          },
+          "sourceLabel": "Leverantör nr*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Leverantörsnummer",
+            "Leverantör nr",
+            "Leverantör nr export",
+            "Leverantör nr från mall",
+            "Leverantör nr värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Leverantör nr är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorer_import#leverantor_nr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "leverantor",
+          "label": {
+            "sv": "Leverantör"
+          },
+          "sourceLabel": "Leverantör*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Leverantör import",
+            "Leverantör",
+            "Leverantör export",
+            "Leverantör från mall",
+            "Leverantör värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Leverantör är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorer_import#leverantor",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "organisationsnr",
+          "label": {
+            "sv": "Organisationsnr"
+          },
+          "sourceLabel": "Organisationsnr*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Organisationsnr import",
+            "Organisationsnr",
+            "Organisationsnr export",
+            "Organisationsnr från mall",
+            "Organisationsnr värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Organisationsnr är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorer_import#organisationsnr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "vat_nummer",
+          "label": {
+            "sv": "VAT-nummer"
+          },
+          "sourceLabel": "VAT-nummer*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "VAT-nummer import",
+            "VAT-nummer",
+            "VAT-nummer export",
+            "VAT-nummer från mall",
+            "VAT-nummer värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "VAT-nummer är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorer_import#vat_nummer",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "leverantorstyp",
+          "label": {
+            "sv": "Leverantörstyp"
+          },
+          "sourceLabel": "Leverantörstyp*",
+          "type": "category",
+          "required": true,
+          "acceptedValues": [
+            "Företag",
+            "Privat",
+            "Offentlig"
+          ],
+          "aliases": [
+            "Leverantörstyp import",
+            "Leverantörstyp",
+            "Leverantörstyp export",
+            "Leverantörstyp från mall",
+            "Leverantörstyp värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Leverantörstyp är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorer_import#leverantorstyp",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "valuta",
+          "label": {
+            "sv": "Valuta"
+          },
+          "sourceLabel": "Valuta*",
+          "type": "category",
+          "required": true,
+          "acceptedValues": [
+            "SEK",
+            "Svenska kronor"
+          ],
+          "aliases": [
+            "Valuta import",
+            "Valuta",
+            "Valuta export",
+            "Valuta från mall",
+            "Valuta värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Valuta är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorer_import#valuta",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "bankgiro",
+          "label": {
+            "sv": "Bankgiro"
+          },
+          "sourceLabel": "Bankgiro",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Bankgiro import",
+            "Bankgiro",
+            "Bankgiro export",
+            "Bankgiro från mall",
+            "Bankgiro värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorer_import#bankgiro",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "plusgiro",
+          "label": {
+            "sv": "Plusgiro"
+          },
+          "sourceLabel": "Plusgiro",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Plusgiro import",
+            "Plusgiro",
+            "Plusgiro export",
+            "Plusgiro från mall",
+            "Plusgiro värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorer_import#plusgiro",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "foretagskategorier",
+          "label": {
+            "sv": "Företagskategorier"
+          },
+          "sourceLabel": "Företagskategorier",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Företagskategorier import",
+            "Företagskategorier",
+            "Företagskategorier export",
+            "Företagskategorier från mall",
+            "Företagskategorier värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorer_import#foretagskategorier",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "regioner",
+          "label": {
+            "sv": "Regioner"
+          },
+          "sourceLabel": "Regioner",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Regioner import",
+            "Regioner",
+            "Regioner export",
+            "Regioner från mall",
+            "Regioner värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorer_import#regioner",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "namn",
+          "label": {
+            "sv": "Namn"
+          },
+          "sourceLabel": "Namn",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Namn import",
+            "Namn",
+            "Namn export",
+            "Namn från mall",
+            "Namn värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorer_import#namn",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "adressrad_1",
+          "label": {
+            "sv": "Adressrad 1"
+          },
+          "sourceLabel": "Adressrad 1",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Adressrad 1 import",
+            "Adressrad 1",
+            "Adressrad 1 export",
+            "Adressrad 1 från mall",
+            "Adressrad 1 värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorer_import#adressrad_1",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "adressrad_2",
+          "label": {
+            "sv": "Adressrad 2"
+          },
+          "sourceLabel": "Adressrad 2",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Adressrad 2 import",
+            "Adressrad 2",
+            "Adressrad 2 export",
+            "Adressrad 2 från mall",
+            "Adressrad 2 värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorer_import#adressrad_2",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "postnr",
+          "label": {
+            "sv": "Postnr"
+          },
+          "sourceLabel": "Postnr",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Postnr import",
+            "Postnr",
+            "Postnr export",
+            "Postnr från mall",
+            "Postnr värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorer_import#postnr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "ort",
+          "label": {
+            "sv": "Ort"
+          },
+          "sourceLabel": "Ort",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Stad",
+            "Ort",
+            "Ort export",
+            "Ort från mall",
+            "Ort värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorer_import#ort",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "land",
+          "label": {
+            "sv": "Land"
+          },
+          "sourceLabel": "Land",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Land import",
+            "Land",
+            "Land export",
+            "Land från mall",
+            "Land värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorer_import#land",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "landskod",
+          "label": {
+            "sv": "Landskod"
+          },
+          "sourceLabel": "Landskod",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Landskod import",
+            "Landskod",
+            "Landskod export",
+            "Landskod från mall",
+            "Landskod värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorer_import#landskod",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "e_post",
+          "label": {
+            "sv": "E-post"
+          },
+          "sourceLabel": "E-post",
+          "type": "email",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "E-post import",
+            "E-post",
+            "E-post export",
+            "E-post från mall",
+            "E-post värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorer_import#e_post",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "telefon",
+          "label": {
+            "sv": "Telefon"
+          },
+          "sourceLabel": "Telefon",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Telefon import",
+            "Telefon",
+            "Telefon export",
+            "Telefon från mall",
+            "Telefon värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorer_import#telefon",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "konto",
+          "label": {
+            "sv": "Konto"
+          },
+          "sourceLabel": "Konto",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Kostnadskonto",
+            "Konto",
+            "Konto export",
+            "Konto från mall",
+            "Konto värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorer_import#konto",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "webbadress",
+          "label": {
+            "sv": "Webbadress"
+          },
+          "sourceLabel": "Webbadress",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Webbadress import",
+            "Webbadress",
+            "Webbadress export",
+            "Webbadress från mall",
+            "Webbadress värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorer_import#webbadress",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        }
+      ]
+    },
+    {
+      "id": "kundkontakter",
+      "product": "next-project",
+      "country": "SE",
+      "registryVersion": "0.1-draft",
+      "order": 15,
+      "sheetName": "Kundkontakter import",
+      "name": {
+        "sv": "Kundkontakter"
+      },
+      "description": {
+        "sv": "Kontaktpersoner kopplade till kunder, inklusive personnummer och fastighetsägare för skattereduktion."
+      },
+      "requiredLevel": "optional",
+      "methods": [
+        "gi-mall",
+        "excel",
+        "skip"
+      ],
+      "ingestroIdentifier": "next_kundkontakter_import",
+      "fields": [
+        {
+          "id": "kundnr",
+          "label": {
+            "sv": "Kundnr"
+          },
+          "sourceLabel": "Kundnr*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Kundnummer",
+            "Kundnr",
+            "Kundnr export",
+            "Kundnr från mall",
+            "Kundnr värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Kundnr är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kundkontakter_import#kundnr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "namn",
+          "label": {
+            "sv": "Namn"
+          },
+          "sourceLabel": "Namn*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Namn import",
+            "Namn",
+            "Namn export",
+            "Namn från mall",
+            "Namn värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Namn är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kundkontakter_import#namn",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "personnr",
+          "label": {
+            "sv": "Personnr"
+          },
+          "sourceLabel": "Personnr",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Personnr import",
+            "Personnr",
+            "Personnr export",
+            "Personnr från mall",
+            "Personnr värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kundkontakter_import#personnr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "mobil",
+          "label": {
+            "sv": "Mobil"
+          },
+          "sourceLabel": "Mobil",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Mobil import",
+            "Mobil",
+            "Mobil export",
+            "Mobil från mall",
+            "Mobil värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kundkontakter_import#mobil",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "telefon",
+          "label": {
+            "sv": "Telefon"
+          },
+          "sourceLabel": "Telefon",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Telefon import",
+            "Telefon",
+            "Telefon export",
+            "Telefon från mall",
+            "Telefon värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kundkontakter_import#telefon",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "e_post",
+          "label": {
+            "sv": "E-post"
+          },
+          "sourceLabel": "E-post",
+          "type": "email",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "E-post import",
+            "E-post",
+            "E-post export",
+            "E-post från mall",
+            "E-post värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kundkontakter_import#e_post",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "faktura_e_post",
+          "label": {
+            "sv": "Faktura e-post"
+          },
+          "sourceLabel": "Faktura e-post",
+          "type": "email",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Faktura e-post import",
+            "Faktura e-post",
+            "Faktura e-post export",
+            "Faktura e-post från mall",
+            "Faktura e-post värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kundkontakter_import#faktura_e_post",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "roll",
+          "label": {
+            "sv": "Roll"
+          },
+          "sourceLabel": "Roll",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Roll import",
+            "Roll",
+            "Roll export",
+            "Roll från mall",
+            "Roll värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kundkontakter_import#roll",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "kundref_nr",
+          "label": {
+            "sv": "Kundref nr"
+          },
+          "sourceLabel": "Kundref nr",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Kundref nr import",
+            "Kundref nr",
+            "Kundref nr export",
+            "Kundref nr från mall",
+            "Kundref nr värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kundkontakter_import#kundref_nr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "fastighetsagare",
+          "label": {
+            "sv": "Fastighetsägare"
+          },
+          "sourceLabel": "Fastighetsägare",
+          "type": "category",
+          "required": false,
+          "acceptedValues": [
+            "Ja",
+            "Nej"
+          ],
+          "aliases": [
+            "Fastighetsägare import",
+            "Fastighetsägare",
+            "Fastighetsägare export",
+            "Fastighetsägare från mall",
+            "Fastighetsägare värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_kundkontakter_import#fastighetsagare",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        }
+      ]
+    },
+    {
+      "id": "leverantorskontakter",
+      "product": "next-project",
+      "country": "SE",
+      "registryVersion": "0.1-draft",
+      "order": 16,
+      "sheetName": "Leverantörskontakter import",
+      "name": {
+        "sv": "Leverantörskontakter"
+      },
+      "description": {
+        "sv": "Kontaktpersoner som ska knytas till leverantörer."
+      },
+      "requiredLevel": "optional",
+      "methods": [
+        "gi-mall",
+        "excel",
+        "skip"
+      ],
+      "ingestroIdentifier": "next_leverantorskontakter_import",
+      "fields": [
+        {
+          "id": "leverantor_nr",
+          "label": {
+            "sv": "Leverantör nr"
+          },
+          "sourceLabel": "Leverantör nr*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Leverantörsnummer",
+            "Leverantör nr",
+            "Leverantör nr export",
+            "Leverantör nr från mall",
+            "Leverantör nr värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Leverantör nr är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorskontakter_import#leverantor_nr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "namn",
+          "label": {
+            "sv": "Namn"
+          },
+          "sourceLabel": "Namn*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Namn import",
+            "Namn",
+            "Namn export",
+            "Namn från mall",
+            "Namn värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Namn är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorskontakter_import#namn",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "personnr",
+          "label": {
+            "sv": "Personnr"
+          },
+          "sourceLabel": "Personnr",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Personnr import",
+            "Personnr",
+            "Personnr export",
+            "Personnr från mall",
+            "Personnr värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorskontakter_import#personnr",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "mobil",
+          "label": {
+            "sv": "Mobil"
+          },
+          "sourceLabel": "Mobil",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Mobil import",
+            "Mobil",
+            "Mobil export",
+            "Mobil från mall",
+            "Mobil värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorskontakter_import#mobil",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "telefon",
+          "label": {
+            "sv": "Telefon"
+          },
+          "sourceLabel": "Telefon",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Telefon import",
+            "Telefon",
+            "Telefon export",
+            "Telefon från mall",
+            "Telefon värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorskontakter_import#telefon",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "e_post",
+          "label": {
+            "sv": "E-post"
+          },
+          "sourceLabel": "E-post",
+          "type": "email",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "E-post import",
+            "E-post",
+            "E-post export",
+            "E-post från mall",
+            "E-post värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorskontakter_import#e_post",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "roll",
+          "label": {
+            "sv": "Roll"
+          },
+          "sourceLabel": "Roll",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Roll import",
+            "Roll",
+            "Roll export",
+            "Roll från mall",
+            "Roll värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_leverantorskontakter_import#roll",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ovrigt",
+      "product": "next-project",
+      "country": "SE",
+      "registryVersion": "0.1-draft",
+      "order": 17,
+      "sheetName": "Övrigt import",
+      "name": {
+        "sv": "Övrigt"
+      },
+      "description": {
+        "sv": "Övriga uppgifter som verifikationsserier, nummerserier och värden som gås igenom med projektledaren."
+      },
+      "requiredLevel": "optional",
+      "methods": [
+        "gi-mall",
+        "excel",
+        "skip"
+      ],
+      "ingestroIdentifier": "next_ovrigt_import",
+      "fields": [
+        {
+          "id": "omrade",
+          "label": {
+            "sv": "Område"
+          },
+          "sourceLabel": "Område*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Område import",
+            "Område",
+            "Område export",
+            "Område från mall",
+            "Område värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Område är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_ovrigt_import#omrade",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "beskrivning",
+          "label": {
+            "sv": "Beskrivning"
+          },
+          "sourceLabel": "Beskrivning*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Beskrivning import",
+            "Beskrivning",
+            "Beskrivning export",
+            "Beskrivning från mall",
+            "Beskrivning värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Beskrivning är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_ovrigt_import#beskrivning",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "exempel",
+          "label": {
+            "sv": "Exempel"
+          },
+          "sourceLabel": "Exempel",
+          "type": "string",
+          "required": false,
+          "acceptedValues": [],
+          "aliases": [
+            "Exempel import",
+            "Exempel",
+            "Exempel export",
+            "Exempel från mall",
+            "Exempel värde"
+          ],
+          "validations": [],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_ovrigt_import#exempel",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        },
+        {
+          "id": "vart_varde",
+          "label": {
+            "sv": "Vårt värde"
+          },
+          "sourceLabel": "Vårt värde*",
+          "type": "string",
+          "required": true,
+          "acceptedValues": [],
+          "aliases": [
+            "Vårt värde import",
+            "Vårt värde",
+            "Vårt värde export",
+            "Vårt värde från mall",
+            "Vårt värde värde"
+          ],
+          "validations": [
+            {
+              "validate": "required",
+              "errorMessage": "Vårt värde är obligatoriskt."
+            }
+          ],
+          "destination": {
+            "kind": "ingestro-mapping",
+            "ref": "next_ovrigt_import#vart_varde",
+            "status": "draft — derived from sandbox source; product-API/provisioning bindings unresolved"
+          }
+        }
+      ]
+    }
+  ]
+}

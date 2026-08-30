@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Förberedelser inför flytt till Next</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --deep-green: #152F1A;
+      --primary-green: #24462B;
+      --mid-green: #457951;
+      --light-green: #BDD78F;
+      --accent-green: #E1FFAE;
+      --pale-bg: #FBFFF0;
+      --green-500: #92B97A;
+      --near-black: #0B1B11;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      background: var(--pale-bg);
+      color: var(--primary-green);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: var(--deep-green);
+      padding: 24px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .header-left { display: flex; flex-direction: column; gap: 4px; }
+    .header-logo { color: var(--accent-green); font-weight: 800; font-size: 1.4rem; letter-spacing: -0.5px; }
+    .header-title { color: white; font-size: 1rem; font-weight: 600; }
+    .header-customer {
+      background: var(--accent-green);
+      color: var(--deep-green);
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 6px 14px;
+      border-radius: 999px;
+    }
+
+    /* ── Progress ── */
+    .progress-section {
+      background: white;
+      padding: 16px 40px;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .progress-label { font-size: 0.8rem; font-weight: 700; color: var(--deep-green); white-space: nowrap; }
+    .progress-bar-outer {
+      flex: 1;
+      background: #e5e7eb;
+      border-radius: 999px;
+      height: 10px;
+      overflow: hidden;
+    }
+    .progress-bar-inner {
+      background: linear-gradient(90deg, var(--mid-green), var(--light-green));
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.5s ease;
+      width: 0%;
+    }
+    .progress-pct { font-size: 0.85rem; font-weight: 700; color: var(--mid-green); min-width: 38px; text-align: right; }
+
+    /* ── Container ── */
+    .container { max-width: 780px; margin: 0 auto; padding: 32px 20px 60px; }
+
+    .intro-text {
+      background: white;
+      border: 1px solid var(--green-500);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--primary-green);
+    }
+    .intro-text strong { color: var(--deep-green); }
+
+    /* ── Step cards ── */
+    .step-card {
+      background: white;
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 20px;
+      border: 1.5px solid #e5e7eb;
+      transition: border-color 0.3s;
+    }
+    .step-card.active-step { border-color: var(--green-500); }
+    .step-card.step-done { border-color: var(--mid-green); }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .step-number {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: var(--deep-green);
+      color: white;
+      font-weight: 800;
+      font-size: 0.875rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.3s;
+    }
+    .step-done .step-number { background: var(--mid-green); }
+    .step-title { font-size: 1.1rem; font-weight: 700; color: var(--deep-green); }
+
+    .step-desc {
+      font-size: 0.88rem;
+      color: var(--primary-green);
+      line-height: 1.65;
+      margin-bottom: 18px;
+    }
+
+    /* ── Superuser form ── */
+    .user-rows { margin-bottom: 10px; }
+    .user-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.5fr auto;
+      gap: 8px;
+      align-items: start;
+      margin-bottom: 8px;
+    }
+    .input-group { display: flex; flex-direction: column; gap: 3px; }
+    .input-label { font-size: 0.72rem; font-weight: 700; color: var(--mid-green); text-transform: uppercase; letter-spacing: 0.05em; }
+
+    input[type="text"], input[type="email"] {
+      border: 1px solid var(--green-500);
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.875rem;
+      color: var(--deep-green);
+      width: 100%;
+      background: var(--pale-bg);
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    input:focus { border-color: var(--mid-green); background: white; }
+    input.error { border-color: #f87171; background: #fff5f5; }
+
+    .btn-remove {
+      background: none;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      width: 36px; height: 36px;
+      cursor: pointer;
+      color: #9ca3af;
+      font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 18px;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .btn-remove:hover { background: #fee2e2; border-color: #fca5a5; color: #dc2626; }
+    .btn-remove:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    .btn-add {
+      background: var(--pale-bg);
+      border: 1.5px dashed var(--green-500);
+      border-radius: 8px;
+      padding: 9px 16px;
+      cursor: pointer;
+      color: var(--mid-green);
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      width: 100%;
+      margin-top: 4px;
+      transition: all 0.2s;
+      text-align: left;
+    }
+    .btn-add:hover { background: var(--accent-green); border-color: var(--primary-green); color: var(--deep-green); }
+
+    .user-min-note {
+      font-size: 0.78rem;
+      color: #9ca3af;
+      margin-top: 6px;
+    }
+    .user-min-note.warning { color: #d97706; }
+
+    /* ── Webinar items ── */
+    .webinar-item {
+      border: 1px solid var(--green-500);
+      border-radius: 10px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .webinar-item.all-done { border-color: var(--mid-green); }
+
+    .webinar-head {
+      background: var(--pale-bg);
+      padding: 13px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .webinar-meta { display: flex; flex-direction: column; gap: 2px; }
+    .webinar-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--mid-green);
+    }
+    .webinar-title { font-weight: 700; color: var(--deep-green); font-size: 0.9rem; }
+
+    .btn-watch {
+      color: var(--mid-green);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border: 1.5px solid var(--mid-green);
+      border-radius: 7px;
+      padding: 6px 13px;
+      transition: all 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .btn-watch:hover { background: var(--mid-green); color: white; }
+
+    .webinar-users { padding: 12px 18px; display: flex; flex-direction: column; gap: 6px; }
+
+    .user-check-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      padding: 7px 10px;
+      border-radius: 7px;
+      transition: background 0.15s;
+    }
+    .user-check-row:hover { background: var(--pale-bg); }
+    .user-check-row input[type="checkbox"] {
+      width: 18px; height: 18px;
+      accent-color: var(--mid-green);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .user-check-label { font-size: 0.875rem; color: var(--primary-green); user-select: none; }
+    .user-check-label .user-email { font-size: 0.75rem; color: #9ca3af; }
+
+    .no-users-msg {
+      font-size: 0.85rem;
+      color: #9ca3af;
+      font-style: italic;
+      padding: 8px 0;
+    }
+
+    /* ── Single checkboxes ── */
+    .single-check-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      cursor: pointer;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+    .single-check-row:hover { background: var(--pale-bg); border-color: var(--green-500); }
+    .single-check-row input[type="checkbox"] {
+      width: 20px; height: 20px;
+      accent-color: var(--mid-green);
+      cursor: pointer;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .single-check-label { font-size: 0.9rem; line-height: 1.5; }
+
+    .doc-link {
+      display: inline-block;
+      margin-top: 8px;
+      color: var(--mid-green);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      border: 1.5px solid var(--mid-green);
+      border-radius: 7px;
+      padding: 7px 14px;
+      transition: all 0.2s;
+    }
+    .doc-link:hover { background: var(--mid-green); color: white; }
+
+    /* ── GI tabs ── */
+    .tabs-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 12px 0 18px;
+    }
+    .tab-badge {
+      background: var(--accent-green);
+      color: var(--deep-green);
+      border-radius: 6px;
+      padding: 4px 11px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    /* ── CTA section ── */
+    .cta-card {
+      background: var(--deep-green);
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+      margin-top: 8px;
+    }
+    .cta-card h2 { color: white; font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; }
+    .cta-card .cta-sub { color: var(--accent-green); font-size: 0.875rem; line-height: 1.6; margin-bottom: 22px; }
+    .cta-card .cta-locked-msg { color: var(--light-green); font-size: 0.825rem; line-height: 1.6; margin-bottom: 0; opacity: 0.8; }
+
+    .btn-cta {
+      background: var(--accent-green);
+      color: var(--deep-green);
+      border: none;
+      border-radius: 9px;
+      padding: 14px 30px;
+      font-family: 'Manrope', sans-serif;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-cta:hover { background: var(--light-green); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(21,47,26,0.3); }
+    .btn-cta.disabled {
+      background: rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.4);
+      cursor: not-allowed;
+      pointer-events: none;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* ── Remaining checklist ── */
+    .remaining-list { list-style: none; padding: 0; margin-top: 12px; }
+    .remaining-list li {
+      font-size: 0.8rem;
+      color: var(--light-green);
+      padding: 3px 0;
+      opacity: 0.85;
+    }
+    .remaining-list li::before { content: "→ "; font-weight: 700; }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      padding: 24px 20px;
+      font-size: 0.72rem;
+      color: var(--mid-green);
+    }
+
+    /* ── Divider ── */
+    .section-divider {
+      background: var(--deep-green);
+      color: white;
+      text-align: center;
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin: 28px 0 20px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .header { padding: 16px 18px; flex-direction: column; align-items: flex-start; }
+      .progress-section { padding: 12px 18px; }
+      .container { padding: 20px 14px 40px; }
+      .step-card { padding: 20px 16px; }
+      .user-row { grid-template-columns: 1fr; }
+      .btn-remove { margin-top: 0; }
+      .webinar-head { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════
+     KONFIGURATION — Fyll i dessa värden innan du
+     skickar filen till kunden
+     ═══════════════════════════════════════════════════ -->
+<script>
+const CONFIG = {
+  kundNamn:         "Testkund BSO",                       // ← Byt ut mot kundens företagsnamn
+  ansvarDokUrl:     "https://oneaceve.sharepoint.com/:w:/r/sites/aceve-d_globalprofessionalservices/Shared%20Documents/04_Must%20Win%20Battles/BSO/Migrering_Byggsamordnaren_till_Next_Aceve.docx?d=wdf3880da2bd9420bb5a69b5370cb4e50&csf=1&web=1&e=wyfB1O", // ← Länk till ansvarsfördelningsdokumentet
+  supportEmail:     ""support-project@aceve.com",            // ← Aceve/Next support-epost som skapar ZD-ärende
+  konsultNamn:      "Carl Bäckström"                     // ← Ditt namn
+};
+</script>
+<!-- ═══════════════════════════════════════════════════ -->
+
+<header class="header">
+  <div class="header-left">
+    <span class="header-logo">Aceve</span>
+    <span class="header-title">Förberedelser inför flytt till Next</span>
+  </div>
+  <span class="header-customer" id="headerCustomer">Laddar…</span>
+</header>
+
+<div class="progress-section">
+  <span class="progress-label">Framsteg</span>
+  <div class="progress-bar-outer">
+    <div class="progress-bar-inner" id="progressBar"></div>
+  </div>
+  <span class="progress-pct" id="progressPct">0%</span>
+</div>
+
+<div class="container">
+
+  <div class="intro-text">
+    Välkommen till din förberedelseguide inför flytten från BSO till <strong>Next</strong>!
+    Gå igenom stegen nedan i ordning. Ni behöver minst <strong>2 superanvändare</strong> som deltar i utbildningen.
+    När alla steg är klara kan ni boka ett uppstartsmöte med er konsult, <span id="konsultSpan">—</span>.
+  </div>
+
+  <!-- ─── STEG 1: Superanvändare ─── -->
+  <div class="step-card active-step" id="card-users">
+    <div class="step-header">
+      <div class="step-number" id="num-users">1</div>
+      <div>
+        <div class="step-title">Era superanvändare</div>
+      </div>
+    </div>
+    <p class="step-desc">
+      Registrera de personer som ska gå utbildningen och bli era superanvändare i Next.
+      Ni behöver minst <strong>2 personer</strong>. Dessa är de som sedan hjälper er organisation att komma igång.
+    </p>
+    <div class="user-rows" id="userRows"></div>
+    <button class="btn-add" onclick="addUser()">+ Lägg till superanvändare</button>
+    <p class="user-min-note" id="userMinNote">Minst 2 superanvändare krävs för att fortsätta.</p>
+  </div>
+
+  <div class="section-divider">Utbildning</div>
+
+  <!-- ─── STEG 2: Webbinarier ─── -->
+  <div class="step-card" id="card-webinars">
+    <div class="step-header">
+      <div class="step-number" id="num-webinars">2</div>
+      <div>
+        <div class="step-title">Webbinarier</div>
+      </div>
+    </div>
+    <p class="step-desc">
+      Varje superanvändare ska se alla tre webbinarier innan uppstartsmötet.
+      Klicka på länken för att öppna webbinariet, och bocka sedan av det för respektive person.
+    </p>
+    <div id="webinarList"></div>
+  </div>
+
+  <div class="section-divider">Förberedelse av era uppgifter</div>
+
+  <!-- ─── STEG 3: Ansvarsfördelning ─── -->
+  <div class="step-card" id="card-ansvar">
+    <div class="step-header">
+      <div class="step-number" id="num-ansvar">3</div>
+      <div>
+        <div class="step-title">Ansvarsfördelning</div>
+      </div>
+    </div>
+    <p class="step-desc">
+      Läs igenom ansvarsfördelningen som beskriver vad Next ansvarar för och vad ni som kund ansvarar för
+      under och efter migreringen. Det är viktigt att ni förstår era skyldigheter för ett lyckat projekt.
+    </p>
+    <a href="#" id="ansvarLink" target="_blank" class="doc-link" style="margin-bottom:14px; display:inline-block;">
+      📄 Öppna ansvarsfördelning
+    </a>
+    <br>
+    <label class="single-check-row" onclick="toggleCheck('ansvarRead')">
+      <input type="checkbox" id="cb-ansvarRead" onclick="event.stopPropagation(); toggleCheck('ansvarRead')" />
+      <span class="single-check-label">
+        Vi har läst och förstår ansvarsfördelningen mellan Next och vår organisation.
+      </span>
+    </label>
+  </div>
+
+  <!-- ─── STEG 4: GI-mall ─── -->
+  <div class="step-card" id="card-gi">
+    <div class="step-header">
+      <div class="step-number" id="num-gi">4</div>
+      <div>
+        <div class="step-title">Grundinformationsmall</div>
+      </div>
+    </div>
+    <p class="step-desc">
+      Fyll i Grundinformationsmallen (GI-mallen) som ni fått av er konsult. Ni ska fylla i
+      följande flikar (de vita) — de orangefärgade flikarna är frivilliga och hanteras i ett senare skede:
+    </p>
+    <div class="tabs-list">
+      <span class="tab-badge">Läs detta först!</span>
+      <span class="tab-badge">Företag</span>
+      <span class="tab-badge">Timpriser</span>
+      <span class="tab-badge">Prislista</span>
+      <span class="tab-badge">Projekttyper</span>
+      <span class="tab-badge">Skattereduktion</span>
+      <span class="tab-badge">Lönetillägg</span>
+      <span class="tab-badge">Användarregister</span>
+      <span class="tab-badge">Betalningsvillkor</span>
+      <span class="tab-badge">Frånvaro</span>
+      <span class="tab-badge">Påslagsmall</span>
+    </div>
+    <label class="single-check-row" onclick="toggleCheck('giDone')">
+      <input type="checkbox" id="cb-giDone" onclick="event.stopPropagation(); toggleCheck('giDone')" />
+      <span class="single-check-label">
+        Vi har fyllt i alla vita flikar i GI-mallen och den är redo att skickas in.
+      </span>
+    </label>
+  </div>
+
+  <!-- ─── STEG 5: Boka uppstartsmöte ─── -->
+  <div class="step-card" id="card-cta" style="padding:0; border:none; background:transparent;">
+    <div class="cta-card">
+      <h2>🎉 Boka uppstartsmöte</h2>
+      <p class="cta-sub" id="ctaSub">
+        Ni är klara med alla förberedelser! Klicka nedan för att skicka era uppgifter och boka
+        ett uppstartsmöte med er konsult <span id="ctaKonsult">—</span>.
+        Kom ihåg att bifoga den ifyllda GI-mallen till e-posten som öppnas.
+      </p>
+      <p class="cta-locked-msg" id="ctaLocked" style="display:none">
+        Slutför stegen ovan för att låsa upp bokningsmöjligheten.
+      </p>
+      <ul class="remaining-list" id="remainingList"></ul>
+      <br id="ctaBr">
+      <a href="#" id="ctaBtn" class="btn-cta disabled" onclick="return handleCta(event)">
+        Skicka uppgifter och boka möte →
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">Strictly confidential – only for internal use &nbsp;·&nbsp; Aceve</div>
+
+<script>
+// ── State ─────────────────────────────────────────────
+const WEBINARS = [
+  {
+    id: "w1",
+    tag: "Webbinar 1",
+    title: "Ny i Next",
+    url: "https://helpdesk.next-tech.com/hc/sv/articles/24122929562524-Webinar-Ny-i-Next-2025-12-02"
+  },
+  {
+    id: "w2",
+    tag: "Webbinar 2",
+    title: "Grundläggande ekonomiflöde i Next",
+    url: "https://helpdesk.next-tech.com/hc/sv/articles/22232333563676-Webinar-Grundl%C3%A4ggande-ekonomifl%C3%B6de-i-Next-2025-09-09"
+  },
+  {
+    id: "w3",
+    tag: "Webbinar 3",
+    title: "Budget, inköp och prognos",
+    url: "https://helpdesk.next-tech.com/hc/sv/articles/26692106514716-Webinar-Budget-ink%C3%B6p-och-prognos-2026-04-09"
+  }
+];
+
+const STORAGE_KEY = "bso_onboarding_" + encodeURIComponent(CONFIG.kundNamn);
+
+let state = loadState();
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) return JSON.parse(saved);
+  } catch(e) {}
+  return {
+    users: [
+      { id: uid(), firstName: "", lastName: "", email: "" },
+      { id: uid(), firstName: "", lastName: "", email: "" }
+    ],
+    webinarChecks: {},
+    ansvarRead: false,
+    giDone: false
+  };
+}
+
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+}
+
+function uid() {
+  return Math.random().toString(36).slice(2, 9);
+}
+
+// ── User management ────────────────────────────────────
+function addUser() {
+  state.users.push({ id: uid(), firstName: "", lastName: "", email: "" });
+  saveState();
+  renderAll();
+}
+
+function removeUser(id) {
+  if (state.users.length <= 2) return;
+  state.users = state.users.filter(u => u.id !== id);
+  // Clean up webinar checks for this user
+  WEBINARS.forEach(w => delete state.webinarChecks[id + "_" + w.id]);
+  saveState();
+  renderAll();
+}
+
+function updateUser(id, field, value) {
+  const user = state.users.find(u => u.id === id);
+  if (user) { user[field] = value; saveState(); updateProgress(); updateCta(); }
+}
+
+// ── Webinar checks ─────────────────────────────────────
+function toggleWebinarCheck(userId, webinarId) {
+  const key = userId + "_" + webinarId;
+  state.webinarChecks[key] = !state.webinarChecks[key];
+  saveState();
+  renderAll();
+}
+
+function isWebinarChecked(userId, webinarId) {
+  return !!state.webinarChecks[userId + "_" + webinarId];
+}
+
+// ── Single checks ──────────────────────────────────────
+function toggleCheck(field) {
+  state[field] = !state[field];
+  saveState();
+  renderAll();
+}
+
+// ── Validation helpers ─────────────────────────────────
+function validUsers() {
+  return state.users.filter(u =>
+    u.firstName.trim() && u.lastName.trim() && u.email.trim() && u.email.includes("@")
+  );
+}
+
+function usersReady() { return validUsers().length >= 2; }
+
+function allWebinarsChecked() {
+  if (!usersReady()) return false;
+  const vUsers = validUsers();
+  return WEBINARS.every(w => vUsers.every(u => isWebinarChecked(u.id, w.id)));
+}
+
+function allDone() {
+  return usersReady() && allWebinarsChecked() && state.ansvarRead && state.giDone;
+}
+
+// ── Progress ───────────────────────────────────────────
+function calcProgress() {
+  const vUsers = validUsers();
+  let total = 0, done = 0;
+
+  // Users (counts as 1 chunk)
+  total += 1;
+  if (usersReady()) done += 1;
+
+  // Webinars: 3 per valid user
+  if (vUsers.length >= 2) {
+    const wTotal = WEBINARS.length * vUsers.length;
+    const wDone = WEBINARS.reduce((acc, w) => acc + vUsers.filter(u => isWebinarChecked(u.id, w.id)).length, 0);
+    total += wTotal;
+    done += wDone;
+  } else {
+    total += WEBINARS.length * 2; // assume min 2
+  }
+
+  // Ansvar + GI
+  total += 2;
+  if (state.ansvarRead) done += 1;
+  if (state.giDone) done += 1;
+
+  return Math.round((done / total) * 100);
+}
+
+// ── Render ─────────────────────────────────────────────
+function renderAll() {
+  renderConfig();
+  renderUsers();
+  renderWebinars();
+  renderCheckboxes();
+  updateProgress();
+  updateCta();
+  updateCardStates();
+}
+
+function renderConfig() {
+  document.getElementById("headerCustomer").textContent = CONFIG.kundNamn;
+  document.getElementById("konsultSpan").textContent = CONFIG.konsultNamn;
+  document.getElementById("ctaKonsult").textContent = CONFIG.konsultNamn;
+  document.getElementById("ansvarLink").href = CONFIG.ansvarDokUrl;
+}
+
+function renderUsers() {
+  const container = document.getElementById("userRows");
+  container.innerHTML = "";
+  state.users.forEach((user, idx) => {
+    const row = document.createElement("div");
+    row.className = "user-row";
+    row.innerHTML = `
+      <div class="input-group">
+        ${idx === 0 ? '<span class="input-label">Förnamn</span>' : ''}
+        <input type="text" placeholder="Förnamn" value="${esc(user.firstName)}"
+          oninput="updateUser('${user.id}','firstName',this.value)" />
+      </div>
+      <div class="input-group">
+        ${idx === 0 ? '<span class="input-label">Efternamn</span>' : ''}
+        <input type="text" placeholder="Efternamn" value="${esc(user.lastName)}"
+          oninput="updateUser('${user.id}','lastName',this.value)" />
+      </div>
+      <div class="input-group">
+        ${idx === 0 ? '<span class="input-label">E-postadress</span>' : ''}
+        <input type="email" placeholder="namn@foretag.se" value="${esc(user.email)}"
+          oninput="updateUser('${user.id}','email',this.value)" />
+      </div>
+      <button class="btn-remove" onclick="removeUser('${user.id}')"
+        ${state.users.length <= 2 ? 'disabled' : ''} title="Ta bort">✕</button>
+    `;
+    container.appendChild(row);
+  });
+
+  const note = document.getElementById("userMinNote");
+  const vCount = validUsers().length;
+  if (vCount >= 2) {
+    note.textContent = `✓ ${vCount} superanvändare registrerade.`;
+    note.className = "user-min-note";
+  } else {
+    note.textContent = `Minst 2 superanvändare med namn och e-post krävs. (${vCount}/2 klara)`;
+    note.className = "user-min-note warning";
+  }
+}
+
+function renderWebinars() {
+  const container = document.getElementById("webinarList");
+  container.innerHTML = "";
+  const vUsers = validUsers();
+
+  WEBINARS.forEach(w => {
+    const allChecked = vUsers.length >= 1 && vUsers.every(u => isWebinarChecked(u.id, w.id));
+    const item = document.createElement("div");
+    item.className = "webinar-item" + (allChecked ? " all-done" : "");
+
+    let usersHtml = "";
+    if (vUsers.length === 0) {
+      usersHtml = `<p class="no-users-msg">Lägg till superanvändare i steg 1 för att kunna bocka av.</p>`;
+    } else {
+      usersHtml = vUsers.map(u => {
+        const key = u.id + "_" + w.id;
+        const checked = isWebinarChecked(u.id, w.id);
+        const name = [u.firstName, u.lastName].filter(Boolean).join(" ") || u.email || "Namnlös";
+        return `
+          <label class="user-check-row">
+            <input type="checkbox" ${checked ? "checked" : ""}
+              onchange="toggleWebinarCheck('${u.id}','${w.id}')" />
+            <span class="user-check-label">
+              ${esc(name)}
+              ${u.email ? `<br><span class="user-email">${esc(u.email)}</span>` : ""}
+            </span>
+          </label>`;
+      }).join("");
+    }
+
+    item.innerHTML = `
+      <div class="webinar-head">
+        <div class="webinar-meta">
+          <span class="webinar-tag">${w.tag}</span>
+          <span class="webinar-title">${w.title}</span>
+        </div>
+        <a href="${w.url}" target="_blank" class="btn-watch">▶ Se webbinar</a>
+      </div>
+      <div class="webinar-users">${usersHtml}</div>
+    `;
+    container.appendChild(item);
+  });
+}
+
+function renderCheckboxes() {
+  document.getElementById("cb-ansvarRead").checked = state.ansvarRead;
+  document.getElementById("cb-giDone").checked = state.giDone;
+}
+
+function updateProgress() {
+  const pct = calcProgress();
+  document.getElementById("progressBar").style.width = pct + "%";
+  document.getElementById("progressPct").textContent = pct + "%";
+}
+
+function updateCardStates() {
+  // Step 1
+  setCardDone("card-users", usersReady());
+  setNum("num-users", "1", usersReady());
+  // Step 2
+  setCardDone("card-webinars", allWebinarsChecked());
+  setNum("num-webinars", "2", allWebinarsChecked());
+  // Step 3
+  setCardDone("card-ansvar", state.ansvarRead);
+  setNum("num-ansvar", "3", state.ansvarRead);
+  // Step 4
+  setCardDone("card-gi", state.giDone);
+  setNum("num-gi", "4", state.giDone);
+}
+
+function setCardDone(id, done) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.toggle("step-done", done);
+  el.classList.toggle("active-step", !done);
+}
+function setNum(id, num, done) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = done ? "✓" : num;
+  el.classList.toggle("done", done);
+}
+
+function updateCta() {
+  const btn = document.getElementById("ctaBtn");
+  const sub = document.getElementById("ctaSub");
+  const locked = document.getElementById("ctaLocked");
+  const remaining = document.getElementById("remainingList");
+  const br = document.getElementById("ctaBr");
+
+  if (allDone()) {
+    btn.classList.remove("disabled");
+    sub.style.display = "";
+    locked.style.display = "none";
+    remaining.innerHTML = "";
+    br.style.display = "";
+    btn.href = buildMailto();
+  } else {
+    btn.classList.add("disabled");
+    sub.style.display = "none";
+    locked.style.display = "";
+    br.style.display = "none";
+
+    const items = [];
+    if (!usersReady()) items.push("Registrera minst 2 superanvändare med namn och e-post");
+    else if (!allWebinarsChecked()) {
+      const vUsers = validUsers();
+      WEBINARS.forEach(w => {
+        vUsers.forEach(u => {
+          if (!isWebinarChecked(u.id, w.id)) {
+            const name = [u.firstName, u.lastName].filter(Boolean).join(" ");
+            items.push(`${name} – ${w.title}`);
+          }
+        });
+      });
+    }
+    if (!state.ansvarRead) items.push("Läs och bocka av ansvarsfördelningen");
+    if (!state.giDone) items.push("Fyll i och bocka av GI-mallen");
+
+    remaining.innerHTML = items.map(i => `<li>${esc(i)}</li>`).join("");
+  }
+}
+
+// ── Mailto builder ──────────────────────────────────────
+function buildMailto() {
+  const vUsers = validUsers();
+  const subject = encodeURIComponent(
+    `BSO-flytt: ${CONFIG.kundNamn} – Klara för uppstartsmöte`
+  );
+
+  let body = `Hej ${CONFIG.konsultNamn},\n\n`;
+  body += `Vi på ${CONFIG.kundNamn} har slutfört alla förberedelser inför flytten från BSO till Next.\n\n`;
+  body += `── Superanvändare ──────────────────────────\n`;
+  vUsers.forEach(u => {
+    body += `• ${u.firstName} ${u.lastName}  |  ${u.email}\n`;
+  });
+  body += `\n── Avklarade steg ──────────────────────────\n`;
+  body += `✓ Webbinar 1: Ny i Next\n`;
+  body += `✓ Webbinar 2: Grundläggande ekonomiflöde i Next\n`;
+  body += `✓ Webbinar 3: Budget, inköp och prognos\n`;
+  body += `✓ Ansvarsfördelningen är läst och godkänd\n`;
+  body += `✓ GI-mallen är ifylld (se bilaga)\n`;
+  body += `\n── Bilaga ──────────────────────────────────\n`;
+  body += `Den ifyllda GI-mallen bifogas till detta e-postmeddelande.\n`;
+  body += `\nVi ser fram emot att komma igång!\n\nMed vänlig hälsning,\n${CONFIG.kundNamn}`;
+
+  return `mailto:${CONFIG.supportEmail}?subject=${subject}&body=${encodeURIComponent(body)}`;
+}
+
+function handleCta(e) {
+  if (!allDone()) { e.preventDefault(); return false; }
+  return true;
+}
+
+// ── Utility ────────────────────────────────────────────
+function esc(str) {
+  return String(str || "")
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;");
+}
+
+// ── Boot ───────────────────────────────────────────────
+renderAll();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aceve Preboarding för Next Project — mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--deep:#152F1A;--primary:#24462B;--mid:#457951;--light:#BDD78F;--accent:#E1FFAE;--pale:#FBFFF0;--g500:#92B97A;--pale50:#F7FBF0;--grey:#6B7280;--line:#E4EADF;--white:#fff;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Manrope',system-ui,sans-serif;color:var(--deep);background:#EEF2E8;line-height:1.5}
+.demobar{background:var(--deep);color:#cfe6b6;font-size:12px;text-align:center;padding:6px 12px}
+.demobar b{color:#fff}
+.app{max-width:1080px;margin:18px auto;background:var(--white);border-radius:16px;overflow:hidden;box-shadow:0 8px 30px rgba(21,47,26,.10);min-height:660px;display:flex;flex-direction:column}
+header.top{background:var(--deep);color:#fff;padding:20px 28px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:800;font-size:22px;letter-spacing:-.02em}
+.brand small{display:block;color:var(--light);font-weight:500;font-size:12px;margin-top:2px}
+.right{display:flex;align-items:center;gap:18px}
+.langsel{background:transparent;color:#fff;border:1px solid var(--g500);border-radius:8px;padding:7px 10px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.langsel option{color:#152F1A}
+.cust{text-align:right;font-size:13px;color:var(--light)}
+.cust b{display:block;color:#fff;font-size:15px}
+.progwrap{padding:16px 28px 0}
+.progrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.progrow span{font-size:13px;color:var(--grey);font-weight:600}
+.progrow .pct{color:var(--mid);font-weight:800;font-size:15px}
+.track{height:10px;background:#EDF1E7;border-radius:6px;overflow:hidden}
+.fill{height:100%;background:var(--mid);width:0;transition:width .35s ease}
+.body{display:flex;flex:1}
+nav.steps{width:290px;border-right:1px solid var(--line);padding:18px 14px;background:var(--pale50)}
+.step{display:flex;gap:12px;align-items:flex-start;padding:11px 12px;border-radius:10px;cursor:pointer;margin-bottom:3px}
+.step:hover{background:#fff}
+.step.active{background:#fff;box-shadow:inset 3px 0 0 var(--mid)}
+.bullet{width:26px;height:26px;border-radius:50%;background:#E7EDE0;color:var(--mid);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step.done .bullet{background:var(--mid);color:#fff}
+.step .lbl{font-size:14px;font-weight:600}
+.step .sub{font-size:12px;color:var(--grey);margin-top:1px}
+main{flex:1;padding:30px 36px;overflow:auto}
+h2{font-size:24px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+.lead{color:var(--grey);margin-bottom:22px;max-width:580px}
+.card{border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:14px}
+.card h4{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--mid);margin-bottom:12px}
+label{font-size:12px;font-weight:700;color:var(--primary);display:block;margin-bottom:5px}
+input[type=text],input[type=email],input[type=tel],input[type=number],select.f{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:14px;color:var(--deep);background:#fff}
+input:focus,select.f:focus{outline:none;border-color:var(--mid)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.userrow{display:grid;grid-template-columns:1fr 1fr 1.4fr 1fr 32px;gap:10px;align-items:end;margin-bottom:10px}
+.btn{font-family:inherit;font-weight:700;font-size:14px;border:none;border-radius:9px;padding:11px 18px;cursor:pointer}
+.btn.primary{background:var(--mid);color:#fff}.btn.primary:hover{background:var(--primary)}
+.btn.ghost{background:#fff;border:1px solid var(--g500);color:var(--primary)}
+.btn.big{padding:15px 26px;font-size:16px}
+.rm{background:#fff;border:1px solid var(--line);color:#b04a4a;border-radius:8px;height:40px;cursor:pointer;font-size:16px}
+.foot{display:flex;justify-content:space-between;margin-top:24px;padding-top:18px;border-top:1px solid var(--line)}
+.tag{display:inline-block;background:var(--accent);color:var(--deep);font-weight:700;font-size:11px;padding:5px 12px;border-radius:20px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--g500);background:#fff;color:var(--primary);font-weight:600;font-size:13px;padding:7px 14px;border-radius:20px;cursor:pointer}
+.chip.on{background:var(--mid);color:#fff;border-color:var(--mid)}
+.toggle{display:flex;align-items:center;gap:12px;background:var(--pale50);border:1px solid var(--line);border-radius:10px;padding:14px}
+.switch{width:46px;height:26px;border-radius:20px;background:#cdd6c6;position:relative;cursor:pointer;flex-shrink:0;transition:.2s}
+.switch.on{background:var(--mid)}
+.knob{width:20px;height:20px;border-radius:50%;background:#fff;position:absolute;top:3px;left:3px;transition:.2s}
+.switch.on .knob{left:23px}
+.webgrid{width:100%;border-collapse:collapse}
+.webgrid th,.webgrid td{padding:10px;border-bottom:1px solid var(--line);font-size:13px;text-align:center}
+.webgrid th{background:var(--deep);color:#fff;font-weight:600}
+.webgrid td.name{text-align:left;font-weight:600}
+.chk{width:22px;height:22px;border-radius:6px;border:2px solid var(--g500);background:#fff;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:800;flex-shrink:0}
+.chk.on{background:var(--mid);border-color:var(--mid)}
+.weblinkrow{display:flex;justify-content:space-between;align-items:center;gap:14px;text-decoration:none;border:1px solid var(--line);border-left:4px solid var(--mid);border-radius:10px;padding:14px 16px;margin-bottom:8px;background:var(--pale50)}
+.weblinkrow:hover{background:#fff;border-left-color:var(--deep)}
+.weblinkrow .t{font-weight:700;color:var(--deep);font-size:14px;display:flex;align-items:center;gap:10px}
+.weblinkrow .wn{width:24px;height:24px;border-radius:50%;background:var(--deep);color:#fff;font-size:12px;display:inline-flex;align-items:center;justify-content:center}
+.weblinkrow .go{color:#2f6f3e;font-weight:700;font-size:13px;white-space:nowrap}
+.drop{border:2px dashed var(--g500);border-radius:12px;padding:30px;text-align:center;background:var(--pale50);cursor:pointer}
+.drop:hover{background:#fff}
+.filechip{display:flex;align-items:center;justify-content:space-between;background:var(--pale);border:1px solid var(--line);border-radius:9px;padding:10px 14px;margin-top:8px;font-size:14px}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--mid);display:inline-block;margin-right:8px}
+.confirm{display:flex;gap:12px;align-items:flex-start;background:var(--pale50);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:10px}
+.note{font-size:12px;color:var(--grey);margin-top:6px}
+.locked{text-align:center;padding:40px 20px}.locked .ic{font-size:46px}
+.success{background:var(--accent);border:1px solid var(--light);border-radius:12px;padding:24px;text-align:center}
+.stage{display:flex;gap:12px;text-align:left;background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px;margin-top:10px}
+.stage .n{width:28px;height:28px;border-radius:50%;background:var(--mid);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.stage b{display:block;font-size:14px}.stage span{font-size:13px;color:var(--grey)}
+.kv{font-size:13px;color:var(--primary);margin:2px 0}
+.req{color:#b04a4a}
+.profilebox{background:var(--pale50);border:1px dashed var(--g500);border-radius:10px;padding:14px;font-size:13px;color:var(--primary)}
+.profilebox b{color:var(--deep)}
+</style>
+</head>
+<body>
+<div class="demobar">MOCKUP för intern demo &nbsp;·&nbsp; klickbar prototyp, ej skarp data &nbsp;·&nbsp; <b>Preboarding för Next Project</b></div>
+<div class="app">
+  <header class="top">
+    <div class="brand"><div class="logo">Aceve</div><small>Preboarding för Next Project</small></div>
+    <div class="right">
+      <select class="langsel" title="Språk (symbolisk i mockup)" onchange="setLang(this.value)" id="langsel"></select>
+      <div class="cust">Kund<b>CaBa Bygg</b><span>Din kontakt: Aceve PS</span></div>
+    </div>
+  </header>
+  <div class="progwrap">
+    <div class="progrow"><span>Er progress</span><span class="pct" id="pct">0% klart</span></div>
+    <div class="track"><div class="fill" id="fill"></div></div>
+  </div>
+  <div class="body"><nav class="steps" id="nav"></nav><main id="main"></main></div>
+</div>
+
+<script>
+const ROLES=["Projektledare","Arbetsledare","Arbetschef (KST-ansvarig)","Ekonomiansvarig","Inköp","Kalkyl","Attestansvarig","Administratör","Systemansvarig","Löneansvarig","VD / Ägare"];
+const ARBETEN=["Entreprenad","Mark & anläggning","Service","Installation","Bygg","Renovering","Underhåll"];
+const SCOPE=["Lokalt","Nationellt","Internationellt"];
+const LANGS=["Svenska","English","Norsk","Dansk","Suomi","Nederlands","Deutsch","Français"];
+const COUNTRIES=["Sverige","Norge","Danmark","Finland","Nederländerna","Tyskland","Belgien","Storbritannien"];
+const WEBINARS=[
+  {t:"Ny i Next",u:"https://helpdesk.next-tech.com/hc/sv/articles/24122929562524-Webinar-Ny-i-Next-2025-12-02"},
+  {t:"Grundläggande ekonomiflöde i Next",u:"https://helpdesk.next-tech.com/hc/sv/articles/22232333563676-Webinar-Grundl%C3%A4ggande-ekonomifl%C3%B6de-i-Next-2025-09-09"},
+  {t:"Budget, inköp och prognos",u:"https://helpdesk.next-tech.com/hc/sv/articles/26692106514716-Webinar-Budget-ink%C3%B6p-och-prognos-2026-04-09"}
+];
+const BSO_PREP=[
+  "Vi har gått igenom projektstatusar i Byggsamordnaren: endast projekt vi arbetar i just nu har status Pågående.",
+  "Alla övriga projekt har annan status eller är avslutade, och kommer inte med i importen till Next.",
+  "Vi förstår att endast projekt med status Pågående migreras till Next."
+];
+const state={
+  ui:"Svenska", agreement:"",
+  company:{namn:"CaBa Bygg AB",prefix:"",orgnr:"",adress:"",land:"Sverige",sprak:"Svenska"},
+  profile:{arbeten:["Entreprenad"],tjanste:"",yrkes:"",regioner:"",kontor:"",scope:""},
+  bso:true, it:{namn:"",epost:"",tel:""},
+  users:[{first:"Linnea",last:"Norberg",email:"linnea@cababygg.se",role:"Projektledare"},{first:"",last:"",email:"",role:""}],
+  web:{}, ansvar:false, aware:false, informed:false, bsoPrep:[false,false,false], files:[]
+};
+const steps=[
+  {id:"valkommen",lbl:"Välkommen",sub:"Kort introduktion"},
+  {id:"foretag",lbl:"Företagsuppgifter",sub:"Grund, land & språk"},
+  {id:"verksamhet",lbl:"Er verksamhet & bakgrund",sub:"Profil, geografi, BSO"},
+  {id:"super",lbl:"Superanvändare",sub:"Minst 2 personer"},
+  {id:"webb",lbl:"Webbinarier",sub:"3 utbildningar"},
+  {id:"ansvar",lbl:"Ansvarsfördelning",sub:"Läs och bekräfta"},
+  {id:"filer",lbl:"Förbered & ladda upp",sub:"GI-mall & underlag"},
+  {id:"klar",lbl:"Skicka & boka uppstart",sub:"Lås upp när allt är klart"}
+];
+const GATE=["foretag","verksamhet","super","webb","ansvar","filer"];
+let current="valkommen";
+
+function validUsers(){return state.users.filter(u=>u.first.trim()&&u.last.trim()&&u.email.includes("@"))}
+function done(id){
+  const c=state.company,p=state.profile;
+  if(id==="foretag") return !!(c.namn.trim()&&c.prefix.trim()&&c.orgnr.trim());
+  if(id==="verksamhet"){let ok=p.arbeten.length>0&&p.scope;if(state.bso)ok=ok&&state.it.namn.trim()&&state.it.epost.includes("@");return !!ok;}
+  if(id==="super") return validUsers().length>=2;
+  if(id==="webb"){const vu=validUsers();if(vu.length<2)return false;return vu.every((u,i)=>WEBINARS.every((w,wi)=>state.web[i+"_"+wi]))}
+  if(id==="ansvar") return state.ansvar;
+  if(id==="filer"){let ok=state.files.length>0;if(state.bso)ok=ok&&state.bsoPrep.every(Boolean);return !!ok;}
+  if(id==="klar") return GATE.every(done);
+  return false;
+}
+function progress(){return Math.round(GATE.filter(done).length/GATE.length*100)}
+function renderNav(){
+  document.getElementById("nav").innerHTML=steps.map((s,n)=>{const d=done(s.id),a=s.id===current;
+    const num=s.id==="valkommen"?"i":(GATE.includes(s.id)?GATE.indexOf(s.id)+1:"→");
+    return `<div class="step ${d?'done':''} ${a?'active':''}" onclick="go('${s.id}')"><div class="bullet">${d?'✓':num}</div><div><div class="lbl">${s.lbl}</div><div class="sub">${s.sub}</div></div></div>`}).join("")+'<div style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);opacity:.55"><div style="font-size:11px;text-transform:uppercase;letter-spacing:.04em;font-weight:700;color:var(--mid);padding:0 12px">Nästa fas</div><div style="padding:6px 12px"><div class="lbl">Datamigration (Ingestro)</div><div class="sub">Importera er data till Next, byggs i nästa steg</div></div></div>';
+  document.getElementById("fill").style.width=progress()+"%";document.getElementById("pct").textContent=progress()+"% klart";}
+function go(id){current=id;render()}
+function next(){const i=steps.findIndex(s=>s.id===current);if(i<steps.length-1)go(steps[i+1].id)}
+function render(){
+  document.getElementById("langsel").innerHTML=LANGS.map(l=>`<option ${l===state.ui?'selected':''}>${l}</option>`).join("");
+  renderNav();
+  document.getElementById("main").innerHTML=({valkommen:vValkommen,foretag:vForetag,verksamhet:vVerk,super:vSuper,webb:vWebb,ansvar:vAnsvar,filer:vFiler,klar:vKlar})[current]();}
+
+function vValkommen(){
+  return `<h2>Välkommen!</h2>
+   <p class="lead">Det här är er förberedelse inför uppstarten av Next Project. När ni är klara hör vi av oss och bokar in er, så kommer ni igång snabbare.</p>
+   <div class="card"><h4>Avtal med Aceve</h4>
+     <div style="font-size:14px;margin-bottom:12px">Finns ett signerat avtal med Aceve för den nya produkten (Next Project)?</div>
+     <div class="chips" style="margin-bottom:6px">
+       <span class="chip ${state.agreement==='yes'?'on':''}" onclick="state.agreement='yes';render()">Ja, vi har avtal</span>
+       <span class="chip ${state.agreement==='no'?'on':''}" onclick="state.agreement='no';render()">Nej eller osäker</span>
+     </div>
+     ${state.agreement==='yes'?'<div class="note">Bra. I ert signerade avtal har ni gett oss tillåtelse att behandla era uppgifter för migrering, inklusive AI-stödd hantering enligt DPA och GDPR.</div>':''}
+     ${state.agreement==='no'?'<div class="note">Preboarding förutsätter ett tecknat avtal (det reglerar bland annat hur vi får behandla era uppgifter). Kontakta er kontaktperson hos Aceve så hjälper vi er vidare innan ni börjar.</div>':''}
+   </div>
+   <div class="card"><h4>Så funkar det</h4>
+     <p style="font-size:14px;margin-bottom:12px">Ni fyller i några korta steg själva, i er egen takt. Flera personer kan hjälpas åt, och ni kan hoppa mellan stegen i menyn till vänster.</p>
+     <ol style="font-size:14px;color:var(--primary);margin-left:18px;line-height:1.9">
+       <li>Företagsuppgifter</li><li>Er verksamhet & bakgrund</li><li>Superanvändare</li><li>Webbinarier</li><li>Ansvar & databehandling</li><li>Förbered & ladda upp</li>
+     </ol>
+     <p class="note" style="margin-top:12px">När alla steg är klara skickar ni in, och då tar vi vid.</p>
+   </div>
+   <div class="foot" style="justify-content:flex-end;border-top:none;padding-top:0"><button class="btn primary big" ${state.agreement==='yes'?'':'disabled'} onclick="go('foretag')">Kom igång →</button></div>`;
+}
+
+function vForetag(){
+  const c=state.company;
+  return `<h2>Företagsuppgifter</h2>
+   <p class="lead">Börja här. Land och språk styr senare vilken produkt och vilka webbinarier ni lotsas till.</p>
+   <div class="card"><h4>Grunduppgifter</h4>
+     <div style="margin-bottom:12px"><label>Juridiskt företagsnamn <span class="req">*</span></label><input type="text" value="${c.namn}" oninput="company('namn',this.value)"></div>
+     <div class="grid2">
+       <div><label>Företagsprefix / akronym <span class="req">*</span></label><input type="text" placeholder="t.ex. CABA" value="${c.prefix}" oninput="company('prefix',this.value)"></div>
+       <div><label>Organisationsnummer <span class="req">*</span></label><input type="text" placeholder="556xxx-xxxx" value="${c.orgnr}" oninput="company('orgnr',this.value)"></div>
+     </div>
+     <div class="note">Prefix/akronym är en kort kod som identifierar bolaget (märker projekt och underlag).</div>
+     <div style="margin-top:12px"><label>Fakturaadress</label><input type="text" value="${c.adress}" oninput="company('adress',this.value)"></div>
+   </div>
+   <div class="card"><h4>Land & språk</h4>
+     <div class="grid2">
+       <div><label>Land</label><select class="f" onchange="company('land',this.value)">${COUNTRIES.map(x=>`<option ${x===c.land?'selected':''}>${x}</option>`).join("")}</select></div>
+       <div><label>Språk</label><select class="f" onchange="company('sprak',this.value)">${LANGS.map(x=>`<option ${x===c.sprak?'selected':''}>${x}</option>`).join("")}</select></div>
+     </div>
+   </div>${footer()}`;
+}
+
+function vVerk(){
+  const p=state.profile;
+  const chips=ARBETEN.map(a=>`<span class="chip ${p.arbeten.includes(a)?'on':''}" onclick="toggleArbete('${a}')">${a}</span>`).join("");
+  const scope=SCOPE.map(s=>`<span class="chip ${p.scope===s?'on':''}" onclick="prof('scope','${s}');render()">${s}</span>`).join("");
+  const total=(parseInt(p.tjanste)||0)+(parseInt(p.yrkes)||0);
+  const itblock=state.bso?`<div class="card"><h4>IT-kontaktperson (för dataexport från Byggsamordnaren)</h4>
+     <div class="grid2">
+       <div><label>Namn <span class="req">*</span></label><input type="text" value="${state.it.namn}" oninput="itf('namn',this.value)"></div>
+       <div><label>E-post <span class="req">*</span></label><input type="email" value="${state.it.epost}" oninput="itf('epost',this.value)"></div>
+     </div>
+     <div style="margin-top:12px"><label>Telefon</label><input type="tel" value="${state.it.tel}" oninput="itf('tel',this.value)"></div>
+   </div>`:"";
+  return `<h2>Er verksamhet & bakgrund</h2>
+   <p class="lead">Det här hjälper oss lotsa er rätt och förbereda uppsättningen. Tar bara en minut.</p>
+   <div class="card"><h4>Verksamhet</h4>
+     <label>Typ av arbeten ni utför</label>
+     <div class="chips" style="margin-bottom:14px">${chips}</div>
+     <div class="grid2" style="margin-bottom:14px">
+       <div><label>Ca antal tjänstepersoner</label><input type="number" min="0" value="${p.tjanste}" oninput="prof('tjanste',this.value)"></div>
+       <div><label>Ca antal yrkesarbetare</label><input type="number" min="0" value="${p.yrkes}" oninput="prof('yrkes',this.value)"></div>
+     </div>
+     <div class="grid2" style="margin-bottom:14px">
+       <div><label>Region(er) ni arbetar i</label><input type="text" placeholder="t.ex. Skåne, Halland" value="${p.regioner}" oninput="prof('regioner',this.value)"></div>
+       <div><label>Var har ni kontor</label><input type="text" placeholder="t.ex. Malmö, Helsingborg" value="${p.kontor}" oninput="prof('kontor',this.value)"></div>
+     </div>
+     <label>Arbetar ni lokalt, nationellt eller internationellt? <span class="req">*</span></label>
+     <div class="chips">${scope}</div>
+     <div class="profilebox" id="profbox" style="margin-top:14px">${profileHTML()}</div>
+   </div>
+   <div class="card"><h4>Bakgrund</h4>
+     <div class="toggle"><div class="switch ${state.bso?'on':''}" onclick="state.bso=!state.bso;render()"><div class="knob"></div></div>
+       <div><b>Vi kommer från Byggsamordnaren (BSO)</b><div class="note">Slå på om er data ska migreras från BSO. Då lägger vi till IT-kontakt och förberedelser för dataexport.</div></div></div>
+     ${state.bso?'':'<div class="note">Ingen BSO-migrering: ni sätter upp Next från grunden tillsammans med oss.</div>'}
+   </div>
+   ${itblock}${footer()}`;
+}
+
+function vSuper(){
+  const rows=state.users.map((u,i)=>`<div class="userrow">
+    <div><label>Förnamn</label><input type="text" value="${u.first}" oninput="upd(${i},'first',this.value)"></div>
+    <div><label>Efternamn</label><input type="text" value="${u.last}" oninput="upd(${i},'last',this.value)"></div>
+    <div><label>E-post</label><input type="email" value="${u.email}" oninput="upd(${i},'email',this.value)"></div>
+    <div><label>Roll i projektet</label><input type="text" list="roller" placeholder="Välj eller skriv" value="${u.role}" oninput="upd(${i},'role',this.value)"></div>
+    <button class="rm" onclick="rmUser(${i})" title="Ta bort">×</button></div>`).join("");
+  return `<h2>Superanvändare</h2>
+   <p class="lead">Lägg till minst 2 personer som ska vara superanvändare i Next. E-posten används för inbjudan till webbinarierna. Ange gärna rollen i projektet.</p>
+   <datalist id="roller">${ROLES.map(r=>`<option value="${r}">`).join("")}</datalist>
+   <div class="card">${rows}<button class="btn ghost" onclick="addUser()">+ Lägg till person</button></div>
+   <div class="note">Förslag på roller: ${ROLES.join(", ")}.</div>
+   <div class="note">${validUsers().length} giltiga personer tillagda ${done('super')?'· ✓ klart':'· minst 2 krävs'}</div>${footer()}`;
+}
+
+function vWebb(){
+  const vu=validUsers();
+  const links=WEBINARS.map((w,wi)=>`<a class="weblinkrow" href="${w.u}" target="_blank" rel="noopener"><span class="t"><span class="wn">${wi+1}</span> ${w.t}</span><span class="go">Titta på / öppna helpdesk-artikel →</span></a>`).join("");
+  if(vu.length<2) return `<h2>Webbinarier</h2><p class="lead">Lägg till minst 2 superanvändare i steget Superanvändare först, så dyker de upp i avbockningen här.</p><div style="margin-bottom:14px">${links}</div>${footer()}`;
+  const head=`<tr><th class="name" style="text-align:left">Superanvändare</th>${WEBINARS.map(w=>`<th>${w.t}</th>`).join("")}</tr>`;
+  const rows=vu.map((u,i)=>`<tr><td class="name">${u.first} ${u.last}</td>${WEBINARS.map((w,wi)=>{const on=state.web[i+"_"+wi];return `<td><span class="chk ${on?'on':''}" onclick="toggleWeb(${i},${wi})">${on?'✓':''}</span></td>`}).join("")}</tr>`).join("");
+  return `<h2>Webbinarier</h2>
+   <p class="lead">Tre korta förinspelade webbinarier för Next Project. Klicka på en länk, titta på <b>hela</b> webbinaret, och bocka sedan av i rutan när ni sett det. Alla superanvändare går alla tre.</p>
+   <div style="margin-bottom:16px">${links}</div>
+   <div class="card"><div class="note" style="margin-top:0;margin-bottom:12px">Bocka av först när ni sett hela webbinaret.</div><table class="webgrid">${head}${rows}</table></div>${footer()}`;
+}
+
+function vAnsvar(){
+  return `<h2>Ansvarsfördelning och databehandling</h2>
+   <p class="lead">Läs igenom ansvarsfördelningen och bekräfta hur era uppgifter behandlas. Det här gör vi för att kunna leverera migrering och uppsättning av Next.</p>
+   <a class="weblinkrow" href="#" onclick="return false"><span class="t">Ansvarsfördelning (PDF)</span><span class="go">Öppna dokumentet →</span></a>
+   <div style="height:14px"></div>
+   <div class="confirm"><span class="chk ${state.ansvar?'on':''}" onclick="state.ansvar=!state.ansvar;render()">${state.ansvar?'✓':''}</span><div><b>Vi har läst och förstår ansvarsfördelningen</b></div></div>
+   <div class="card"><h4>Databehandling och AI</h4>
+     <div class="note" style="margin:0">I ert signerade avtal har ni gett oss tillåtelse att behandla era uppgifter för migrering och uppsättning, inklusive AI-stödd hantering, enligt DPA och GDPR (EU AI Act beaktas). Ni är personuppgiftsansvarig och ansvarar för att informera era registrerade. Aceve är personuppgiftsbiträde och behandlar enligt era instruktioner. <a href="#" onclick="return false" style="color:#2f6f3e;font-weight:700">Läs mer →</a></div>
+   </div>${footer()}`;
+}
+
+function vFiler(){
+  const prep=state.bso?`<div class="card"><h4>Förberedelser i Byggsamordnaren</h4>
+     ${BSO_PREP.map((t,i)=>`<div class="confirm"><span class="chk ${state.bsoPrep[i]?'on':''}" onclick="toggledPrep(${i})">${state.bsoPrep[i]?'✓':''}</span><div>${t}</div></div>`).join("")}</div>`:"";
+  const chips=state.files.map((f,i)=>`<div class="filechip"><div><span class="dot"></span>${f}</div><button class="rm" style="height:28px;border:none;background:transparent" onclick="rmFile(${i})">×</button></div>`).join("");
+  return `<h2>Förbered & ladda upp</h2>
+   <p class="lead">${state.bso?'Bekräfta era förberedelser i Byggsamordnaren och ladda upp er ifyllda GI-mall samt eventuella underlag.':'Ladda upp er ifyllda GI-mall och eventuella underlag.'}</p>
+   ${prep}
+   <div class="card"><h4>Ladda upp filer</h4>
+     <div class="drop" onclick="fakeUpload()"><div style="font-size:32px">⬆️</div><div style="font-weight:700;margin-top:6px">Släpp filer här eller klicka för att ladda upp</div><div class="note">GI-mall (.xlsx), underlag, dokument</div></div>
+     ${chips?`<div style="margin-top:12px">${chips}</div>`:''}
+     <div class="note">${state.files.length} fil(er) uppladdade ${done('filer')?'· ✓ klart':''}</div></div>${footer()}`;
+}
+
+function vKlar(){
+  if(!done("klar")){const left=GATE.filter(s=>!done(s)).map(s=>steps.find(x=>x.id===s).lbl).join(", ");
+    return `<div class="locked"><div class="ic">🔒</div><h2 style="margin-top:10px">Nästan där</h2><p class="lead" style="margin:8px auto 0">Slutför alla steg för att skicka in. Kvar: <b>${left}</b></p></div>`;}
+  const vu=validUsers();
+  const stages=state.bso?
+    `<div class="stage"><div class="n">1</div><div><b>Ärende till Aceve Tekniksupport</b><span>Ni är redo för en första dataexport. Exporten läggs i er kundmapp på SharePoint.</span></div></div>
+     <div class="stage"><div class="n">2</div><div><b>Ärende till Next PS</b><span>När exporten är klar skapas detta automatiskt: boka uppstartsmöte och gå igenom er data.</span></div></div>`
+    :`<div class="stage"><div class="n">1</div><div><b>Ärende till Next PS</b><span>Boka uppstartsmöte och sätt upp Next tillsammans med er konsult.</span></div></div>`;
+  return `<h2>Allt klart!</h2>
+   <p class="lead">När ni skickar in skapas ärenden hos oss automatiskt och vi planerar in uppstarten. Ju snabbare ni är klara, desto snabbare kommer vi igång.</p>
+   <div class="success" id="succ"><div style="font-size:40px">✅</div><h3>Redo att skicka in</h3>
+     <div class="kv">${state.company.namn} (${state.company.prefix||'–'}) · ${state.company.land} · ${state.profile.scope||'–'}</div>
+     <div class="kv">${vu.length} superanvändare · ${state.files.length} fil(er) · Avtal: ${state.agreement==='yes'?'bekräftat':'ej bekräftat'}</div>
+     <div style="margin-top:14px">${stages}</div>
+     <div style="margin-top:16px"><button class="btn primary big" onclick="submitAll()">Skicka in</button></div></div>`;
+}
+
+function footer(){return `<div class="foot"><span class="tag">${done(current)?'✓ Steg klart':'Steg ej klart'}</span><button class="btn primary" onclick="next()">Nästa steg →</button></div>`;}
+function bump(){document.getElementById("fill").style.width=progress()+"%";document.getElementById("pct").textContent=progress()+"% klart";renderNav();}
+function setLang(v){state.ui=v;}
+function company(k,v){state.company[k]=v;bump()}
+function profileHTML(){const p=state.profile;const total=(parseInt(p.tjanste)||0)+(parseInt(p.yrkes)||0);return `Er profil: <b>${p.arbeten.join(", ")||"–"}</b> · <b>${p.scope||"–"}</b> · ca <b>${total}</b> anställda. Detta matar produktval och förberedelse i Next.`;}
+function prof(k,v){state.profile[k]=v;const pb=document.getElementById("profbox");if(pb)pb.innerHTML=profileHTML();bump()}
+function itf(k,v){state.it[k]=v;bump()}
+function toggleArbete(a){const i=state.profile.arbeten.indexOf(a);i<0?state.profile.arbeten.push(a):state.profile.arbeten.splice(i,1);render()}
+function upd(i,k,v){state.users[i][k]=v;bump()}
+function addUser(){state.users.push({first:"",last:"",email:"",role:""});render()}
+function rmUser(i){state.users.splice(i,1);render()}
+function toggleWeb(i,wi){const k=i+"_"+wi;state.web[k]=!state.web[k];render()}
+function toggledPrep(i){state.bsoPrep[i]=!state.bsoPrep[i];render()}
+function fakeUpload(){const names=["Grundinformationsmall_CaBaBygg.xlsx","Projektlista_export.xlsx","Kontaktpersoner.xlsx"];state.files.push(names[state.files.length%names.length]);render()}
+function rmFile(i){state.files.splice(i,1);render()}
+function submitAll(){const second=state.bso?`<p class="kv">Steg 2 skapas automatiskt när exporten är klar: uppstartsmöte med Next PS.</p>`:``;
+  document.getElementById("succ").innerHTML=`<div style="font-size:40px">🎉</div><h3>Skickat till Aceve</h3>
+    <p class="kv">${state.bso?'Ett ärende har skapats hos Tekniksupport för en första dataexport.':'Ett ärende har skapats hos Next PS för uppstartsmöte.'}</p>${second}<p class="kv">Vi hör av oss. Tack!</p>`;}
+render();
+</script>
+</body>
+</html>

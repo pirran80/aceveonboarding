@@ -1,0 +1,132 @@
+{
+  "app": {
+    "name": "Aceve Onboard",
+    "tagline": "Your onboarding, at your pace",
+    "languageSwitcher": "Language",
+    "version": "Version {version}",
+    "whatsNew": "What's new"
+  },
+  "sidebar": {
+    "progress": "{percent} % done",
+    "importStep": "Import & column matching",
+    "steps": "{done} of {total} steps done"
+  },
+  "status": {
+    "complete": "Done",
+    "active": "In progress",
+    "available": "Available",
+    "locked": "Locked",
+    "notStarted": "Not started",
+    "skipped": "Done manually after go-live"
+  },
+  "actions": {
+    "next": "Next step →",
+    "save": "Save",
+    "saved": "Saved",
+    "markComplete": "Mark as done",
+    "getStarted": "Get started",
+    "addPerson": "+ Add person",
+    "remove": "Remove",
+    "open": "Open →",
+    "yes": "Yes",
+    "cancel": "Cancel"
+  },
+  "agreement": {
+    "heading": "Agreement",
+    "hint": "Confirm the agreement to unlock the flow."
+  },
+  "form": {
+    "required": "Required field",
+    "invalidEmail": "Invalid email address",
+    "invalidPattern": "Invalid format",
+    "seeded": "Prefilled from Salesforce — review and confirm",
+    "optional": "optional"
+  },
+  "people": {
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "role": "Role",
+    "rolePlaceholder": "Choose or type",
+    "counter": "{count} valid · at least {min} required",
+    "emailHint": "The email address is used as the invitation address for the webinars."
+  },
+  "webinars": {
+    "matrixHint": "One check per superuser per webinar — all are required.",
+    "needPeople": "Add at least {min} superusers in the previous step."
+  },
+  "consents": {
+    "dataProcessingHeading": "Data processing and AI",
+    "documentHeading": "Documents"
+  },
+  "migrationPlan": {
+    "acknowledgementsHeading": "Preparations in the source system",
+    "matrixHeading": "Migration timeline",
+    "matrixHint": "Choose a method per data category. Skipping is a first-class choice — it is then done manually after go-live.",
+    "methodHeading": "Method",
+    "categoryHeading": "Data category",
+    "assigneeHeading": "Assignee",
+    "noAssignee": "Unassigned",
+    "requiredBadge": "Required",
+    "optionalBadge": "Optional"
+  },
+  "methods": {
+    "gi-mall": "GI template",
+    "excel": "Excel",
+    "integration": "Integration",
+    "source-export": "Source export",
+    "skip": "Skip",
+    "manual": "Manual"
+  },
+  "category": {
+    "chooseMethod": "Choose import method",
+    "semanticModel": "Semantic model — the fields your data is matched against",
+    "semanticHint": "Highlighted fields are mandatory — this is what your data needs to cover.",
+    "skipCard": "Done manually after go-live",
+    "uploadCard": "Upload any Excel file with your data",
+    "giMallCard": "Sheet \"{sheet}\" from your GI template",
+    "importPlaceholder": "The import function (Ingestro) is connected in an upcoming version. Your method choice is saved already.",
+    "simulateImport": "Simulate import (demo)",
+    "markSkipped": "Skip this category",
+    "undoSkip": "Undo",
+    "uploadedBy": "Uploaded by {name}, {date}",
+    "version": "Version {version}",
+    "lockedHint": "The method choice is locked once the category is done — press Undo to change method.",
+    "methodChosen": "Method chosen — awaiting file",
+    "undoConfirm": "This resets the category status. Are you sure?"
+  },
+  "finish": {
+    "lockedTitle": "Almost there",
+    "lockedIntro": "Complete the following steps to be able to submit and book your go-live:",
+    "unlockedTitle": "Everything is done!",
+    "unlockedIntro": "Your material is complete. Submit it and we will come back with a go-live time.",
+    "submit": "Submit & book go-live",
+    "submitted": "Submitted {date} — we will come back with a booking proposal.",
+    "confirmBody": "Your material is locked for changes and sent to Aceve. Review the summary below before submitting.",
+    "confirmYes": "Yes, submit",
+    "nextHeading": "What happens next?",
+    "next1": "Aceve reviews your material.",
+    "next2": "We contact you to book a go-live meeting.",
+    "next3": "You can still log in and see your summary here."
+  },
+  "summary": {
+    "title": "Summary of your material",
+    "edit": "Change",
+    "empty": "Nothing entered yet.",
+    "yes": "Yes",
+    "no": "No",
+    "notProvided": "Not provided",
+    "confirmed": "Confirmed",
+    "notConfirmed": "Not confirmed",
+    "noMethod": "No method chosen",
+    "webinarsBooked": "{done} of {total} booked"
+  },
+  "whatsNew": {
+    "title": "What's new",
+    "intro": "See what changed in each version of the portal."
+  },
+  "home": {
+    "openCase": "Open onboarding",
+    "demoNote": "Demo mode: login and customer identity are connected later — below are the sample customers in the database."
+  }
+}

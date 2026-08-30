@@ -1,0 +1,169 @@
+// Aceve Onboard — data model
+// Direction: PROJECT-BRIEF.md §5 "Data model direction" + BUILD-SPEC.md §6.
+// SQLite for local development; designed to migrate to PostgreSQL by switching
+// provider + DATABASE_URL (no SQLite-only features used; JSON stored as TEXT
+// via String fields so the schema is portable).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// The customer organisation. Exists before any product account, licence or
+// database exists (the founding premise of the portal).
+model Organisation {
+  id          String  @id @default(cuid())
+  legalName   String
+  prefix      String?
+  orgNumber   String?
+  invoiceAddress String?
+  country     String  @default("SE")
+  language    String  @default("sv")
+  // Salesforce seeding (design principle 4: never ask for data we already hold)
+  sfAccountId String?
+
+  cases OnboardingCase[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// One onboarding journey for one organisation. The portal owns this state
+// machine — PSA/Certinia status is a read-only overlay, never the source
+// (BUILD-SPEC hard rule 4).
+model OnboardingCase {
+  id             String       @id @default(cuid())
+  organisationId String
+  organisation   Organisation @relation(fields: [organisationId], references: [id])
+
+  // Which registry flow renders this case (product + country resolve the
+  // flow — "Land och språk styr vilken produkt ... ni lotsas till").
+  // This is NOT product binding; it only selects configuration.
+  registryFlow String
+
+  // NULL until go-live. Product binding is an event at the end of the flow,
+  // never an assumption at the start (design principle: account not bound
+  // to a product while the work happens).
+  boundProduct String?
+
+  status               String    @default("active") // active | submitted | bound | closed
+  agreementConfirmedAt DateTime?
+  submittedAt          DateTime?
+
+  users    CaseUser[]
+  steps    StepInstance[]
+  dataSets DataSet[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Superusers and invited colleagues at the customer. Several people work in
+// parallel on one case — the requirement that killed the single-file
+// predecessor. Invite flow is portal-owned regardless of IdP (identity
+// mechanism itself is open — STATUS.md Q2).
+model CaseUser {
+  id     String         @id @default(cuid())
+  caseId String
+  case   OnboardingCase @relation(fields: [caseId], references: [id])
+
+  firstName String @default("")
+  lastName  String @default("")
+  email     String @default("")
+  role      String @default("")
+
+  inviteState String @default("draft") // draft | invited | active
+
+  assignedDataSets DataSet[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([caseId])
+}
+
+// Generic step instance — definition-driven, never hardcoded (hard rule 1).
+// The step definition (fields, copy, validation) lives in the module
+// registry; this row only holds the customer's answers and completion state.
+model StepInstance {
+  id     String         @id @default(cuid())
+  caseId String
+  case   OnboardingCase @relation(fields: [caseId], references: [id])
+
+  stepId String // registry step id
+
+  // Step answers as JSON text (portable to Postgres jsonb later).
+  dataJson String @default("{}")
+
+  completedAt DateTime?
+  updatedBy   String? // CaseUser id — multi-user attribution ("Uploaded by Anna")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([caseId, stepId])
+}
+
+// One DataSet per data category (module). The portal's own staging store is
+// the source of truth between upload and go-live — Ingestro is a transform
+// function, not a store (PROJECT-BRIEF §5.1).
+model DataSet {
+  id     String         @id @default(cuid())
+  caseId String
+  case   OnboardingCase @relation(fields: [caseId], references: [id])
+
+  moduleId String // module-registry id — NEVER a product field/table name (hard rule 3)
+  version  Int    @default(1) // a re-upload is a new version, not an edit
+
+  assigneeId String?
+  assignee   CaseUser? @relation(fields: [assigneeId], references: [id])
+
+  // Chosen import method from the Migrationsplan method matrix
+  // (gi-mall | excel | integration | source-export | skip | manual)
+  method String?
+
+  status String @default("not_started")
+  // not_started | in_progress | submitted | customer_approved | aceve_approved | imported | skipped
+
+  // Staging payload (slice 2 — Ingestro embed). Rows keyed on module-registry
+  // field ids, never product field names. Kept as JSON text until the
+  // Ingestro slice lands; original files go to object storage, not the DB.
+  stagedRowsJson   String?
+  sourceFileName   String?
+  detectedSchema   String?
+  validationJson   String?
+
+  // Two stacked approval gates — both live on the staging object, not in
+  // Ingestro (no review workflow exists in the SDK).
+  customerApprovedAt DateTime?
+  aceveApprovedAt    DateTime?
+  importReceiptJson  String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([caseId, moduleId, version])
+  @@index([caseId])
+}
+
+// The accumulating mapping asset (design principle 6): approved
+// source-column → field-id mappings per legacy system. Free of personal
+// data, survives deletion of staged customer data, feeds Ingestro
+// alternativeMatches at runtime (pending Q23).
+model MappingEntry {
+  id           String @id @default(cuid())
+  legacySystem String // e.g. "bso"
+  moduleId     String
+  fieldId      String // module-registry field id
+  sourceColumn String
+  approvedCount Int   @default(1)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([legacySystem, moduleId, fieldId, sourceColumn])
+  @@index([legacySystem, moduleId])
+}

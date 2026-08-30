@@ -1,0 +1,132 @@
+{
+  "app": {
+    "name": "Aceve Onboard",
+    "tagline": "Er onboarding, i er takt",
+    "languageSwitcher": "Språk",
+    "version": "Version {version}",
+    "whatsNew": "Nyheter"
+  },
+  "sidebar": {
+    "progress": "{percent} % klart",
+    "importStep": "Import & kolumnmatchning",
+    "steps": "{done} av {total} steg klara"
+  },
+  "status": {
+    "complete": "Klar",
+    "active": "Pågår",
+    "available": "Tillgänglig",
+    "locked": "Låst",
+    "notStarted": "Ej påbörjad",
+    "skipped": "Görs manuellt efter driftsättning"
+  },
+  "actions": {
+    "next": "Nästa steg →",
+    "save": "Spara",
+    "saved": "Sparat",
+    "markComplete": "Markera som klart",
+    "getStarted": "Kom igång",
+    "addPerson": "+ Lägg till person",
+    "remove": "Ta bort",
+    "open": "Öppna →",
+    "yes": "Ja",
+    "cancel": "Avbryt"
+  },
+  "agreement": {
+    "heading": "Avtal",
+    "hint": "Bekräfta avtalet för att låsa upp flödet."
+  },
+  "form": {
+    "required": "Obligatoriskt fält",
+    "invalidEmail": "Ogiltig e-postadress",
+    "invalidPattern": "Ogiltigt format",
+    "seeded": "Förifyllt från Salesforce — kontrollera och bekräfta",
+    "optional": "valfritt"
+  },
+  "people": {
+    "firstName": "Förnamn",
+    "lastName": "Efternamn",
+    "email": "E-post",
+    "role": "Roll",
+    "rolePlaceholder": "Välj eller skriv",
+    "counter": "{count, plural, one {# giltig} other {# giltiga}} · minst {min} krävs",
+    "emailHint": "E-postadressen används som inbjudningsadress till webbinarierna."
+  },
+  "webinars": {
+    "matrixHint": "En bock per superanvändare och webbinarium — alla krävs.",
+    "needPeople": "Lägg till minst {min} superanvändare i föregående steg."
+  },
+  "consents": {
+    "dataProcessingHeading": "Databehandling och AI",
+    "documentHeading": "Dokument"
+  },
+  "migrationPlan": {
+    "acknowledgementsHeading": "Förberedelser i källsystemet",
+    "matrixHeading": "Migrationstidslinje",
+    "matrixHint": "Välj metod per datakategori. Att hoppa över är ett fullvärdigt val — det görs då manuellt efter driftsättning.",
+    "methodHeading": "Metod",
+    "categoryHeading": "Datakategori",
+    "assigneeHeading": "Ansvarig",
+    "noAssignee": "Ej tilldelad",
+    "requiredBadge": "Obligatorisk",
+    "optionalBadge": "Valfri"
+  },
+  "methods": {
+    "gi-mall": "GI-mall",
+    "excel": "Excel",
+    "integration": "Integration",
+    "source-export": "Källexport",
+    "skip": "Hoppa över",
+    "manual": "Manuellt"
+  },
+  "category": {
+    "chooseMethod": "Välj importmetod",
+    "semanticModel": "Semantisk modell — fält som er data matchas mot",
+    "semanticHint": "Markerade fält är obligatoriska — det här är vad er data behöver täcka.",
+    "skipCard": "Görs manuellt efter driftsättning",
+    "uploadCard": "Ladda upp valfri Excel-fil med er data",
+    "giMallCard": "Blad \"{sheet}\" från er GI-mall",
+    "importPlaceholder": "Importfunktionen (Ingestro) kopplas in i en kommande version. Metodvalet sparas redan nu.",
+    "simulateImport": "Simulera import (demo)",
+    "markSkipped": "Hoppa över denna kategori",
+    "undoSkip": "Ångra",
+    "uploadedBy": "Uppladdad av {name}, {date}",
+    "version": "Version {version}",
+    "lockedHint": "Metodvalet är låst när kategorin är klar — tryck Ångra för att byta metod.",
+    "methodChosen": "Metod vald — väntar på fil",
+    "undoConfirm": "Detta nollställer kategorins status. Är ni säkra?"
+  },
+  "finish": {
+    "lockedTitle": "Nästan där",
+    "lockedIntro": "Slutför följande steg för att kunna skicka in och boka uppstart:",
+    "unlockedTitle": "Allt är klart!",
+    "unlockedIntro": "Ert underlag är komplett. Skicka in så återkommer vi med tid för uppstart.",
+    "submit": "Skicka & boka uppstart",
+    "submitted": "Inskickat {date} — vi återkommer med bokningsförslag.",
+    "confirmBody": "Underlaget låses för ändringar och skickas till Aceve. Kontrollera sammanfattningen nedan innan ni skickar.",
+    "confirmYes": "Ja, skicka in",
+    "nextHeading": "Vad händer nu?",
+    "next1": "Aceve granskar ert underlag.",
+    "next2": "Vi kontaktar er för att boka ett uppstartsmöte.",
+    "next3": "Ni kan fortfarande logga in och se er sammanfattning här."
+  },
+  "summary": {
+    "title": "Sammanfattning av ert underlag",
+    "edit": "Ändra",
+    "empty": "Inget ifyllt ännu.",
+    "yes": "Ja",
+    "no": "Nej",
+    "notProvided": "Ej ifyllt",
+    "confirmed": "Bekräftat",
+    "notConfirmed": "Ej bekräftat",
+    "noMethod": "Metod ej vald",
+    "webinarsBooked": "{done} av {total} bokade"
+  },
+  "whatsNew": {
+    "title": "Nyheter och versioner",
+    "intro": "Här ser du vad som är nytt i varje version av portalen."
+  },
+  "home": {
+    "openCase": "Öppna onboarding",
+    "demoNote": "Demoläge: inloggning och kundidentitet kopplas in senare — nedan visas de exempelkunder som finns i databasen."
+  }
+}

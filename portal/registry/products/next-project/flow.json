@@ -1,0 +1,230 @@
+{
+  "$schema": "aceve-onboard-flow-registry/v0-draft",
+  "id": "next-project",
+  "country": "SE",
+  "flowVersion": "0.1.0",
+  "status": "DRAFT — flow structure from CUSTOMER-FLOW.md (validated prototypes); category list pending PS confirmation (STATUS.md Q33)",
+  "productName": "Next Project",
+  "agreementGate": {
+    "label": {
+      "sv": "Vi har ett signerat avtal med Aceve för {productName}",
+      "en": "We have a signed agreement with Aceve for {productName}"
+    }
+  },
+  "phases": [
+    { "id": "preparation", "name": { "sv": "Förberedelse", "en": "Preparation" } },
+    { "id": "migration", "name": { "sv": "Datamigration", "en": "Data migration" } },
+    { "id": "finish", "name": { "sv": "Slutför", "en": "Finish" } }
+  ],
+  "categories": {
+    "note": "Order honours the two documented constraints: kontoplan first, timpriser before anvandarregister ('Yrkesroll (från timpriser)'). List = Stitch's 6 import categories; authoritative list pending Q33 — change here, never in code.",
+    "sequentialUnlock": true,
+    "moduleIds": ["kontoplan", "timpriser", "anvandarregister", "prislista", "kunder", "projekt"]
+  },
+  "steps": [
+    {
+      "id": "valkommen",
+      "phase": "preparation",
+      "kind": "info",
+      "gated": false,
+      "name": { "sv": "Välkommen", "en": "Welcome" },
+      "shortDescription": { "sv": "Introduktion", "en": "Introduction" },
+      "subtitle": {
+        "sv": "Så fungerar er onboarding — två faser, i er egen takt.",
+        "en": "How your onboarding works — two phases, at your own pace."
+      },
+      "cards": [
+        {
+          "title": { "sv": "Fas 1 – Förberedelse", "en": "Phase 1 – Preparation" },
+          "body": {
+            "sv": "Företagsuppgifter, er verksamhet, superanvändare, webbinarier och ansvarsfördelning. Flera personer kan arbeta parallellt och ser varandras framsteg.",
+            "en": "Company details, your business, superusers, webinars and the responsibility split. Several people can work in parallel and see each other's progress."
+          }
+        },
+        {
+          "title": { "sv": "Fas 2 – Datamigration", "en": "Phase 2 – Data migration" },
+          "body": {
+            "sv": "Er data förbereds kategori för kategori. Ni väljer metod per kategori, ser i förväg exakt vilka fält som behövs — och inget skickas vidare utan er bekräftelse.",
+            "en": "Your data is prepared category by category. You choose a method per category, see up front exactly which fields are needed — and nothing is passed on without your confirmation."
+          }
+        }
+      ]
+    },
+    {
+      "id": "foretagsuppgifter",
+      "phase": "preparation",
+      "kind": "form",
+      "gated": true,
+      "name": { "sv": "Företagsuppgifter", "en": "Company details" },
+      "shortDescription": { "sv": "Grund, land & språk", "en": "Basics, country & language" },
+      "subtitle": {
+        "sv": "Land och språk styr vilken produkt och vilka webbinarier ni lotsas till.",
+        "en": "Country and language decide which product and which webinars you are guided to."
+      },
+      "sections": [
+        {
+          "title": { "sv": "Grunduppgifter", "en": "Basic details" },
+          "fields": [
+            { "id": "legalName", "type": "text", "required": true, "seededFrom": "salesforce", "label": { "sv": "Juridiskt företagsnamn", "en": "Legal company name" } },
+            { "id": "prefix", "type": "text", "required": true, "label": { "sv": "Företagsprefix / akronym", "en": "Company prefix / acronym" } },
+            { "id": "orgNumber", "type": "text", "required": true, "seededFrom": "salesforce", "label": { "sv": "Organisationsnummer", "en": "Organisation number" }, "pattern": "^[0-9]{6,8}-?[0-9]{4}$", "patternHint": { "sv": "Format: NNNNNN-NNNN", "en": "Format: NNNNNN-NNNN" } },
+            { "id": "invoiceAddress", "type": "text", "required": false, "label": { "sv": "Fakturaadress", "en": "Invoice address" } }
+          ]
+        },
+        {
+          "title": { "sv": "Land & språk", "en": "Country & language" },
+          "fields": [
+            { "id": "country", "type": "select", "required": true, "seededFrom": "salesforce", "label": { "sv": "Land", "en": "Country" }, "options": [
+              { "value": "SE", "label": { "sv": "Sverige", "en": "Sweden" } },
+              { "value": "NO", "label": { "sv": "Norge", "en": "Norway" } },
+              { "value": "DK", "label": { "sv": "Danmark", "en": "Denmark" } },
+              { "value": "FI", "label": { "sv": "Finland", "en": "Finland" } },
+              { "value": "NL", "label": { "sv": "Nederländerna", "en": "Netherlands" } }
+            ] },
+            { "id": "language", "type": "select", "required": true, "label": { "sv": "Språk", "en": "Language" }, "options": [
+              { "value": "sv", "label": { "sv": "Svenska", "en": "Swedish" } },
+              { "value": "en", "label": { "sv": "Engelska", "en": "English" } },
+              { "value": "no", "label": { "sv": "Norska", "en": "Norwegian" } },
+              { "value": "da", "label": { "sv": "Danska", "en": "Danish" } },
+              { "value": "fi", "label": { "sv": "Finska", "en": "Finnish" } },
+              { "value": "nl", "label": { "sv": "Nederländska", "en": "Dutch" } },
+              { "value": "de", "label": { "sv": "Tyska", "en": "German" } },
+              { "value": "fr", "label": { "sv": "Franska", "en": "French" } }
+            ] }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "verksamhet",
+      "phase": "preparation",
+      "kind": "form",
+      "gated": true,
+      "name": { "sv": "Er verksamhet & bakgrund", "en": "Your business & background" },
+      "shortDescription": { "sv": "Profil, geografi, källsystem", "en": "Profile, geography, source system" },
+      "subtitle": {
+        "sv": "Hjälper oss anpassa uppsättningen efter hur ni arbetar.",
+        "en": "Helps us tailor the setup to how you work."
+      },
+      "sections": [
+        {
+          "title": { "sv": "Verksamhet", "en": "Business" },
+          "fields": [
+            { "id": "workTypes", "type": "chips", "required": true, "label": { "sv": "Typ av arbeten", "en": "Types of work" }, "options": [
+              { "value": "entreprenad", "label": { "sv": "Entreprenad", "en": "Contracting" } },
+              { "value": "mark", "label": { "sv": "Mark & anläggning", "en": "Groundwork & civil engineering" } },
+              { "value": "service", "label": { "sv": "Service", "en": "Service" } },
+              { "value": "installation", "label": { "sv": "Installation", "en": "Installation" } },
+              { "value": "bygg", "label": { "sv": "Bygg", "en": "Construction" } },
+              { "value": "renovering", "label": { "sv": "Renovering", "en": "Renovation" } },
+              { "value": "underhall", "label": { "sv": "Underhåll", "en": "Maintenance" } }
+            ] },
+            { "id": "officeStaff", "type": "number", "required": false, "label": { "sv": "Ca antal tjänstepersoner", "en": "Approx. office staff" } },
+            { "id": "fieldWorkers", "type": "number", "required": false, "label": { "sv": "Ca antal yrkesarbetare", "en": "Approx. field workers" } },
+            { "id": "regions", "type": "text", "required": false, "label": { "sv": "Region(er)", "en": "Region(s)" } },
+            { "id": "offices", "type": "text", "required": false, "label": { "sv": "Kontor", "en": "Offices" } },
+            { "id": "reach", "type": "select", "required": true, "label": { "sv": "Arbetar ni lokalt, nationellt eller internationellt?", "en": "Do you work locally, nationally or internationally?" }, "options": [
+              { "value": "local", "label": { "sv": "Lokalt", "en": "Locally" } },
+              { "value": "national", "label": { "sv": "Nationellt", "en": "Nationally" } },
+              { "value": "international", "label": { "sv": "Internationellt", "en": "Internationally" } }
+            ] }
+          ]
+        },
+        {
+          "title": { "sv": "Bakgrund", "en": "Background" },
+          "fields": [
+            { "id": "fromBso", "type": "toggle", "required": false, "label": { "sv": "Vi kommer från Byggsamordnaren (BSO)", "en": "We are coming from Byggsamordnaren (BSO)" },
+              "conditionalFields": {
+                "note": "The source system decides which extra fields and which export route apply. The BSO export is not self-service — hence an IT contact, not the project contact.",
+                "title": { "sv": "IT-kontaktperson (för dataexport från BSO)", "en": "IT contact (for data export from BSO)" },
+                "fields": [
+                  { "id": "itContactName", "type": "text", "required": true, "label": { "sv": "Namn", "en": "Name" } },
+                  { "id": "itContactEmail", "type": "email", "required": true, "label": { "sv": "E-post", "en": "Email" } },
+                  { "id": "itContactPhone", "type": "text", "required": false, "label": { "sv": "Telefon", "en": "Phone" } }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "superanvandare",
+      "phase": "preparation",
+      "kind": "people",
+      "gated": true,
+      "name": { "sv": "Superanvändare", "en": "Superusers" },
+      "shortDescription": { "sv": "Minst 2 personer", "en": "At least 2 people" },
+      "subtitle": {
+        "sv": "E-postadressen används för webbinarie-inbjudningar. Ni kan delegera ansvar för datakategorier till dessa personer.",
+        "en": "The email address is used for webinar invitations. You can delegate responsibility for data categories to these people."
+      },
+      "minValid": 2
+    },
+    {
+      "id": "webbinarier",
+      "phase": "preparation",
+      "kind": "webinars",
+      "gated": true,
+      "dependsOn": ["superanvandare"],
+      "name": { "sv": "Webbinarier", "en": "Webinars" },
+      "shortDescription": { "sv": "3 utbildningar", "en": "3 trainings" },
+      "subtitle": {
+        "sv": "Alla superanvändare bokar in sig på tre korta utbildningar.",
+        "en": "Every superuser signs up for three short trainings."
+      },
+      "webinars": [
+        { "id": "ny-i-next", "name": { "sv": "Ny i Next", "en": "New to Next" } },
+        { "id": "ekonomiflode", "name": { "sv": "Grundläggande ekonomiflöde", "en": "Basic finance flow" } },
+        { "id": "budget-inkop", "name": { "sv": "Budget, inköp och prognos", "en": "Budget, purchasing and forecasting" } }
+      ]
+    },
+    {
+      "id": "ansvarsfordelning",
+      "phase": "preparation",
+      "kind": "consents",
+      "gated": true,
+      "name": { "sv": "Ansvarsfördelning", "en": "Responsibility split" },
+      "shortDescription": { "sv": "Läs och bekräfta", "en": "Read and confirm" },
+      "subtitle": {
+        "sv": "Aceve behandlar era uppgifter för att leverera migrering och uppsättning, i enlighet med ingånget DPA.",
+        "en": "Aceve processes your data to deliver the migration and setup, in accordance with the signed DPA."
+      },
+      "document": { "label": { "sv": "Ansvarsfördelning (PDF)", "en": "Responsibility split (PDF)" }, "href": "#" },
+      "consents": [
+        { "id": "readUnderstood", "group": null, "label": { "sv": "Vi har läst och förstår ansvarsfördelningen", "en": "We have read and understand the responsibility split" } },
+        { "id": "aiTools", "group": "dataProcessing", "label": { "sv": "Vi godkänner att AI-baserade verktyg (inkl. Ingestro) används som en del av behandlingen", "en": "We approve that AI-based tools (incl. Ingestro) are used as part of the processing" } },
+        { "id": "informStaff", "group": "dataProcessing", "label": { "sv": "Vi ansvarar för att informera våra medarbetare om denna behandling", "en": "We are responsible for informing our staff about this processing" } }
+      ],
+      "note": "Wording is the starting draft for Legal (STATUS.md Q8) — pending final legal copy."
+    },
+    {
+      "id": "migrationsplan",
+      "phase": "migration",
+      "kind": "migration-plan",
+      "gated": true,
+      "name": { "sv": "Migrationsplan", "en": "Migration plan" },
+      "shortDescription": { "sv": "GI-mall & metodval", "en": "GI template & method choice" },
+      "subtitle": {
+        "sv": "Välj metod per datakategori — i er takt. Att hoppa över en kategori är ett fullvärdigt val.",
+        "en": "Choose a method per data category — at your pace. Skipping a category is a first-class choice."
+      },
+      "acknowledgements": [
+        { "id": "onlyOngoing", "label": { "sv": "Vi förstår att endast projekt med status Pågående migreras", "en": "We understand that only projects with status Ongoing are migrated" } },
+        { "id": "restExcluded", "label": { "sv": "Vi förstår att övriga projekt inte ingår i migreringen", "en": "We understand that other projects are not included in the migration" } }
+      ]
+    },
+    {
+      "id": "skicka-boka",
+      "phase": "finish",
+      "kind": "finish",
+      "gated": false,
+      "name": { "sv": "Skicka & boka uppstart", "en": "Submit & book go-live" },
+      "shortDescription": { "sv": "Lås upp när allt är klart", "en": "Unlocks when everything is done" },
+      "subtitle": {
+        "sv": "När alla steg är klara skickas ert underlag till Aceve och ni bokar uppstart.",
+        "en": "When every step is done, your material is sent to Aceve and you book the go-live."
+      }
+    }
+  ]
+}
