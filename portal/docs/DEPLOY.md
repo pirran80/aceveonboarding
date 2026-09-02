@@ -55,9 +55,7 @@ Rollback by hand: `./deploy.sh --rollback`. Status: `./deploy.sh --status`.
 `docker-entrypoint.sh`:
 
 1. `prisma migrate deploy` — applies pending migrations from `prisma/migrations/`.
-2. `prisma db seed` — **only if the database file did not exist** before step 1.
-   The seed is idempotent, but a demo case someone removed on purpose must
-   not come back at the next restart.
+2. `prisma db seed` — runs the idempotent seed to ensure new/missing demo cases are created.
 3. `next start`.
 
 The image copies the whole build tree because `next start` needs `.next` +
