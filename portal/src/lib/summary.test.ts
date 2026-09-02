@@ -48,6 +48,7 @@ function makeView(overrides: {
     case: { users, steps, dataSets } as unknown as CaseView["case"],
     registry,
     journey,
+    integrationSourcedModuleIds: new Set<string>(),
   };
 }
 

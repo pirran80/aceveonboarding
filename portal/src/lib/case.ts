@@ -1,6 +1,6 @@
 import { prisma } from "./db";
 import { loadRegistry, type ProductRegistry } from "./registry/load";
-import { buildJourney, type Journey } from "./registry/flow";
+import { buildJourney, integrationSourcedModules, type Journey } from "./registry/flow";
 import type { Prisma } from "@prisma/client";
 
 /** DataSet statuses that count a category as done for flow gating. */
@@ -25,6 +25,8 @@ export interface CaseView {
   case: CaseWithRelations;
   registry: ProductRegistry;
   journey: Journey;
+  /** Modules sourced via integration per kartläggning answers (R7/R10). */
+  integrationSourcedModuleIds: ReadonlySet<string>;
 }
 
 export async function getCaseView(caseId: string): Promise<CaseView | null> {
@@ -55,14 +57,22 @@ export async function getCaseView(caseId: string): Promise<CaseView | null> {
       .map((ds) => ds.moduleId)
   );
 
+  // Kartläggning answers steer the plan (R7/R10) — evaluated per request so
+  // a changed answer immediately restores or removes categories.
+  const integrationSourcedModuleIds = integrationSourcedModules(registry.flow, (stepId) => {
+    const instance = c.steps.find((s) => s.stepId === stepId);
+    return instance ? parseStepData(instance.dataJson) : {};
+  });
+
   const journey = buildJourney(registry, {
     agreementConfirmed: c.agreementConfirmedAt !== null,
     submitted: c.status !== "active",
     completedStepIds,
     completedModuleIds,
+    integrationSourcedModuleIds,
   });
 
-  return { case: c, registry, journey };
+  return { case: c, registry, journey, integrationSourcedModuleIds };
 }
 
 export function parseStepData(dataJson: string): Record<string, unknown> {

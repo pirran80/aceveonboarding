@@ -11,6 +11,8 @@ interface PlanRow {
   methods: string[];
   currentMethod: string | null;
   assigneeId: string | null;
+  /** Sourced via integration per a kartläggning answer (R10): row is greyed. */
+  integrationSourced: boolean;
 }
 
 /**
@@ -86,7 +88,22 @@ export function MigrationPlanStep({
               </tr>
             </thead>
             <tbody>
-              {rows.map((row) => (
+              {rows.map((row) =>
+                row.integrationSourced ? (
+                  // The kartläggning answer resolved this category to an
+                  // integration source — it leaves the manual flow (R10).
+                  <tr key={row.moduleId} style={{ opacity: 0.65 }}>
+                    <td>
+                      <div style={{ fontWeight: 700, color: "var(--heading)" }}>{row.name}</div>
+                      <span className="type-badge">{t("methods.integration")}</span>
+                    </td>
+                    <td colSpan={2}>
+                      <span className="pill" data-tone="ok">
+                        {t("migrationPlan.viaIntegration")}
+                      </span>
+                    </td>
+                  </tr>
+                ) : (
                 <tr key={row.moduleId}>
                   <td>
                     <div style={{ fontWeight: 700, color: "var(--heading)" }}>{row.name}</div>
@@ -147,7 +164,8 @@ export function MigrationPlanStep({
                     </select>
                   </td>
                 </tr>
-              ))}
+                )
+              )}
             </tbody>
           </table>
         </div>

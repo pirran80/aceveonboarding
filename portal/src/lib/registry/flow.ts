@@ -1,4 +1,4 @@
-import type { LocalizedText } from "./schema";
+import type { FlowDefinition, LocalizedText } from "./schema";
 import type { ProductRegistry } from "./load";
 
 /**
@@ -20,8 +20,13 @@ export interface JourneyItem {
   kind: "step" | "category";
   /** For categories: the module-registry id. */
   moduleId?: string;
-  phase: "preparation" | "migration" | "finish";
+  /** Phase id from the registry; "finish" is the one conventional id. */
+  phase: string;
   gated: boolean;
+  /** false: gates the finish but never locks the steps after it (R7). */
+  blocking: boolean;
+  /** Category sourced from an integration per a kartläggning answer (R10). */
+  integrationSourced?: boolean;
   name: LocalizedText;
   shortDescription: LocalizedText;
   complete: boolean;
@@ -35,6 +40,30 @@ export interface CaseProgressInput {
   completedStepIds: ReadonlySet<string>;
   /** Modules whose DataSet has reached submitted/approved/imported/skipped. */
   completedModuleIds: ReadonlySet<string>;
+  /**
+   * Modules resolved to an integration source by kartläggning answers
+   * (see integrationSourcedModules) — they leave the manual flow (R7/R10).
+   */
+  integrationSourcedModuleIds?: ReadonlySet<string>;
+}
+
+/**
+ * Evaluate the flow's categoryEffects against saved step answers: which
+ * modules are sourced from an integration instead of a customer upload.
+ * Pure and re-evaluated per request, so changing a kartläggning answer
+ * immediately restores or removes the category in the plan.
+ */
+export function integrationSourcedModules(
+  flow: FlowDefinition,
+  stepData: (stepId: string) => Record<string, unknown>
+): Set<string> {
+  const out = new Set<string>();
+  for (const effect of flow.categoryEffects) {
+    if (stepData(effect.when.stepId)[effect.when.fieldId] === effect.when.equals) {
+      out.add(effect.then.moduleId);
+    }
+  }
+  return out;
 }
 
 export interface Journey {
@@ -58,6 +87,7 @@ export function categoryItemId(moduleId: string): string {
 
 export function buildJourney(registry: ProductRegistry, input: CaseProgressInput): Journey {
   const { flow, flowModules } = registry;
+  const integrationSourced = input.integrationSourcedModuleIds ?? new Set<string>();
 
   // Assemble the ordered item list: registry steps, with data categories
   // spliced in after the migration-plan step (the pivot into Phase 2).
@@ -68,6 +98,7 @@ export function buildJourney(registry: ProductRegistry, input: CaseProgressInput
       kind: "step",
       phase: step.phase,
       gated: step.gated,
+      blocking: step.blocking,
       name: step.name,
       shortDescription: step.shortDescription,
       complete:
@@ -76,17 +107,21 @@ export function buildJourney(registry: ProductRegistry, input: CaseProgressInput
     });
     if (step.kind === "migration-plan") {
       for (const mod of flowModules) {
+        const viaIntegration = integrationSourced.has(mod.id);
         items.push({
           id: categoryItemId(mod.id),
           kind: "category",
           moduleId: mod.id,
-          phase: "migration",
+          phase: step.phase,
           // Every listed category gates the finish — skipping ("done manually
-          // after go-live") is a first-class choice that marks it complete.
+          // after go-live") is a first-class choice that marks it complete,
+          // and an integration-sourced category leaves the manual flow (R10).
           gated: true,
+          blocking: true,
+          integrationSourced: viaIntegration || undefined,
           name: mod.name,
           shortDescription: mod.description,
-          complete: input.completedModuleIds.has(mod.id),
+          complete: viaIntegration || input.completedModuleIds.has(mod.id),
           state: "locked",
         });
       }
@@ -121,7 +156,9 @@ export function buildJourney(registry: ProductRegistry, input: CaseProgressInput
     } else {
       item.state = "available";
     }
-    if (item.gated) blocked = true;
+    // A non-blocking step (Kartläggning, R7) still gates the finish but never
+    // locks the work after it — the customer proceeds in parallel.
+    if (item.gated && item.blocking) blocked = true;
   }
 
   const gatedItems = items.filter((i) => i.gated);

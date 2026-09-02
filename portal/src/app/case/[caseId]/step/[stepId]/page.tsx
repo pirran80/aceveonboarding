@@ -187,6 +187,7 @@ export default async function StepPage({
               methods: [...m.methods.filter((x) => x !== "skip"), "skip"],
               currentMethod: ds?.method ?? null,
               assigneeId: ds?.assigneeId ?? null,
+              integrationSourced: view.integrationSourcedModuleIds.has(m.id),
             };
           })}
           users={view.case.users.map((u) => ({

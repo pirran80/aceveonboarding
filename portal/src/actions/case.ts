@@ -207,7 +207,11 @@ export async function saveMigrationPlan(
   }
 
   const allAcked = step.acknowledgements.every((a) => acks[a.id] === true);
-  const allMethods = registry.flowModules.every((m) => !!methods[m.id]);
+  // Integration-sourced categories (kartläggning answers, R10) need no
+  // method choice — they have left the manual flow.
+  const allMethods = registry.flowModules
+    .filter((m) => !view.integrationSourcedModuleIds.has(m.id))
+    .every((m) => !!methods[m.id]);
   await upsertStep(caseId, stepId, { acks }, allAcked && allMethods);
   revalidateCase(caseId);
   return { ok: true };

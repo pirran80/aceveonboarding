@@ -69,7 +69,8 @@
     "assigneeHeading": "Assignee",
     "noAssignee": "Unassigned",
     "requiredBadge": "Required",
-    "optionalBadge": "Optional"
+    "optionalBadge": "Optional",
+    "viaIntegration": "Fetched via integration"
   },
   "methods": {
     "gi-mall": "GI template",
@@ -94,7 +95,8 @@
     "version": "Version {version}",
     "lockedHint": "The method choice is locked once the category is done — press Undo to change method.",
     "methodChosen": "Method chosen — awaiting file",
-    "undoConfirm": "This resets the category status. Are you sure?"
+    "undoConfirm": "This resets the category status. Are you sure?",
+    "integrationSourced": "Per your mapping answers this data category is fetched via the integration — no upload needed. If you change the mapping answer, the category returns to the flow."
   },
   "finish": {
     "lockedTitle": "Almost there",

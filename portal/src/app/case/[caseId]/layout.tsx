@@ -66,7 +66,7 @@ export default async function CaseLayout({
         {groups.map((group) => (
           <div className="side-group" key={group.phase + group.items[0]?.id}>
             <div className="side-group-h">
-              {lt(phaseNames.get(group.phase as "preparation")!, locale)}
+              {lt(phaseNames.get(group.phase) ?? { sv: group.phase }, locale)}
             </div>
             {group.items.map((item) => {
               counter += 1;

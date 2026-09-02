@@ -41,6 +41,18 @@ The flow has two phases and a finish:
   booking link exists it is shown next to the training name.
 - **Responsibility split** — read the document and confirm the three points.
 
+## The mapping
+
+After the preparation comes a mapping step (e.g. which finance system you use
+and how the chart of accounts and customer register should come in). Two
+things are worth knowing:
+
+- **The mapping does not block the data steps** — you can work on both in
+  parallel. It does need to be completed before you submit.
+- **Your answers steer the data steps**: if you choose that a category is
+  fetched via integration, it leaves your to-do list and is marked "Fetched
+  via integration". If you change your mind, the category comes back.
+
 ## The data migration
 
 - **Migration plan** — choose a method per data category: GI template, Excel,

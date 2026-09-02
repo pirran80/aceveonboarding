@@ -55,6 +55,29 @@ registry/products/next-project-core/
   definitions + saved data — a new registry field appears in the summary
   automatically, per hard rule 1.
 
+
+## 3b. Kartläggning (R7/R10) — the mechanism
+
+Phases are registry data (no hardcoded phase list). Two primitives carry
+Carl's Kartläggning rules:
+
+- **Non-blocking steps** (`blocking: false` on a step definition): the step
+  gates the finish like any gated step but never locks the steps after it —
+  the customer works on the data steps in parallel with the kartläggning
+  ("gating within the flow, never between Kartläggning and Datamigrering").
+- **`categoryEffects`** in the flow: `when {stepId, fieldId, equals} then
+  {moduleId, source: "integration"}`. Evaluated per request against saved
+  answers (`integrationSourcedModules`, pure + unit-tested): a matching
+  answer makes the category integration-sourced — greyed in the migration
+  plan ("Hämtas via integration"), its page shows the notice, it counts as
+  complete for gating, and the plan's completion no longer requires a method
+  for it. Changing the answer immediately restores the category.
+
+The current kartläggning step (`kartlaggning-ekonomi`) is a DRAFT question
+set — it is replaced by the converted Kundmall batteries (Fortnox / Visma
+Admin / E-invoice; Next Action 22, content from Carl). The default marking
+before the kartläggning is answered is an open PS question (F2).
+
 ## 4. Data model (Prisma, `prisma/schema.prisma`)
 
 `Organisation → OnboardingCase → CaseUser / StepInstance / DataSet`, plus

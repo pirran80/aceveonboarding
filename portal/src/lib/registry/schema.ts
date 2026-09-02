@@ -105,8 +105,18 @@ export const formSectionSchema = z.object({
 
 const stepBase = z.object({
   id: z.string(),
-  phase: z.enum(["preparation", "migration", "finish"]),
+  // Phases are registry data (R7 added Kartläggning; more will come with the
+  // PROMO alignment, Q37). Only "finish" carries a convention: the phase of
+  // the closing step.
+  phase: z.string(),
   gated: z.boolean(),
+  /**
+   * blocking=false: the step gates the finish like any gated step, but does
+   * NOT lock the steps after it — the customer works on in parallel.
+   * Carl's rule for Kartläggning (R7): gating within the flow, never between
+   * Kartläggning and Datamigrering.
+   */
+  blocking: z.boolean().default(true),
   name: localizedText,
   shortDescription: localizedText,
   subtitle: localizedText,
@@ -167,7 +177,22 @@ export const flowSchema = z
     // Informational, not a consent checkbox: the signed agreement is already
     // a fact when the customer arrives (R3, Carl 2026-08-31).
     entryNotice: z.object({ note: z.string().optional(), label: localizedText }),
-    phases: z.array(z.object({ id: z.enum(["preparation", "migration", "finish"]), name: localizedText })),
+    phases: z.array(z.object({ id: z.string(), name: localizedText })),
+    /**
+     * Kartläggning answers steer the migration plan (R7/R10): when a saved
+     * answer matches, the category's source changes — today to
+     * "integration" (row greyed out, "hämtas via integration", no upload).
+     * The mapping step is the control signal; the matrix and the category
+     * steps are the receivers.
+     */
+    categoryEffects: z
+      .array(
+        z.object({
+          when: z.object({ stepId: z.string(), fieldId: z.string(), equals: z.string() }),
+          then: z.object({ moduleId: z.string(), source: z.literal("integration") }),
+        })
+      )
+      .default([]),
     categories: z.object({
       note: z.string().optional(),
       sequentialUnlock: z.boolean(),

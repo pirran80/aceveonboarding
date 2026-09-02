@@ -69,7 +69,8 @@
     "assigneeHeading": "Ansvarig",
     "noAssignee": "Ej tilldelad",
     "requiredBadge": "Obligatorisk",
-    "optionalBadge": "Valfri"
+    "optionalBadge": "Valfri",
+    "viaIntegration": "Hämtas via integration"
   },
   "methods": {
     "gi-mall": "GI-mall",
@@ -94,7 +95,8 @@
     "version": "Version {version}",
     "lockedHint": "Metodvalet är låst när kategorin är klar — tryck Ångra för att byta metod.",
     "methodChosen": "Metod vald — väntar på fil",
-    "undoConfirm": "Detta nollställer kategorins status. Är ni säkra?"
+    "undoConfirm": "Detta nollställer kategorins status. Är ni säkra?",
+    "integrationSourced": "Enligt era kartläggningssvar hämtas denna datakategori via integrationen — ingen uppladdning behövs. Ändrar ni er i kartläggningen kommer kategorin tillbaka i flödet."
   },
   "finish": {
     "lockedTitle": "Nästan där",

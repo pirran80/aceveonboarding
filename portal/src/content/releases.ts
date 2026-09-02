@@ -13,6 +13,30 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "0.1.4",
+    date: "2026-09-02",
+    notes: {
+      title: {
+        sv: "Ny fas: Kartläggning",
+        en: "New phase: Mapping",
+      },
+      items: [
+        {
+          sv: "Ett kartläggningssteg mellan förberedelserna och datamigrationen — era svar styr vilka datakategorier ni behöver ladda upp själva.",
+          en: "A mapping step between preparation and data migration — your answers decide which data categories you upload yourselves.",
+        },
+        {
+          sv: "Kartläggningen blockerar inte datastegen: ni kan arbeta med båda parallellt.",
+          en: "The mapping does not block the data steps: you can work on both in parallel.",
+        },
+        {
+          sv: "Kategorier som hämtas via integration försvinner ur er att-göra-lista och markeras \"Hämtas via integration\".",
+          en: "Categories fetched via integration leave your to-do list and are marked \"Fetched via integration\".",
+        },
+      ],
+    },
+  },
+  {
     version: "0.1.3",
     date: "2026-09-02",
     notes: {

@@ -21,6 +21,13 @@
       }
     },
     {
+      "id": "kartlaggning",
+      "name": {
+        "sv": "Kartläggning",
+        "en": "Mapping"
+      }
+    },
+    {
       "id": "migration",
       "name": {
         "sv": "Datamigration",
@@ -606,6 +613,125 @@
       "note": "Wording is the starting draft for Legal (STATUS.md Q8) — pending final legal copy."
     },
     {
+      "id": "kartlaggning-ekonomi",
+      "phase": "kartlaggning",
+      "kind": "form",
+      "gated": true,
+      "blocking": false,
+      "note": "DRAFT question set — to be replaced by the converted Kundmall batteries (Fortnox / Visma Admin / E-invoice; STATUS.md Next Action 22, content from Carl). The mechanism is the deliverable: non-blocking phase (R7: gating within the flow, never between Kartläggning and Datamigrering) + categoryEffects (answers make categories integration-sourced, R10).",
+      "name": {
+        "sv": "Ekonomi & integrationer",
+        "en": "Finance & integrations"
+      },
+      "shortDescription": {
+        "sv": "Styr era datasteg",
+        "en": "Steers your data steps"
+      },
+      "subtitle": {
+        "sv": "Era svar styr vilka datakategorier ni laddar upp själva — och vilka som hämtas via integration. Ni kan arbeta med datastegen parallellt.",
+        "en": "Your answers decide which data categories you upload yourselves — and which are fetched via integration. You can work on the data steps in parallel."
+      },
+      "sections": [
+        {
+          "title": {
+            "sv": "Ekonomisystem",
+            "en": "Finance system"
+          },
+          "fields": [
+            {
+              "id": "financeSystem",
+              "type": "select",
+              "required": true,
+              "label": {
+                "sv": "Vilket ekonomisystem använder ni?",
+                "en": "Which finance system do you use?"
+              },
+              "options": [
+                {
+                  "value": "fortnox",
+                  "label": {
+                    "sv": "Fortnox",
+                    "en": "Fortnox"
+                  }
+                },
+                {
+                  "value": "visma-admin",
+                  "label": {
+                    "sv": "Visma Administration",
+                    "en": "Visma Administration"
+                  }
+                },
+                {
+                  "value": "other",
+                  "label": {
+                    "sv": "Annat",
+                    "en": "Other"
+                  }
+                },
+                {
+                  "value": "none",
+                  "label": {
+                    "sv": "Inget",
+                    "en": "None"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "kontoplanSource",
+              "type": "select",
+              "required": true,
+              "label": {
+                "sv": "Hur ska kontoplanen komma in?",
+                "en": "How should the chart of accounts come in?"
+              },
+              "options": [
+                {
+                  "value": "integration",
+                  "label": {
+                    "sv": "Hämtas via ekonomisystem-integrationen",
+                    "en": "Fetched via the finance-system integration"
+                  }
+                },
+                {
+                  "value": "upload",
+                  "label": {
+                    "sv": "Vi laddar upp den själva",
+                    "en": "We upload it ourselves"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "kundregisterSource",
+              "type": "select",
+              "required": true,
+              "label": {
+                "sv": "Hur ska kundregistret komma in?",
+                "en": "How should the customer register come in?"
+              },
+              "options": [
+                {
+                  "value": "integration",
+                  "label": {
+                    "sv": "Speglas via ekonomisystem-integrationen — undviker dubbletter",
+                    "en": "Mirrored via the finance-system integration — avoids duplicates"
+                  }
+                },
+                {
+                  "value": "upload",
+                  "label": {
+                    "sv": "Vi laddar upp det själva",
+                    "en": "We upload it ourselves"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "migrationsplan",
       "phase": "migration",
       "kind": "migration-plan",
@@ -655,6 +781,30 @@
       "subtitle": {
         "sv": "När alla steg är klara skickas ert underlag till Aceve och ni bokar uppstart.",
         "en": "When every step is done, your material is sent to Aceve and you book the go-live."
+      }
+    }
+  ],
+  "categoryEffects": [
+    {
+      "when": {
+        "stepId": "kartlaggning-ekonomi",
+        "fieldId": "kontoplanSource",
+        "equals": "integration"
+      },
+      "then": {
+        "moduleId": "kontoplan",
+        "source": "integration"
+      }
+    },
+    {
+      "when": {
+        "stepId": "kartlaggning-ekonomi",
+        "fieldId": "kundregisterSource",
+        "equals": "integration"
+      },
+      "then": {
+        "moduleId": "kunder",
+        "source": "integration"
       }
     }
   ]

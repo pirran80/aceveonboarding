@@ -151,6 +151,9 @@ export function buildSummary(view: CaseView, locale: string, t: Translate): Summ
           title: lt(step.name, locale),
           complete: isComplete(step.id),
           rows: registry.flowModules.map((mod) => {
+            if (view.integrationSourcedModuleIds.has(mod.id)) {
+              return { label: lt(mod.name, locale), value: t("migrationPlan.viaIntegration") };
+            }
             const ds = dataSets.get(mod.id);
             const parts: string[] = [];
             parts.push(ds?.method ? t(`methods.${ds.method}`) : t("summary.noMethod"));

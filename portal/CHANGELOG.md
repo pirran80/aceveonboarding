@@ -5,6 +5,37 @@ All notable changes to the Aceve Onboard portal. Format follows
 End-user-facing release notes (per language) live in `src/content/releases.ts`
 and render on the in-app "What's new" page — update both.
 
+## [0.1.4] — 2026-09-02
+
+The Kartläggning mechanism (R7/R10 from Carl's 2026-08-31 review) — the
+structural piece behind "Förberedelse → Kartläggning → Datamigrering".
+
+### Added
+
+- **Phases are registry data**: the hardcoded phase enum is gone; a flow
+  defines its own phase list. The main flow now carries a fourth phase,
+  **Kartläggning**, between preparation and data migration; the Core variant
+  keeps three — proof that the phase list is configuration.
+- **Non-blocking steps** (`blocking: false`): a gated step that never locks
+  the steps after it. Carl's rule R7 implemented: the customer works on the
+  data steps in parallel with the kartläggning, which still gates the final
+  submission.
+- **`categoryEffects`**: kartläggning answers steer the migration plan (R10).
+  A matching saved answer makes a category integration-sourced: greyed row
+  "Hämtas via integration" in the plan, notice on the category page, counts
+  as complete for gating, excluded from the plan's method requirement, and
+  shown as integration-sourced in the end summary. Re-evaluated per request,
+  so changing the answer immediately restores the category.
+- **Draft kartläggning step** `kartlaggning-ekonomi` (finance system, chart
+  of accounts source, customer-register source) — explicitly a DRAFT question
+  set to be replaced by the converted Kundmall batteries (Next Action 22).
+- Tests for all three mechanisms (30 total).
+
+### Notes
+
+- Default required/optional marking before the kartläggning is answered stays
+  an open PS question (F2). PROMO-aligned phase naming awaits Q37 (R1).
+
 ## [0.1.3] — 2026-09-02
 
 Feedback round FEEDBACK-0.1.2-2026-08-31 (Carl): the P-tasks, plus the R

@@ -41,6 +41,18 @@ Flödet har två faser och ett avslut:
   bokningslänk visas den vid utbildningens namn.
 - **Ansvarsfördelning** — läs dokumentet och bekräfta de tre punkterna.
 
+## Kartläggningen
+
+Efter förberedelserna kommer ett kartläggningssteg (t.ex. vilket ekonomisystem
+ni använder och hur kontoplan och kundregister ska komma in). Två saker är bra
+att veta:
+
+- **Kartläggningen blockerar inte datastegen** — ni kan arbeta med båda
+  parallellt. Den behöver dock vara klar innan ni skickar in.
+- **Era svar styr datastegen**: väljer ni att en kategori hämtas via
+  integration försvinner den ur er att-göra-lista och markeras "Hämtas via
+  integration". Ändrar ni er kommer kategorin tillbaka.
+
 ## Datamigrationen
 
 - **Migrationsplan** — här väljer ni metod per datakategori: GI-mall, Excel,
