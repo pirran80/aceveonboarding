@@ -1,1 +1,26 @@
-cd portal && ./deploy.sh 0.1.4 "Feedbackrundan + Kartläggningsfasen"
+Varför är det tredje demo-caset inte uppe?
+Bash Check which demo cases and version are live
+IN
+curl -s https://aceveonboarding.achiever.se/ | grep -o "Demo Bygg &amp; Anläggning AB\|Fjällens VVS &amp; Energi AB\|Sundets Måleri &amp; Fasad AB\|Next Project · Core" | sort -u; curl -s https://aceveonboarding.achiever.se/whats-new | grep -o "0\.1\.[0-9]" | sort -u
+
+OUT
+Demo Bygg &amp; Anläggning AB
+Fjällens VVS &amp; Energi AB
+0.1.0
+0.1.1
+0.1.2
+0.1.3
+0.1.4
+Din deploy är ute (0.1.4 syns i Nyheter), men bara två democase listas — och det är faktiskt designat beteende, inte ett fel:
+
+Orsak: docker-entrypoint.sh kör seeden endast när databasfilen inte fanns innan. Regeln finns där med flit — "en demo-kund som någon medvetet tagit bort ska inte återuppstå vid nästa omstart." Produktionsdatabasen skapades i 0.1.2-deployen, så den räknas som befintlig och seeden hoppas över — tredje caset läggs aldrig in.
+
+Fixen är en engångskörning på servern — seeden är idempotent (lägger bara till organisationer som saknas, rör inget befintligt):
+
+
+docker exec aceveonboarding-app npx prisma db seed
+Förväntad utskrift: "Demo Bygg … already exists — skipped", "Fjällens … skipped", "created Sundets Måleri & Fasad AB". Ingen omstart behövs — ladda om startsidan så ska Core-caset synas.
+
+Jag kan inte köra det åt dig eftersom serveradressen medvetet hålls utanför repot (deploy.sh-regeln), men det är hela åtgärden.
+
+Värt att fundera på till nästa deploy: det här händer igen varje gång seeden får nya democase. Två alternativ om du vill slippa det manuella steget: (a) kör alltid prisma db seed i entrypoint (den är idempotent, men då återuppstår borttagna democase vid omstart — det entrypointen ville undvika), eller (b) behåll dagens regel och dokumentera engångskommandot i DEPLOY.md. Jag rekommenderar (b) — säg till så lägger jag in en rad om det i DEPLOY.md:s checklista.
