@@ -1,0 +1,1 @@
+cd portal && ./deploy.sh 0.1.4 "Feedbackrundan + Kartläggningsfasen"
