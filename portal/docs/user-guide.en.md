@@ -22,8 +22,8 @@ The flow has two phases and a finish:
 
 1. Open the link you received and pick a language (SV/EN) at the top of the
    sidebar.
-2. On the **Welcome** step: confirm that you have a signed agreement and click
-   **Get started**. This unlocks the rest of the flow.
+2. The **Welcome** step states why you are here — your signed agreement with
+   Aceve. Click **Get started** to open the rest of the flow.
 3. Work your way down the sidebar. One step at a time is marked active — it is
    always the natural next step. The percentage shows how far you have come.
 
@@ -31,13 +31,14 @@ The flow has two phases and a finish:
 
 - **Company details** — fields marked *"Prefilled from Salesforce"* are things
   we already know. Review them instead of re-entering. Country and language
-  decide which product and which webinars you are guided to.
+  decide which product and which trainings you are guided to.
 - **Your business & background** — describe your business. If you come from a
   previous system (e.g. Byggsamordnaren), name an IT contact for the data
   export.
 - **Superusers** — add at least two people. The counter shows how many valid
   rows you have (valid = first name, last name and a correct email).
-- **Webinars** — one check per person per training. All are required.
+- **Trainings** — one check per person per training. All are required. When a
+  booking link exists it is shown next to the training name.
 - **Responsibility split** — read the document and confirm the three points.
 
 ## The data migration

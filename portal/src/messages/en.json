@@ -32,15 +32,17 @@
     "cancel": "Cancel"
   },
   "agreement": {
-    "heading": "Agreement",
-    "hint": "Confirm the agreement to unlock the flow."
+    "heading": "Your agreement",
+    "hint": "Click Get started to open the flow."
   },
   "form": {
     "required": "Required field",
     "invalidEmail": "Invalid email address",
     "invalidPattern": "Invalid format",
     "seeded": "Prefilled from Salesforce — review and confirm",
-    "optional": "optional"
+    "optional": "optional",
+    "errorSummary": "{count, plural, one {1 field needs attention} other {# fields need attention}} — see the marks above.",
+    "seededCustomer": "Known details from your agreement — review and confirm"
   },
   "people": {
     "firstName": "First name",
@@ -48,11 +50,10 @@
     "email": "Email",
     "role": "Role",
     "rolePlaceholder": "Choose or type",
-    "counter": "{count} valid · at least {min} required",
-    "emailHint": "The email address is used as the invitation address for the webinars."
+    "counter": "{count} valid · at least {min} required"
   },
   "webinars": {
-    "matrixHint": "One check per superuser per webinar — all are required.",
+    "matrixHint": "One check per superuser per training — all are required.",
     "needPeople": "Add at least {min} superusers in the previous step."
   },
   "consents": {

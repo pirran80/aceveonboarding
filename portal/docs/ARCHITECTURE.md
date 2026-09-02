@@ -17,7 +17,10 @@ foundations.
 
 ```
 registry/products/next-project/
-  flow.json      — steps, phases, agreement gate, category list + order
+  flow.json      — steps, phases, entry notice, category list + order
+registry/products/next-project-core/
+  flow.json      — package variant: fewer categories/trainings, modules
+                   inherited via modulesFrom (S1/R10 proof)
   modules.json   — data categories: fields, types, validation, aliases,
                    per-field DESTINATION (hard rule 2)
 ```
@@ -31,7 +34,9 @@ registry/products/next-project/
   confirmation, STATUS.md Q33). The flow's `categories.moduleIds` picks which
   modules render and in which order; both documented ordering constraints
   (kontoplan first; timpriser before anvandarregister) are enforced by test.
-- Adding a product/country variant = adding a directory. No code change.
+- Adding a product/country/package variant = adding a directory. No code
+  change. A variant can inherit module definitions from another flow via
+  `modulesFrom` and redefine only the flow itself.
 
 ## 3. Journey logic
 
@@ -39,7 +44,8 @@ registry/products/next-project/
 
 - Items = flow steps with data categories spliced after the migration-plan
   step.
-- Agreement gate before everything; sequential unlock; states
+- Entry notice (signed agreement stated as fact — R3) with "Kom igång"
+  stamping `agreementConfirmedAt`; sequential unlock; states
   `complete | active | available | locked`.
 - Progress = % of **gated** items complete (Prototype A model).
 - The finish step lists exactly what is outstanding by name; it never shows a
@@ -115,6 +121,16 @@ the verification checklist: `docs/DEPLOY.md`.
 Analytics: `src/components/UmamiAnalytics.tsx` renders the self-hosted Umami
 script only when `NEXT_PUBLIC_UMAMI_WEBSITE_ID` is set at build time. No
 other tracking exists.
+
+`PORTAL_AUDIENCE` (server env, `demo` default | `customer`) switches
+audience-dependent copy — today the seeded-field badge (R2: the Salesforce
+system name must not face customers).
+
+Indexing is blocked everywhere (`robots.txt` disallow-all + `noindex`
+metadata) until external identity exists (P1-3, Q2).
+
+Route note: the category route segment is `category`, deliberately not
+`data` — see the deploy trap in `docs/DEPLOY.md` (P0-1).
 
 ## 9. Deliberately not built yet (and why)
 

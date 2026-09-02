@@ -129,7 +129,12 @@ export const stepSchema = z.discriminatedUnion("kind", [
   }),
   stepBase.extend({
     kind: z.literal("webinars"),
-    webinars: z.array(z.object({ id: z.string(), name: localizedText })).min(1),
+    // Which trainings appear is product configuration (R6); href is the
+    // booking link when one exists. Admin UI for toggling trainings is a
+    // planned slice — until then this list is edited in the registry.
+    webinars: z
+      .array(z.object({ id: z.string(), name: localizedText, href: z.string().optional() }))
+      .min(1),
   }),
   stepBase.extend({
     kind: z.literal("consents"),
@@ -156,7 +161,12 @@ export const flowSchema = z
     country: z.string(),
     flowVersion: z.string(),
     productName: z.string(),
-    agreementGate: z.object({ label: localizedText }),
+    /** Inherit modules.json from another flow — a package variant (e.g. a
+     *  smaller product tier) redefines the flow, not the field definitions. */
+    modulesFrom: z.string().optional(),
+    // Informational, not a consent checkbox: the signed agreement is already
+    // a fact when the customer arrives (R3, Carl 2026-08-31).
+    entryNotice: z.object({ note: z.string().optional(), label: localizedText }),
     phases: z.array(z.object({ id: z.enum(["preparation", "migration", "finish"]), name: localizedText })),
     categories: z.object({
       note: z.string().optional(),

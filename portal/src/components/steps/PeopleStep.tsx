@@ -38,8 +38,6 @@ export function PeopleStep({
 
   return (
     <>
-      <p className="hint-text">{t("people.emailHint")}</p>
-
       <div className="table-wrap">
         <table className="table">
           <thead>

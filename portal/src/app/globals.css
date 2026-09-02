@@ -292,7 +292,8 @@ a {
   font-size: 0.76rem;
   font-weight: 700;
   background: #eef2ea;
-  color: var(--muted);
+  /* Same contrast reasoning as .type-badge (P2-6). */
+  color: var(--aceve-primary-green);
 }
 
 .pill[data-tone="ok"] {
@@ -547,7 +548,9 @@ input[type="checkbox"]:focus-visible {
   border-radius: 5px;
   padding: 0.12rem 0.45rem;
   background: #eef2ea;
-  color: var(--aceve-mid-green);
+  /* Small text needs headroom above 4.5:1 — mid-green here measured a
+     borderline 4.5:1 (feedback P2-6); primary green gives ~9:1. */
+  color: var(--aceve-primary-green);
 }
 
 .type-badge[data-kind="required"] {

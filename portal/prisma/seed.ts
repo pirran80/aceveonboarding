@@ -25,6 +25,7 @@ const demoOrganisations = [
     country: "SE",
     language: "sv",
     sfAccountId: "SF-DEMO-0001",
+    registryFlow: "next-project",
   },
   {
     legalName: "Fjällens VVS & Energi AB",
@@ -33,6 +34,18 @@ const demoOrganisations = [
     country: "SE",
     language: "sv",
     sfAccountId: "SF-DEMO-0002",
+    registryFlow: "next-project",
+  },
+  // Deviating configuration on purpose (feedback S1): a Core-package case —
+  // same portal, different flow, purely from registry data.
+  {
+    legalName: "Sundets Måleri & Fasad AB",
+    prefix: "SMF",
+    orgNumber: "556222-2222",
+    country: "SE",
+    language: "sv",
+    sfAccountId: "SF-DEMO-0003",
+    registryFlow: "next-project-core",
   },
 ];
 
@@ -45,10 +58,11 @@ async function main() {
       console.log(`Seed: ${org.legalName} already exists — skipped.`);
       continue;
     }
+    const { registryFlow, ...orgData } = org;
     await prisma.organisation.create({
       data: {
-        ...org,
-        cases: { create: { registryFlow: "next-project", status: "active" } },
+        ...orgData,
+        cases: { create: { registryFlow, status: "active" } },
       },
     });
     console.log(`Seed: created ${org.legalName} with one active onboarding case.`);

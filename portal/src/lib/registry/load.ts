@@ -48,8 +48,13 @@ export function loadRegistry(flowId: string): ProductRegistry {
   const flow = flowSchema.parse(
     JSON.parse(fs.readFileSync(path.join(dir, "flow.json"), "utf-8"))
   );
+  // A package variant may inherit its module definitions from another flow
+  // (modulesFrom) — the variant redefines category selection and steps only.
+  const modulesPath = flow.modulesFrom
+    ? path.join(registryRoot(), flow.modulesFrom, "modules.json")
+    : path.join(dir, "modules.json");
   const moduleFile = moduleRegistrySchema.parse(
-    JSON.parse(fs.readFileSync(path.join(dir, "modules.json"), "utf-8"))
+    JSON.parse(fs.readFileSync(modulesPath, "utf-8"))
   );
 
   const modules = new Map(moduleFile.modules.map((m) => [m.id, m]));

@@ -32,15 +32,17 @@
     "cancel": "Avbryt"
   },
   "agreement": {
-    "heading": "Avtal",
-    "hint": "Bekräfta avtalet för att låsa upp flödet."
+    "heading": "Ert avtal",
+    "hint": "Klicka på Kom igång så öppnas flödet."
   },
   "form": {
     "required": "Obligatoriskt fält",
     "invalidEmail": "Ogiltig e-postadress",
     "invalidPattern": "Ogiltigt format",
     "seeded": "Förifyllt från Salesforce — kontrollera och bekräfta",
-    "optional": "valfritt"
+    "optional": "valfritt",
+    "errorSummary": "{count, plural, one {1 fält behöver åtgärdas} other {# fält behöver åtgärdas}} — se markeringarna ovan.",
+    "seededCustomer": "Kända uppgifter från ert avtal — kontrollera och bekräfta"
   },
   "people": {
     "firstName": "Förnamn",
@@ -48,11 +50,10 @@
     "email": "E-post",
     "role": "Roll",
     "rolePlaceholder": "Välj eller skriv",
-    "counter": "{count, plural, one {# giltig} other {# giltiga}} · minst {min} krävs",
-    "emailHint": "E-postadressen används som inbjudningsadress till webbinarierna."
+    "counter": "{count, plural, one {# giltig} other {# giltiga}} · minst {min} krävs"
   },
   "webinars": {
-    "matrixHint": "En bock per superanvändare och webbinarium — alla krävs.",
+    "matrixHint": "En bock per superanvändare och utbildning — alla krävs.",
     "needPeople": "Lägg till minst {min} superanvändare i föregående steg."
   },
   "consents": {

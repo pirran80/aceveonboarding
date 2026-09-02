@@ -51,7 +51,7 @@ export default async function StepPage({
 
   switch (step.kind) {
     case "info": {
-      const gateLabel = lt(view.registry.flow.agreementGate.label, locale).replace(
+      const entryNotice = lt(view.registry.flow.entryNotice.label, locale).replace(
         "{productName}",
         view.registry.flow.productName
       );
@@ -62,7 +62,7 @@ export default async function StepPage({
             title: lt(c.title, locale),
             body: lt(c.body, locale),
           }))}
-          agreementLabel={gateLabel}
+          entryNotice={entryNotice}
           confirmed={view.case.agreementConfirmedAt !== null}
         />
       );
@@ -81,10 +81,18 @@ export default async function StepPage({
         language: org.language,
         prefix: org.prefix ?? undefined,
       };
+      // R2: the badge names Salesforce internally, but the system name must
+      // not face customers. PORTAL_AUDIENCE=customer switches the wording
+      // (final customer copy is Carl's call).
+      const t = await getTranslations();
+      const seededBadge = t(
+        process.env.PORTAL_AUDIENCE === "customer" ? "form.seededCustomer" : "form.seeded"
+      );
       return shell(
         <FormStep
           caseId={caseId}
           stepId={step.id}
+          seededBadge={seededBadge}
           sections={step.sections.map((s) => ({
             title: lt(s.title, locale),
             fields: s.fields.map((f) => resolveField(f, locale)),
@@ -122,7 +130,11 @@ export default async function StepPage({
         <WebinarsStep
           caseId={caseId}
           stepId={step.id}
-          webinars={step.webinars.map((w) => ({ id: w.id, name: lt(w.name, locale) }))}
+          webinars={step.webinars.map((w) => ({
+            id: w.id,
+            name: lt(w.name, locale),
+            href: w.href ?? null,
+          }))}
           users={view.case.users.map((u) => ({
             id: u.id,
             name: `${u.firstName} ${u.lastName}`.trim() || u.email,

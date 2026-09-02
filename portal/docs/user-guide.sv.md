@@ -21,8 +21,8 @@ Flödet har två faser och ett avslut:
 ## Komma igång
 
 1. Öppna länken ni fått och välj språk (SV/EN) uppe i panelen.
-2. På **Välkommen**-steget: bekräfta att ni har ett signerat avtal och klicka
-   **Kom igång**. Detta låser upp resten av flödet.
+2. På **Välkommen**-steget står varför ni är här — ert signerade avtal med
+   Aceve. Klicka **Kom igång** för att öppna resten av flödet.
 3. Arbeta er nedåt i vänstermenyn. Ett steg i taget är markerat som aktivt —
    det är alltid nästa naturliga steg. Procentsiffran visar hur långt ni
    kommit.
@@ -31,13 +31,14 @@ Flödet har två faser och ett avslut:
 
 - **Företagsuppgifter** — fält märkta *"Förifyllt från Salesforce"* är
   uppgifter vi redan har. Kontrollera dem i stället för att fylla i på nytt.
-  Land och språk styr vilken produkt och vilka webbinarier ni lotsas till.
+  Land och språk styr vilken produkt och vilka utbildningar ni lotsas till.
 - **Er verksamhet & bakgrund** — beskriv er verksamhet. Om ni kommer från ett
   tidigare system (t.ex. Byggsamordnaren) anger ni en IT-kontaktperson för
   dataexporten.
 - **Superanvändare** — lägg till minst två personer. Räknaren visar hur många
   giltiga rader ni har (giltig = förnamn, efternamn och korrekt e-post).
-- **Webbinarier** — en bock per person och utbildning. Alla krävs.
+- **Utbildningar** — en bock per person och utbildning. Alla krävs. Finns en
+  bokningslänk visas den vid utbildningens namn.
 - **Ansvarsfördelning** — läs dokumentet och bekräfta de tre punkterna.
 
 ## Datamigrationen

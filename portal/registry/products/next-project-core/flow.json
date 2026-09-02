@@ -1,10 +1,10 @@
 {
   "$schema": "aceve-onboard-flow-registry/v0-draft",
-  "id": "next-project",
+  "id": "next-project-core",
   "country": "SE",
   "flowVersion": "0.1.0",
-  "status": "DRAFT — flow structure from CUSTOMER-FLOW.md (validated prototypes); category list pending PS confirmation (STATUS.md Q33)",
-  "productName": "Next Project",
+  "status": "DEMO — package variant proving product-agnostic configuration (feedback S1/R10): smaller category list and training list than the full flow, module definitions inherited via modulesFrom. Category scope per package is direction from Carl 2026-08-31 (R10), content unconfirmed.",
+  "productName": "Next Project · Core",
   "entryNotice": {
     "note": "R3 (Carl 2026-08-31): entry is triggered by the closed-won opportunity — the signed agreement is a fact when the customer lands here, so no confirmation checkbox. The lead-generating self-signup scenario is a possible later scope, not today's flow.",
     "label": {
@@ -36,15 +36,13 @@
     }
   ],
   "categories": {
-    "note": "Order honours the two documented constraints: kontoplan first, timpriser before anvandarregister ('Yrkesroll (från timpriser)'). List = Stitch's 6 import categories; authoritative list pending Q33 — change here, never in code.",
+    "note": "Core package variant: fewer categories than the full flow (R10: category-list scope follows the product package). Order honours the same constraints: kontoplan first, timpriser before anvandarregister.",
     "sequentialUnlock": true,
     "moduleIds": [
       "kontoplan",
       "timpriser",
       "anvandarregister",
-      "prislista",
-      "kunder",
-      "projekt"
+      "kunder"
     ]
   },
   "steps": [
@@ -522,12 +520,12 @@
         "en": "Trainings"
       },
       "shortDescription": {
-        "sv": "3 utbildningar",
-        "en": "3 trainings"
+        "sv": "2 utbildningar",
+        "en": "2 trainings"
       },
       "subtitle": {
-        "sv": "Alla superanvändare bokar in sig på tre korta utbildningar.",
-        "en": "Every superuser signs up for three short trainings."
+        "sv": "Alla superanvändare bokar in sig på två korta utbildningar.",
+        "en": "Every superuser signs up for two short trainings."
       },
       "webinars": [
         {
@@ -542,13 +540,6 @@
           "name": {
             "sv": "Grundläggande ekonomiflöde",
             "en": "Basic finance flow"
-          }
-        },
-        {
-          "id": "budget-inkop",
-          "name": {
-            "sv": "Budget, inköp och prognos",
-            "en": "Budget, purchasing and forecasting"
           }
         }
       ]
@@ -657,5 +648,6 @@
         "en": "When every step is done, your material is sent to Aceve and you book the go-live."
       }
     }
-  ]
+  ],
+  "modulesFrom": "next-project"
 }

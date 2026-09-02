@@ -5,6 +5,57 @@ All notable changes to the Aceve Onboard portal. Format follows
 End-user-facing release notes (per language) live in `src/content/releases.ts`
 and render on the in-app "What's new" page — update both.
 
+## [0.1.3] — 2026-09-02
+
+Feedback round FEEDBACK-0.1.2-2026-08-31 (Carl): the P-tasks, plus the R
+directions that were buildable without new decisions (R2, R3, R6) and the S1
+demo proof. F1 is answered in `docs/ARCHITECTURE.md` §2: steps, fields and
+categories are registry configuration, not code.
+
+### Fixed
+
+- **P0-1**: every category page 404:ed in production. Root cause: the deploy
+  rsync's unanchored `data` exclude (protecting the bind-mounted database
+  directory) also swallowed the app route `…/data/[moduleId]` on its way to
+  the server. Route renamed to `…/category/[moduleId]`; trap documented in
+  `docs/DEPLOY.md`.
+- **P1-2**: failed validation now scrolls the first failing field into view,
+  moves focus to it, and shows an error count next to Save (`role="alert"`).
+- **P2-4**: category names and descriptions follow the language choice —
+  English added for all 17 modules in the registry (field labels remain
+  Swedish pending the authoritative category list, Q33).
+- **P2-5**: the duplicated e-mail help text on Superusers is removed; the
+  subtitle carries invitation + delegation wording once.
+- **P2-6**: badge/pill text colours darkened — the previous mid-green on
+  light grey-green measured a borderline 4.5:1; now ~9:1 (WCAG 2.1 AA with
+  headroom).
+
+### Added
+
+- **P1-3**: `robots.txt` (disallow all) and `robots: noindex` metadata on
+  every page — nothing is indexable while the portal has no login (Q2).
+- **R2**: the seeded-field badge wording is audience-configurable:
+  `PORTAL_AUDIENCE=customer` switches "Förifyllt från Salesforce …" to
+  "Kända uppgifter från ert avtal …" (candidate copy — final wording is
+  Carl's call). Default remains the demo wording.
+- **R6**: trainings can carry a booking link (`href`) in the registry,
+  rendered as "Öppna →" in the matrix. Which trainings appear is already
+  registry data per flow; the admin UI for toggling them is a later slice.
+- **S1**: third demo case "Sundets Måleri & Fasad AB" on the Core package
+  variant (`registry/products/next-project-core/`): 4 categories instead
+  of 6, 2 trainings instead of 3, module definitions inherited via the new
+  `modulesFrom` mechanism — the visible proof that a package variant is
+  configuration, not code (R10 direction).
+
+### Changed
+
+- **R3**: the agreement checkbox on Welcome is removed. Entry is triggered by
+  the closed-won opportunity, so the signed agreement is stated as
+  informational text ("Ni har ett signerat avtal med Aceve för [produkt] —
+  därför är ni här") with a single "Kom igång" action.
+  `Pre-onboarding/build/DESIGN-BRIEF.md` §4.1 updated in the same change.
+- **R6**: the step is named "Utbildningar"/"Trainings" (step id unchanged).
+
 ## [0.1.2] — 2026-08-30
 
 First production deployment — the portal is live at

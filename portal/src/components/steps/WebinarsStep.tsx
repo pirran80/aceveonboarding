@@ -18,7 +18,7 @@ export function WebinarsStep({
 }: {
   caseId: string;
   stepId: string;
-  webinars: { id: string; name: string }[];
+  webinars: { id: string; name: string; href: string | null }[];
   users: { id: string; name: string }[];
   initialChecks: Record<string, boolean>;
   minValid: number;
@@ -43,6 +43,14 @@ export function WebinarsStep({
               {webinars.map((w, i) => (
                 <th scope="col" key={w.id}>
                   {i + 1}. {w.name}
+                  {w.href && (
+                    <>
+                      {" "}
+                      <a href={w.href} target="_blank" rel="noreferrer">
+                        {t("actions.open")}
+                      </a>
+                    </>
+                  )}
                 </th>
               ))}
             </tr>

@@ -40,4 +40,26 @@ describe("registry loading", () => {
   it("rejects an unknown flow", () => {
     expect(() => loadRegistry("does-not-exist")).toThrow(/Unknown registry flow/);
   });
+
+  it("loads the Core package variant with inherited modules (feedback S1/R10)", () => {
+    const core = loadRegistry("next-project-core");
+    expect(core.flow.modulesFrom).toBe("next-project");
+    // Fewer categories than the full flow, same ordering constraints.
+    expect(core.flowModules.map((m) => m.id)).toEqual([
+      "kontoplan",
+      "timpriser",
+      "anvandarregister",
+      "kunder",
+    ]);
+    // Full module definitions are inherited, not copied.
+    expect(core.modules.size).toBe(loadRegistry("next-project").modules.size);
+  });
+
+  it("module names and descriptions are localized sv + en (feedback P2-4)", () => {
+    const registry = loadRegistry("next-project");
+    for (const mod of registry.modules.values()) {
+      expect(mod.name.en, `${mod.id} name.en`).toBeTruthy();
+      expect(mod.description.en, `${mod.id} description.en`).toBeTruthy();
+    }
+  });
 });

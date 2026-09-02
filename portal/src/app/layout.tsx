@@ -14,6 +14,8 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   title: "Aceve Onboard",
   description: "Prepare and migrate your data — at your own pace.",
+  // No login yet — keep every page out of search indexes (feedback P1-3).
+  robots: { index: false, follow: false },
 };
 
 export default async function RootLayout({

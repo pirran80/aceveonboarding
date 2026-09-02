@@ -13,6 +13,42 @@ export interface Release {
 
 export const releases: Release[] = [
   {
+    version: "0.1.3",
+    date: "2026-09-02",
+    notes: {
+      title: {
+        sv: "Feedbackrundan 31 augusti åtgärdad",
+        en: "The 31 August feedback round addressed",
+      },
+      items: [
+        {
+          sv: "Datakategorisidorna fungerar igen (gav 404 i förra versionen).",
+          en: "The data category pages work again (they returned 404 in the previous version).",
+        },
+        {
+          sv: "Valideringsfel visas nu där du tittar: sidan scrollar till första felet och en felräknare visas vid Spara.",
+          en: "Validation errors now appear where you are looking: the page scrolls to the first error and an error count is shown next to Save.",
+        },
+        {
+          sv: "Kategorinamn och beskrivningar följer språkvalet (svenska och engelska).",
+          en: "Category names and descriptions follow the language choice (Swedish and English).",
+        },
+        {
+          sv: "Välkomststeget bekräftar inte längre avtalet med en kryssruta — ert signerade avtal är anledningen till att ni är här.",
+          en: "The welcome step no longer confirms the agreement with a checkbox — your signed agreement is why you are here.",
+        },
+        {
+          sv: "Steget Webbinarier heter nu Utbildningar, och utbildningar kan bära bokningslänkar.",
+          en: "The Webinars step is now called Trainings, and trainings can carry booking links.",
+        },
+        {
+          sv: "Ny exempelkund med mindre produktpaket visar att flödet anpassas per paket.",
+          en: "A new sample customer on a smaller product package shows the flow adapting per package.",
+        },
+      ],
+    },
+  },
+  {
     version: "0.1.2",
     date: "2026-08-30",
     notes: {

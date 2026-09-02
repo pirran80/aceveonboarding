@@ -42,7 +42,7 @@ Product-agnostic rule applies to branding too: the portal carries the **Aceve** 
 
 ## 4. Interaction patterns to keep (validated in prototypes)
 
-1. **Agreement gate before everything** — one checkbox referencing the signed agreement unlocks the flow.
+1. **Entry states the signed agreement as a fact — no confirmation checkbox.** *(Changed 2026-08-31, Carl: supersedes the original "agreement gate" checkbox.)* Entry is triggered by the closed-won opportunity in Salesforce, so the signed agreement is already a fact when the customer lands; the welcome step opens with an informational notice ("Ni har signerat avtal med Aceve för [produkt] — därför är ni här") and a single "Kom igång" action that opens the flow and stamps the entry. The original checkbox belonged to a different scenario — the portal as a lead-generating surface with self-signup — which is possible later scope, not today's flow.
 2. **Sequential unlock with visible lock states.** Step states: `complete | active | available | locked`. The final step, when locked, lists **exactly what is outstanding** by name — never a bare disabled button.
 3. **Country + language route the journey** — and say so to the customer: *"Land och språk styr vilken produkt och vilka webbinarier ni lotsas till."* Routing made visible builds trust.
 4. **Prefilled ≠ empty.** Salesforce-seeded fields render as confirmed values to review, visually distinct from fields the customer must fill. Never present a form that asks for what we already know.

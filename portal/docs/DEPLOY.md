@@ -36,6 +36,13 @@ wraps the shared deploy library used by every site:
    stops (untracked source files would run in production without being in git).
 4. `rsync` of this folder to the server (`data/`, `.env*`, `node_modules`,
    `.git` excluded — the server's `.env` and database are never overwritten).
+   **Trap (feedback P0-1, 2026-08-31):** an unanchored `data` exclude matches
+   directories named `data` at *every* depth, and silently dropped the app
+   route `src/app/case/[caseId]/data/` from the upload — every category page
+   404:ed in production while working locally. The route is renamed to
+   `category/` as the durable fix; if the exclude lives in `deploy.sh`/the
+   shared lib, anchor it as `/data/` too. Never name an app route segment
+   `data`.
 5. On the server: `docker compose -f docker-compose.prod.yml build` then
    `up -d` (never `down` first — a failed build leaves the old container running).
 6. Health check against the root page; on failure the script rolls back to

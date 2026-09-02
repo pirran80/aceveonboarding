@@ -11,7 +11,7 @@
     "Module order below is the sandbox's order, which does NOT match the documented import order — see knownOrderingConstraints.",
     "requiredLevel from the 10-required/7-optional GI split confirmed by the sandbox ('Ev.' prefix modules 11–17).",
     "aliases are the sandbox's generated alternativeMatches — replace with the mapping library at runtime (BUILD-SPEC §5).",
-    "i18n: only sv present; en/no/da/fi/nl/de/fr keys to be added (design principle 8).",
+    "i18n: sv + en present for module names/descriptions (added 2026-09-02, feedback P2-4); field labels still sv-only pending the authoritative category list (Q33); no/da/fi/nl/de/fr to be added (design principle 8).",
     "destination.ref points at the Ingestro importer column only; product API / provisioning bindings are deliberately absent until resolved (BUILD-SPEC hard rule 2)."
   ],
   "modules": [
@@ -23,10 +23,12 @@
       "order": 1,
       "sheetName": "Företag import",
       "name": {
-        "sv": "Företagsuppgifter"
+        "sv": "Företagsuppgifter",
+        "en": "Company details"
       },
       "description": {
-        "sv": "Grunduppgifter för det egna företaget, inklusive adress, bankgiro, momsregistrering och fakturatexter."
+        "sv": "Grunduppgifter för det egna företaget, inklusive adress, bankgiro, momsregistrering och fakturatexter.",
+        "en": "Basic details for your own company, including address, bankgiro, VAT registration and invoice texts."
       },
       "requiredLevel": "required",
       "methods": [
@@ -551,10 +553,12 @@
       "order": 2,
       "sheetName": "Timpriser import",
       "name": {
-        "sv": "Timpriser & roller"
+        "sv": "Timpriser & roller",
+        "en": "Hourly rates & roles"
       },
       "description": {
-        "sv": "Roller, timkostnader, debiteringspriser, konton och tidkoder som används vid tidrapportering."
+        "sv": "Roller, timkostnader, debiteringspriser, konton och tidkoder som används vid tidrapportering.",
+        "en": "Roles, hourly costs, billing rates, accounts and time codes used in time reporting."
       },
       "requiredLevel": "required",
       "methods": [
@@ -784,10 +788,12 @@
       "order": 3,
       "sheetName": "Prislista import",
       "name": {
-        "sv": "Prislista"
+        "sv": "Prislista",
+        "en": "Price list"
       },
       "description": {
-        "sv": "Artiklar, maskiner, material, utrustning och debiterbara prisrader som kan plockas till projekt."
+        "sv": "Artiklar, maskiner, material, utrustning och debiterbara prisrader som kan plockas till projekt.",
+        "en": "Articles, machines, materials, equipment and billable price lines that can be added to projects."
       },
       "requiredLevel": "required",
       "methods": [
@@ -1093,10 +1099,12 @@
       "order": 4,
       "sheetName": "Projekttyper import",
       "name": {
-        "sv": "Projekttyper"
+        "sv": "Projekttyper",
+        "en": "Project types"
       },
       "description": {
-        "sv": "Ytterligare projekttyper som ska läggas upp för kategorisering och uppföljning av projekt."
+        "sv": "Ytterligare projekttyper som ska läggas upp för kategorisering och uppföljning av projekt.",
+        "en": "Additional project types to be set up for categorising and following up projects."
       },
       "requiredLevel": "required",
       "methods": [
@@ -1144,10 +1152,12 @@
       "order": 5,
       "sheetName": "Skattereduktion import",
       "name": {
-        "sv": "Skattereduktion"
+        "sv": "Skattereduktion",
+        "en": "Tax reduction"
       },
       "description": {
-        "sv": "Standardinställningar för ROT, RUT och skattereduktionsunderlag."
+        "sv": "Standardinställningar för ROT, RUT och skattereduktionsunderlag.",
+        "en": "Default settings for ROT, RUT and tax-reduction documentation."
       },
       "requiredLevel": "required",
       "methods": [
@@ -1255,10 +1265,12 @@
       "order": 6,
       "sheetName": "Lönetillägg import",
       "name": {
-        "sv": "Lönetillägg"
+        "sv": "Lönetillägg",
+        "en": "Wage supplements"
       },
       "description": {
-        "sv": "Lönetillägg som milersättning, traktamente, jour och andra artiklar kopplade till lönefil."
+        "sv": "Lönetillägg som milersättning, traktamente, jour och andra artiklar kopplade till lönefil.",
+        "en": "Wage supplements such as mileage allowance, per diems, on-call duty and other payroll-file items."
       },
       "requiredLevel": "required",
       "methods": [
@@ -1647,10 +1659,12 @@
       "order": 7,
       "sheetName": "Användare import",
       "name": {
-        "sv": "Användarregister"
+        "sv": "Användarregister",
+        "en": "User register"
       },
       "description": {
-        "sv": "Användare som ska kunna logga in i Next, inklusive licens, behörighetsgrupp, yrkesroll och personuppgifter."
+        "sv": "Användare som ska kunna logga in i Next, inklusive licens, behörighetsgrupp, yrkesroll och personuppgifter.",
+        "en": "Users who will log in to the product, including licence, permission group, professional role and personal details."
       },
       "requiredLevel": "required",
       "methods": [
@@ -2336,10 +2350,12 @@
       "order": 8,
       "sheetName": "Betalningsvillkor import",
       "name": {
-        "sv": "Betalningsvillkor"
+        "sv": "Betalningsvillkor",
+        "en": "Payment terms"
       },
       "description": {
-        "sv": "Betalningsvillkor och antal dagar som används vid kundfakturering."
+        "sv": "Betalningsvillkor och antal dagar som används vid kundfakturering.",
+        "en": "Payment terms and number of days used in customer invoicing."
       },
       "requiredLevel": "required",
       "methods": [
@@ -2466,10 +2482,12 @@
       "order": 9,
       "sheetName": "Frånvaro import",
       "name": {
-        "sv": "Frånvaro"
+        "sv": "Frånvaro",
+        "en": "Absence"
       },
       "description": {
-        "sv": "Frånvarotyper som semester, sjukfrånvaro, VAB och övrig ledighet med tidkoder."
+        "sv": "Frånvarotyper som semester, sjukfrånvaro, VAB och övrig ledighet med tidkoder.",
+        "en": "Absence types such as holiday, sick leave, care of child and other leave, with time codes."
       },
       "requiredLevel": "required",
       "methods": [
@@ -2545,10 +2563,12 @@
       "order": 10,
       "sheetName": "Påslagsmall import",
       "name": {
-        "sv": "Påslagsmall"
+        "sv": "Påslagsmall",
+        "en": "Markup template"
       },
       "description": {
-        "sv": "Normaliserad TDM för påslagsmallens huvuduppgifter och kontobaserade påslag."
+        "sv": "Normaliserad TDM för påslagsmallens huvuduppgifter och kontobaserade påslag.",
+        "en": "Normalised target data model for the markup template's main details and account-based markups."
       },
       "requiredLevel": "required",
       "methods": [
@@ -2729,10 +2749,12 @@
       "order": 11,
       "sheetName": "Projekt import",
       "name": {
-        "sv": "Projektlista"
+        "sv": "Projektlista",
+        "en": "Project list"
       },
       "description": {
-        "sv": "Pågående eller aktuella projekt till driftstart med projektledare, kund, status, ersättningsform och adress."
+        "sv": "Pågående eller aktuella projekt till driftstart med projektledare, kund, status, ersättningsform och adress.",
+        "en": "Ongoing or current projects at go-live, with project manager, customer, status, compensation form and address."
       },
       "requiredLevel": "optional",
       "methods": [
@@ -3287,10 +3309,12 @@
       "order": 12,
       "sheetName": "Kontoplan import",
       "name": {
-        "sv": "Kontoplan"
+        "sv": "Kontoplan",
+        "en": "Chart of accounts"
       },
       "description": {
-        "sv": "Resultatkonton, kostnadsmarkeringar, moms, arbete och kontotyper från ekonomisystemet."
+        "sv": "Resultatkonton, kostnadsmarkeringar, moms, arbete och kontotyper från ekonomisystemet.",
+        "en": "Profit-and-loss accounts, cost markings, VAT, labour and account types from the finance system."
       },
       "requiredLevel": "optional",
       "methods": [
@@ -3541,10 +3565,12 @@
       "order": 13,
       "sheetName": "Kunder import",
       "name": {
-        "sv": "Kundregister"
+        "sv": "Kundregister",
+        "en": "Customer register"
       },
       "description": {
-        "sv": "Kundregister med kundnummer, kundtyp, fakturauppgifter, kontaktvägar, betalningsvillkor och skattereduktionsfält."
+        "sv": "Kundregister med kundnummer, kundtyp, fakturauppgifter, kontaktvägar, betalningsvillkor och skattereduktionsfält.",
+        "en": "Customer register with customer number, customer type, invoicing details, contact routes, payment terms and tax-reduction fields."
       },
       "requiredLevel": "optional",
       "methods": [
@@ -4370,10 +4396,12 @@
       "order": 14,
       "sheetName": "Leverantörer import",
       "name": {
-        "sv": "Leverantörer"
+        "sv": "Leverantörer",
+        "en": "Suppliers"
       },
       "description": {
-        "sv": "Leverantörsregister för inköp och e-invoice med organisationsnummer, valuta, betalningsuppgifter och kontaktvägar."
+        "sv": "Leverantörsregister för inköp och e-invoice med organisationsnummer, valuta, betalningsuppgifter och kontaktvägar.",
+        "en": "Supplier register for purchasing and e-invoice, with organisation number, currency, payment details and contact routes."
       },
       "requiredLevel": "optional",
       "methods": [
@@ -4913,10 +4941,12 @@
       "order": 15,
       "sheetName": "Kundkontakter import",
       "name": {
-        "sv": "Kundkontakter"
+        "sv": "Kundkontakter",
+        "en": "Customer contacts"
       },
       "description": {
-        "sv": "Kontaktpersoner kopplade till kunder, inklusive personnummer och fastighetsägare för skattereduktion."
+        "sv": "Kontaktpersoner kopplade till kunder, inklusive personnummer och fastighetsägare för skattereduktion.",
+        "en": "Contact people linked to customers, including personal identity numbers and property owners for tax reduction."
       },
       "requiredLevel": "optional",
       "methods": [
@@ -5179,10 +5209,12 @@
       "order": 16,
       "sheetName": "Leverantörskontakter import",
       "name": {
-        "sv": "Leverantörskontakter"
+        "sv": "Leverantörskontakter",
+        "en": "Supplier contacts"
       },
       "description": {
-        "sv": "Kontaktpersoner som ska knytas till leverantörer."
+        "sv": "Kontaktpersoner som ska knytas till leverantörer.",
+        "en": "Contact people to be linked to suppliers."
       },
       "requiredLevel": "optional",
       "methods": [
@@ -5373,10 +5405,12 @@
       "order": 17,
       "sheetName": "Övrigt import",
       "name": {
-        "sv": "Övrigt"
+        "sv": "Övrigt",
+        "en": "Other"
       },
       "description": {
-        "sv": "Övriga uppgifter som verifikationsserier, nummerserier och värden som gås igenom med projektledaren."
+        "sv": "Övriga uppgifter som verifikationsserier, nummerserier och värden som gås igenom med projektledaren.",
+        "en": "Other details such as verification series, number series and values reviewed with the project manager."
       },
       "requiredLevel": "optional",
       "methods": [

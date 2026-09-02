@@ -58,7 +58,7 @@ prisma/                     schema + migrations + seed
 src/lib/registry/           schema (zod), loader, journey logic, validation — all unit-tested
 src/lib/                    db client, case view assembly, locale helpers
 src/actions/                server actions (all writes go through here)
-src/app/                    routes: /, /case/[caseId]/step/[stepId], /case/[caseId]/data/[moduleId], /whats-new
+src/app/                    routes: /, /case/[caseId]/step/[stepId], /case/[caseId]/category/[moduleId], /whats-new
 src/components/             sidebar/shell + one client component per step kind
 src/messages/               UI chrome copy per locale (registry carries its own text)
 docs/                       architecture + user guides

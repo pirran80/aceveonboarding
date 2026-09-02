@@ -21,6 +21,7 @@ export function FormStep({
   sections,
   initialData,
   seededFieldIds,
+  seededBadge,
   completed,
 }: {
   caseId: string;
@@ -28,6 +29,8 @@ export function FormStep({
   sections: ResolvedSection[];
   initialData: Record<string, unknown>;
   seededFieldIds: string[];
+  /** Audience-dependent wording (R2): names Salesforce in demo, not to customers. */
+  seededBadge: string;
   completed: boolean;
 }) {
   const t = useTranslations();
@@ -52,7 +55,24 @@ export function FormStep({
       const result = await saveFormStep(caseId, stepId, data, true);
       setErrors(result.errors ?? {});
       setSaved(result.ok);
+      // Failed validation must be visible where the user is looking: scroll
+      // the first failing field into view and move focus there (P1-2).
+      if (!result.ok && result.errors) {
+        const ordered = sections.flatMap((s) =>
+          s.fields.flatMap((f) => [f, ...(f.conditional?.fields ?? [])])
+        );
+        const first = ordered.find((f) => result.errors![f.id]);
+        if (first) {
+          requestAnimationFrame(() => {
+            const el = document.getElementById(first.id);
+            el?.scrollIntoView({ behavior: "smooth", block: "center" });
+            el?.focus?.({ preventScroll: true });
+          });
+        }
+      }
     });
+
+  const errorCount = Object.keys(errors).length;
 
   const renderField = (field: ResolvedField) => {
     const error = errors[field.id];
@@ -65,7 +85,7 @@ export function FormStep({
           <label htmlFor={field.id}>
             {field.label}
             {!field.required && <span className="optional"> ({t("form.optional")})</span>}
-            {seeded && <span className="seeded-badge">{t("form.seeded")}</span>}
+            {seeded && <span className="seeded-badge">{seededBadge}</span>}
           </label>
         )}
 
@@ -98,7 +118,7 @@ export function FormStep({
         )}
 
         {field.type === "chips" && (
-          <div className="chips" role="group" aria-label={field.label}>
+          <div className="chips" role="group" aria-label={field.label} id={field.id} tabIndex={-1}>
             {field.options?.map((o) => {
               const selected = Array.isArray(data[field.id])
                 ? (data[field.id] as string[]).includes(o.value)
@@ -172,13 +192,18 @@ export function FormStep({
         </section>
       ))}
 
-      <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+      <div style={{ display: "flex", gap: "0.75rem", alignItems: "center", flexWrap: "wrap" }}>
         <button className="btn" type="submit" disabled={pending}>
           {t("actions.save")}
         </button>
         {saved && (
           <span className="pill" data-tone="ok">
             {t("actions.saved")}
+          </span>
+        )}
+        {errorCount > 0 && (
+          <span className="error-text" role="alert">
+            {t("form.errorSummary", { count: errorCount })}
           </span>
         )}
       </div>
